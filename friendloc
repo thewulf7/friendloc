@@ -1,0 +1,37 @@
+server {
+
+    charset                 utf-8;
+    client_max_body_size    128M;
+
+    listen      80;
+    server_name friendloc.dev;
+
+    access_log  /home/vagrant/project/log/friendloc_access.log;
+    error_log   /home/vagrant/project/log/friendloc_error.log info;
+
+    root        "/home/vagrant/project/web";
+
+    location / {
+
+        index     index.html index.php;
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.(ico|jpg|jpeg|png|gif|swf|css)$ {
+        try_files $uri =404;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/var/run/php5-fpm.sock;
+        include fastcgi_params;
+        fastcgi_index index.php;
+        fastcgi_intercept_errors on;
+    }
+
+    location ~ /\.(ht|svn|git) {
+        deny all;
+        access_log off;
+        log_not_found off;
+    }
+
+}
