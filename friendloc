@@ -9,12 +9,14 @@ server {
     access_log  /home/vagrant/project/log/friendloc_access.log;
     error_log   /home/vagrant/project/log/friendloc_error.log info;
 
-    root        "/home/vagrant/project/web";
+    root        "/home/vagrant/project/src/web";
+    index       index.html index.php;
 
     location / {
-
-        index     index.html index.php;
-        try_files $uri $uri/ /index.php?$args;
+        root "/home/vagrant/project/src/web";
+        try_files $uri $uri/ /index.php?$is_args$args;
+        autoindex on;
+        index index.html index.php;
     }
 
     location ~ \.(ico|jpg|jpeg|png|gif|swf|css)$ {
@@ -22,16 +24,20 @@ server {
     }
 
     location ~ \.php$ {
-        fastcgi_pass unix:/var/run/php5-fpm.sock;
-        include fastcgi_params;
+        root "/home/vagrant/project/src/web";
         fastcgi_index index.php;
-        fastcgi_intercept_errors on;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        try_files $uri =404;
+        include /etc/nginx/fastcgi_params;
+        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        fastcgi_param APP_ENV dev;
     }
 
-    location ~ /\.(ht|svn|git) {
-        deny all;
-        access_log off;
-        log_not_found off;
-    }
+    location ~ \.(js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar)$ {
+        root  /home/vagrant/project/src/web;
+        try_files $uri =404;
+         autoindex off;
+        index  index.html index.htm index.php;
+      }
 
 }

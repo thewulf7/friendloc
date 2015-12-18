@@ -6,6 +6,9 @@ installpkg(){
     dpkg-query --status $1 >/dev/null || apt-get install -y $1
 }
 
+installpkg python-software-properties
+add-apt-repository ppa:ondrej/php-7.0
+
 PG_REPO_APT_SOURCE=/etc/apt/sources.list.d/pgdg.list
 if [ ! -f "$PG_REPO_APT_SOURCE" ]
 then
@@ -19,24 +22,21 @@ fi
 if [[ ! -f /apt-get-run ]]; then apt-get update && touch /apt-get-run; fi
 
 /etc/init.d/apache2 stop
+update-rc.d apache2 disable
 
 #basic staff
 installpkg git
 installpkg curl
-installpkg php5
-installpkg php5-cli
-installpkg php5-fpm
-installpkg php5-curl
+installpkg php7.0
+installpkg php7.0-common
+installpkg php7.0-cli
+installpkg php7.0-fpm
+installpkg php7.0-curl
+installpkg php7.0-opcache
+installpkg php7.0-json
+installpkg php-xdebug
 
-#opcache
-sh -c "echo '; configuration for php ZendOpcache module\n; priority=05\nzend_extension=opcache.so\nopcache.enable = Off' > /etc/php5/mods-available/opcache.ini"
-
-#xdebug
-installpkg php5-xdebug
-
-sh -c "echo 'zend_extension=xdebug.so\nxdebug.remote_enable=on\nxdebug.remote_handler="dbgp"\nxdebug.remote_host=192.168.31.10\nxdebug.remote_port=9001\nxdebug.idekey="PHPSTORM"\nxdebug.remote_mode=req' > /etc/php5/mods-available/xdebug.ini"
-
-service php5-fpm restart
+service php7.0-fpm restart
 
 #composer
 curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
@@ -78,7 +78,7 @@ CREATE DATABASE $PQSQL_DB_NAME WITH OWNER=$PQSQL_DB_USER
                                   TEMPLATE=template0;
 EOF
 
-installpkg php5-pgsql
+installpkg php7.0-pgsql
 
 service postgresql restart
 
@@ -93,5 +93,6 @@ ln -s -f /etc/nginx/sites-available/friendloc /etc/nginx/sites-enabled/friendloc
 
 service nginx restart
 
-
 locale-gen ru_RU.UTF-8
+
+cd /home/vagrant/project && composer update

@@ -1,0 +1,27 @@
+{
+    "name"              : "thewulf7/friendloc",
+    "description"       : "Friend locator test case",
+    "authors"           : [
+        {
+            "name"  : "Evgenii Utkin",
+            "email" : "thewulf7@gmail.com"
+        }
+    ],
+    "config"            : {
+        "bin-dir" : "bin"
+    },
+    "autoload"          : {
+        "psr-4" : {
+            "thewulf7\\friendloc\\" : "src/"
+        }
+    },
+    "require"           : {
+        "php"                 : ">=7.0"
+    },
+    "require-dev" : {
+        "phpunit/phpunit"     : "5.0.*",
+        "phpunit/php-invoker" : ">=1.1.0@stable"
+    },
+    "license"           : "MIT",
+    "minimum-stability" : "dev"
+}

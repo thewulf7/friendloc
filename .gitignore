@@ -6,3 +6,6 @@ gen
 ### Vagrant template
 .vagrant/
 
+project/vendor
+project/log
+project/bin
