@@ -23,7 +23,7 @@ return [
         'dbname'   => 'friendloc',
     ],
     'urlRules'          => [
-        ['GET', '/', [\thewulf7\friendloc\controllers\DefaultController::class, 'index']],
+        ['GET', '/', \thewulf7\friendloc\controllers\DefaultController::class],
         ['GET', '/users/login/{action}', [\thewulf7\friendloc\controllers\DefaultController::class, 'index']],
     ],
 ];

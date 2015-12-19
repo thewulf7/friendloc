@@ -2,8 +2,8 @@
 namespace thewulf7\friendloc\components\router;
 
 
+use DI\NotFoundException;
 use thewulf7\friendloc\components\config\iConfig;
-use thewulf7\friendloc\components\router\Request;
 
 /**
  * Class Router
@@ -30,6 +30,9 @@ class Router
     /**
      * @param iConfig $config
      * @param Request $request
+     *
+     * @throws NotFoundException
+     * @throws \HttpRequestMethodException
      */
     public function __construct(iConfig $config, Request $request)
     {
@@ -40,7 +43,7 @@ class Router
 
         foreach ($rules as $rule)
         {
-            list($method, $uri, $action) = $rule;
+            list($method, $uri, $caller) = $rule;
 
             preg_match('/\{(.*)\}/', $uri, $token);
 
@@ -53,9 +56,16 @@ class Router
                     '\/',
                     '(\w+)',
                 ], $uri);
-            if ($method === $request->getMethod() && preg_match('/^' . $pattern . '$/', $request->getPath(), $param))
+
+            if(preg_match('/^' . $pattern . '$/', $request->getPath(), $param))
             {
-                break;
+                if($method === $request->getMethod())
+                {
+                    $action = $caller;
+                    break;
+                } else {
+                    throw new \HttpRequestMethodException('405 Method not Allowed');
+                }
             }
         }
 
@@ -66,8 +76,7 @@ class Router
             $this->_controller = is_array($action) ? $action[0] : $action;
         } else
         {
-            $this->setAction($config->get('defaultAction'));
-            $this->_controller = $config->get('defaultController');
+            throw new NotFoundException('404 Method not found');
         }
 
         $paramArray = count($param) > 0 ? [$token[1] => $param[1]] : [];
