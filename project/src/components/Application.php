@@ -16,31 +16,20 @@ use function DI\get;
  * Class Application
  *
  * @package thewulf7\friendloc\components
- *
- * @method Request getRequest()
- * @method Router getRouter()
  */
 class Application
 {
 
-    /**
-     * @var Container
-     */
-    private $_container;
+    use ApplicationHelper;
 
     /**
      * @var bool
      */
     private $_devMode = false;
 
-    /**
-     * @param Container $container
-     * @param iConfig   $config
-     */
-    public function __construct(Container $container, iConfig $config)
+    public function init()
     {
-        $this->_container = $container;
-
+        $config = $this->getContainer()->get(iConfig::class);
         $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
 
         $this
@@ -107,29 +96,6 @@ class Application
     public function setDevMode($devMode): Application
     {
         $this->_devMode = $devMode;
-
-        return $this;
-    }
-
-    /**
-     * Get Container
-     *
-     * @return Container
-     */
-    public function getContainer(): Container
-    {
-        return $this->_container;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed  $object
-     *
-     * @return Application
-     */
-    public function addToContainer(string $name, $object): Application
-    {
-        $this->getContainer()->set($name, $object);
 
         return $this;
     }
