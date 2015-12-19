@@ -2,26 +2,31 @@
 namespace thewulf7\friendloc\components;
 
 
+use DI\Container;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use thewulf7\friendloc\components\config\iConfig;
+use thewulf7\friendloc\components\router\Request;
+use thewulf7\friendloc\components\router\Router;
+
+use function DI\object;
+use function DI\get;
 
 /**
  * Class Application
  *
  * @package thewulf7\friendloc\components
+ *
+ * @method Request getRequest()
+ * @method Router getRouter()
  */
 class Application
 {
-    /**
-     * @var iConfig
-     */
-    private $_config;
 
     /**
-     * @var EntityManager
+     * @var Container
      */
-    private $_entityManager;
+    private $_container;
 
     /**
      * @var bool
@@ -29,78 +34,57 @@ class Application
     private $_devMode = false;
 
     /**
-     * @param iConfig $config
+     * @param Container $container
+     * @param iConfig   $config
      */
-    public function __construct(iConfig $config)
+    public function __construct(Container $container, iConfig $config)
     {
-        $this->setConfig($config);
+        $this->_container = $container;
 
-        try
+        $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
+
+        $this
+            ->addToContainer('entityManager', object(EntityManager::class)->method('create', $config->get('db'), $setup))
+            ->addToContainer('request', function ()
+            {
+                $urlParts = parse_url($_SERVER['REQUEST_URI']);
+
+                $query = $urlParts['query'] ?? '';
+
+                return new Request($urlParts['path'], $query, $_SERVER['REQUEST_METHOD'], $_POST);
+            });
+    }
+
+    /**
+     * @param $name
+     * @param $args
+     *
+     * @return mixed
+     * @throws \DI\NotFoundException
+     */
+    public function __call($name, $args)
+    {
+        $methodName = lcfirst(substr($name, 3));
+        if ($this->getContainer()->has($methodName))
         {
-            $configD = Setup::createAnnotationMetadataConfiguration($this->getConfig()->get('modelsFolder'), $this->isDevMode());
-            $this->setEntityManager(EntityManager::create($this->getConfig()->get('db'), $configD));
-        } catch (\Exception $e)
+            return $this->getContainer()->get($methodName);
+        } else
         {
-            echo json_encode(
-                [
-                    'status' => 'fail',
-                    'error'  => $e->getMessage(),
-                ]
-            );
+            throw new \RuntimeException("Method `{$name}` doesn't exists.");
         }
     }
 
-    public function run(): void
-    {
-        echo '123';
-    }
-
     /**
-     * Get Config
-     *
-     * @return iConfig
+     * @throws \DI\NotFoundException
      */
-    public function getConfig(): iConfig
+    public function run()
     {
-        return $this->_config;
-    }
+        $router = $this->addToContainer('router', function (Container $c, iConfig $config)
+        {
+            return new Router($config, $c->get('request'));
+        })->getRouter();
 
-    /**
-     * Set config
-     *
-     * @param iConfig $config
-     *
-     * @return Application
-     */
-    public function setConfig($config): Application
-    {
-        $this->_config = $config;
-
-        return $this;
-    }
-
-    /**
-     * Get EntityManager
-     *
-     * @return EntityManager
-     */
-    public function getEntityManager(): EntityManager
-    {
-        return $this->_entityManager;
-    }
-
-    /**
-     * Set entityManager
-     *
-     * @param EntityManager $entityManager
-     *
-     * @return Application
-     */
-    public function setEntityManager($entityManager): Application
-    {
-        $this->_entityManager = $entityManager;
-
-        return $this;
+        return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
     }
 
     /**
@@ -123,6 +107,29 @@ class Application
     public function setDevMode($devMode): Application
     {
         $this->_devMode = $devMode;
+
+        return $this;
+    }
+
+    /**
+     * Get Container
+     *
+     * @return Container
+     */
+    public function getContainer(): Container
+    {
+        return $this->_container;
+    }
+
+    /**
+     * @param string $name
+     * @param mixed  $object
+     *
+     * @return Application
+     */
+    public function addToContainer(string $name, $object): Application
+    {
+        $this->getContainer()->set($name, $object);
 
         return $this;
     }
