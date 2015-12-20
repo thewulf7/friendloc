@@ -30,10 +30,13 @@ class Application
     public function init()
     {
         $config = $this->getContainer()->get(iConfig::class);
-        $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
 
         $this
-            ->addToContainer('entityManager', object(EntityManager::class)->method('create', $config->get('db'), $setup))
+            ->addToContainer('entityManager', function (Container $c, iConfig $config)
+            {
+                $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
+                return EntityManager::create($config->get('db'), $setup);
+            })
             ->addToContainer('request', function ()
             {
                 $urlParts = parse_url($_SERVER['REQUEST_URI']);
