@@ -18,7 +18,7 @@
     "require"           : {
         "php"                 : ">=7.0",
         "doctrine/orm"        : "2.5.2",
-        "doctrine/migrations" : "*",
+        "doctrine/migrations" : "1.2.*",
         "php-di/php-di"       : "*"
     },
     "require-dev"       : {

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d1e771bef2a01bfa1476d2b77c951fc7",
-    "content-hash": "fffce288458d1bf3a50e17d90907a8cd",
+    "hash": "9bd9dfe5fd8b3cced30cad3f8704cb60",
+    "content-hash": "fff31530d5909225d5b9de32234b5e97",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -751,12 +751,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHP-DI/PHP-DI.git",
-                "reference": "8e1d0e7f61080d289022550a73ba3eb5c5977d8e"
+                "reference": "e20ff1b465a15548e22efcea79e06df64d9e2068"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHP-DI/PHP-DI/zipball/8e1d0e7f61080d289022550a73ba3eb5c5977d8e",
-                "reference": "8e1d0e7f61080d289022550a73ba3eb5c5977d8e",
+                "url": "https://api.github.com/repos/PHP-DI/PHP-DI/zipball/e20ff1b465a15548e22efcea79e06df64d9e2068",
+                "reference": "e20ff1b465a15548e22efcea79e06df64d9e2068",
                 "shasum": ""
             },
             "require": {
@@ -800,7 +800,7 @@
                 "dependency injection",
                 "di"
             ],
-            "time": "2015-12-20 11:52:10"
+            "time": "2015-12-20 13:46:44"
         },
         {
             "name": "php-di/phpdoc-reader",

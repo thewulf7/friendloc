@@ -29,10 +29,8 @@ class Application
 
     public function init()
     {
-        $config = $this->getContainer()->get(iConfig::class);
-
         $this
-            ->addToContainer('entityManager', function (Container $c, iConfig $config)
+            ->addToContainer('entityManager', function (iConfig $config)
             {
                 $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
                 return EntityManager::create($config->get('db'), $setup);
@@ -45,6 +43,7 @@ class Application
 
                 return new Request($urlParts['path'], $query, $_SERVER['REQUEST_METHOD'], $_POST);
             });
+        $this->getEntityManager();
     }
 
     /**

@@ -5,45 +5,45 @@ namespace thewulf7\friendloc\models;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Doctrine\ORM\Mapping\Entity
- * @Doctrine\ORM\Mapping\Table(name="user")
+ * @Entity
+ * @Table(name="users")
  */
 class User
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @Id
+     * @GeneratedValue(strategy="AUTO")
+     * @Column(type="integer")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     private $email;
 
     /**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @Column(type="integer")
      */
     private $locationId;
 
     /**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     private $salt;
 
     /**
-     * @ORM\Column(type="string")
+     * @Column(type="string")
      */
     private $passwd;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @Column(type="boolean")
      */
     private $approved;
 
