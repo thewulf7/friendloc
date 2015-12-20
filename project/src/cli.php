@@ -1,6 +1,8 @@
 <?php
 /**
  * CLI for application
+ *
+ * use php src/cli.php
  */
 use Doctrine\ORM\Tools\Console\ConsoleRunner;
 
@@ -10,7 +12,7 @@ $containerBuilder = new \DI\ContainerBuilder();
 
 $containerBuilder->addDefinitions(
     [
-        \thewulf7\friendloc\components\config\iConfig::class => \DI\object(\thewulf7\friendloc\components\config\Config::class)->constructor(require(__DIR__ . 'config/main.php')),
+        \thewulf7\friendloc\components\config\iConfig::class => \DI\object(\thewulf7\friendloc\components\config\Config::class)->constructor(require(__DIR__ . '/config/main.php')),
         \thewulf7\friendloc\components\Application::class    => \DI\object(\thewulf7\friendloc\components\Application::class),
     ]
 );
