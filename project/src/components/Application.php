@@ -16,35 +16,25 @@ use function DI\get;
  * Class Application
  *
  * @package thewulf7\friendloc\components
- *
- * @method Request getRequest()
- * @method Router getRouter()
  */
 class Application
 {
 
-    /**
-     * @var Container
-     */
-    private $_container;
+    use ApplicationHelper;
 
     /**
      * @var bool
      */
     private $_devMode = false;
 
-    /**
-     * @param Container $container
-     * @param iConfig   $config
-     */
-    public function __construct(Container $container, iConfig $config)
+    public function init()
     {
-        $this->_container = $container;
-
-        $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
-
         $this
-            ->addToContainer('entityManager', object(EntityManager::class)->method('create', $config->get('db'), $setup))
+            ->addToContainer('entityManager', function (iConfig $config)
+            {
+                $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
+                return EntityManager::create($config->get('db'), $setup);
+            })
             ->addToContainer('request', function ()
             {
                 $urlParts = parse_url($_SERVER['REQUEST_URI']);
@@ -53,6 +43,7 @@ class Application
 
                 return new Request($urlParts['path'], $query, $_SERVER['REQUEST_METHOD'], $_POST);
             });
+        $this->getEntityManager();
     }
 
     /**
@@ -107,29 +98,6 @@ class Application
     public function setDevMode($devMode): Application
     {
         $this->_devMode = $devMode;
-
-        return $this;
-    }
-
-    /**
-     * Get Container
-     *
-     * @return Container
-     */
-    public function getContainer(): Container
-    {
-        return $this->_container;
-    }
-
-    /**
-     * @param string $name
-     * @param mixed  $object
-     *
-     * @return Application
-     */
-    public function addToContainer(string $name, $object): Application
-    {
-        $this->getContainer()->set($name, $object);
 
         return $this;
     }
