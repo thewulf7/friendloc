@@ -22,7 +22,13 @@ $app = $containerBuilder->build()->get('\thewulf7\friendloc\components\Applicati
 
 $entityManager = $app->getEntityManager();
 
-$helper = ConsoleRunner::createHelperSet($entityManager);
+$helper = new \Symfony\Component\Console\Helper\HelperSet(
+    [
+        'db'       => new \Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper($entityManager->getConnection()),
+        'em'       => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($entityManager),
+        'question' => new \Symfony\Component\Console\Helper\QuestionHelper(),
+    ]
+);
 
 $app = ConsoleRunner::createApplication($helper, [
     // Migrations Commands
@@ -32,6 +38,8 @@ $app = ConsoleRunner::createApplication($helper, [
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\MigrateCommand(),
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand(),
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand(),
+    // User Commands
+    new \thewulf7\friendloc\command\CreateUserCommand(),
 ]);
 
 $app->run();
