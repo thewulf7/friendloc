@@ -3,12 +3,27 @@ namespace thewulf7\friendloc\controllers;
 
 
 use thewulf7\friendloc\components\Controller;
-use thewulf7\friendloc\models\User;
 
+/**
+ * Class UserController - REST Controller
+ *
+ * @package thewulf7\friendloc\controllers
+ */
 class UserController extends Controller
 {
-    public function view($id)
+    /**
+     * @param $id
+     */
+    public function viewAction($id)
     {
-        $model = $this->getEntityManager();
+        echo 'usre '.$id;
+    }
+
+    /**
+     * @param $id
+     */
+    public function updateAction($id)
+    {
+        echo 'usreU '.$id;
     }
 }

@@ -36,52 +36,39 @@ class Router
      */
     public function __construct(iConfig $config, Request $request)
     {
+        $urlFactory = new UrlRule();
+
         $rules  = $config->get('urlRules');
-        $action = null;
-        $param  = [];
-        $token  = [];
+        $route  = null;
+
+        $this->_params = $request->getQuery();
 
         foreach ($rules as $rule)
         {
-            list($method, $uri, $caller) = $rule;
+            $oRule = $urlFactory->create($rule);
 
-            preg_match('/\{(.*)\}/', $uri, $token);
+            $oRule->setUri($request->getPath())->setMethod($request->getMethod());
 
-            $pattern = preg_replace(
-                [
-                    '/\//',
-                    '/\{(.*)\}/',
-                ],
-                [
-                    '\/',
-                    '(\w+)',
-                ], $uri);
-
-            if(preg_match('/^' . $pattern . '$/', $request->getPath(), $param))
+            if ($oRule->validate())
             {
-                if($method === $request->getMethod())
-                {
-                    $action = $caller;
-                    break;
-                } else {
-                    throw new \HttpRequestMethodException('405 Method not Allowed');
-                }
+                $route = $oRule;
+                break;
             }
         }
 
-        if ($action)
+        if ($route)
         {
-            $act = is_array($action) ? $action[1] : $config->get('defaultAction');
+            $act = $route->getAction() === '' ? $config->get('defaultAction') : $route->getAction();
             $this->setAction($act);
-            $this->_controller = is_array($action) ? $action[0] : $action;
+            $this->setController($route->getClass());
+            if(count($route->getParams())>0)
+            {
+                $this->_params = array_merge($route->getParams(),$this->_params);
+            }
         } else
         {
             throw new NotFoundException('404 Method not found');
         }
-
-        $paramArray = count($param) > 0 ? [$token[1] => $param[1]] : [];
-
-        $this->_params = array_merge($paramArray, $request->getQuery());
     }
 
     /**
@@ -92,6 +79,20 @@ class Router
     public function getController(): string
     {
         return $this->_controller;
+    }
+
+    /**
+     * Set controller
+     *
+     * @param string $controller
+     *
+     * @return Router
+     */
+    public function setController($controller): Router
+    {
+        $this->_controller = $controller;
+
+        return $this;
     }
 
     /**
