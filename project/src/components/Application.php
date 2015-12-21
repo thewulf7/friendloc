@@ -42,6 +42,11 @@ class Application
                 $query = $urlParts['query'] ?? '';
 
                 return new Request($urlParts['path'], $query, $_SERVER['REQUEST_METHOD'], $_POST);
+            })
+            ->addToContainer('templater', function(iConfig $config)
+            {
+                $templater = $config->get('templater');
+                return $templater['loader']();
             });
         $this->getEntityManager();
     }

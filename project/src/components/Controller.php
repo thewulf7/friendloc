@@ -13,6 +13,7 @@ use thewulf7\friendloc\services\
  * @package thewulf7\friendloc\components
  * @method AuthService getAuthService()
  * @method UserService getUserService()
+ * @method mixed getTemplater()
  */
 abstract class Controller
 {
@@ -29,15 +30,32 @@ abstract class Controller
     }
 
     /**
+     * Template renderer
+     *
+     * @param string $view
+     * @param array  $variables
+     */
+    public function render($view, $variables = [])
+    {
+        $layout         = 'layout/' . $this->layout;
+        $layoutTemplate = $this->getTemplater()->loadTemplate($layout . '.twig');
+        $this->getTemplater()->display($view . '.twig', array_merge(
+            [
+                'layout' => $layoutTemplate,
+                'title'  => $this->getContainer()->get('thewulf7\friendloc\components\config\iConfig')->get('appName'),
+            ], $variables));
+    }
+
+    /**
      * Simple PHP renderer
      *
      * @param string $view
      * @param array  $variables
      * @param bool   $output
      */
-    public function render($view, $variables = [], $output = true)
+    public function renderPHP($view, $variables = [], $output = true)
     {
-        $layout = 'layout/' . $this->layout;
+        $layout         = 'layout/' . $this->layout;
 
         $this->renderPartial(
             $layout,

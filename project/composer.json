@@ -19,7 +19,8 @@
         "php"                 : ">=7.0",
         "doctrine/orm"        : "2.5.2",
         "doctrine/migrations" : "1.2.*",
-        "php-di/php-di"       : "*"
+        "php-di/php-di"       : "*",
+        "twig/twig"           : "^1.18"
     },
     "require-dev"       : {
         "phpunit/phpunit"     : "5.0.*",
