@@ -6,9 +6,20 @@ use thewulf7\friendloc\components\AbstractService;
 use thewulf7\friendloc\components\Auth;
 use thewulf7\friendloc\models\User;
 
+/**
+ * Class AuthService
+ *
+ * @package thewulf7\friendloc\services
+ */
 class AuthService extends AbstractService
 {
-    public function auth(string $email,string $password)
+    /**
+     * @param string $email
+     * @param string $password
+     *
+     * @return bool|User
+     */
+    public function auth(string $email, string $password)
     {
         $entityManager = $this->getEntityManager();
 
@@ -32,6 +43,11 @@ class AuthService extends AbstractService
         }
     }
 
+    /**
+     * @param string $hash
+     *
+     * @return bool|User
+     */
     public function authByHash(string $hash)
     {
         $entityManager = $this->getEntityManager();
@@ -42,6 +58,9 @@ class AuthService extends AbstractService
         return $model ?? false;
     }
 
+    /**
+     * @param $hash
+     */
     public function logout($hash)
     {
         /** @var User $model */

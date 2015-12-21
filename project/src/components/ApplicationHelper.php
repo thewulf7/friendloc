@@ -42,7 +42,12 @@ trait ApplicationHelper
      */
     public function init()
     {
+        $services = require('ServiceLocator.php');
 
+        foreach ($services as $serviceName => $service)
+        {
+            $this->addToContainer($serviceName, $service);
+        }
     }
 
     /**

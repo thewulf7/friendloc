@@ -2,17 +2,20 @@
 namespace thewulf7\friendloc\components;
 
 
+use thewulf7\friendloc\services\
+{
+    AuthService, UserService
+};
+
+/**
+ * Class AbstractService
+ *
+ * @package thewulf7\friendloc\components
+ *
+ * @method AuthService getAuthService()
+ * @method UserService getUserService()
+ */
 abstract class AbstractService
 {
     use ApplicationHelper;
-
-    public function init()
-    {
-        $services = require('ServiceLocator.php');
-
-        foreach($services as $serviceName => $service)
-        {
-            $this->addToContainer($serviceName, $service);
-        }
-    }
 }
