@@ -8,6 +8,8 @@ class DefaultController extends Controller
 {
     public function indexAction($action)
     {
-        echo $action;
+        $time = new \DateTime('+1 month');
+
+        echo $time->format('Y-m-d');
     }
 }
