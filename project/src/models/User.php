@@ -14,45 +14,63 @@ class User
      * @Id
      * @GeneratedValue(strategy="AUTO")
      * @Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
-     * @Column(type="string")
+     * @Column(type="string",unique=TRUE)
+     * @var string
      */
     private $email;
 
     /**
      * @Column(type="string")
+     * @var string
      */
     private $name;
 
     /**
      * @Column(type="integer")
+     * @var int
      */
     private $locationId;
 
     /**
      * @Column(type="string")
+     * @var string
      */
     private $salt;
 
     /**
      * @Column(type="string")
+     * @var string
      */
     private $passwd;
 
     /**
+     * @Column(type="string",length=40)
+     */
+    private $userhash;
+
+    /**
      * @Column(type="boolean")
+     * @var boolean
      */
     private $approved;
+
+    /**
+     * @Column(type="datetime", name="created")
+     * @var \DateTime
+     */
+    private $createdAt;
 
     /**
      * Get Id
      *
      * @return mixed
      */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }
@@ -64,7 +82,7 @@ class User
      *
      * @return User
      */
-    public function setId($id)
+    public function setId($id): User
     {
         $this->id = $id;
 
@@ -76,7 +94,7 @@ class User
      *
      * @return mixed
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -88,7 +106,7 @@ class User
      *
      * @return User
      */
-    public function setEmail($email)
+    public function setEmail($email): User
     {
         $this->email = $email;
 
@@ -100,7 +118,7 @@ class User
      *
      * @return mixed
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -112,7 +130,7 @@ class User
      *
      * @return User
      */
-    public function setName($name)
+    public function setName($name): User
     {
         $this->name = $name;
 
@@ -124,7 +142,7 @@ class User
      *
      * @return mixed
      */
-    public function getLocationId()
+    public function getLocationId(): int
     {
         return $this->locationId;
     }
@@ -136,7 +154,7 @@ class User
      *
      * @return User
      */
-    public function setLocationId($locationId)
+    public function setLocationId($locationId): User
     {
         $this->locationId = $locationId;
 
@@ -148,7 +166,7 @@ class User
      *
      * @return mixed
      */
-    public function getSalt()
+    public function getSalt(): string
     {
         return $this->salt;
     }
@@ -160,7 +178,7 @@ class User
      *
      * @return User
      */
-    public function setSalt($salt)
+    public function setSalt($salt): User
     {
         $this->salt = $salt;
 
@@ -172,7 +190,7 @@ class User
      *
      * @return mixed
      */
-    public function getPasswd()
+    public function getPasswd(): string
     {
         return $this->passwd;
     }
@@ -184,7 +202,7 @@ class User
      *
      * @return User
      */
-    public function setPasswd($passwd)
+    public function setPasswd($passwd): User
     {
         $this->passwd = $passwd;
 
@@ -196,7 +214,7 @@ class User
      *
      * @return mixed
      */
-    public function getApproved()
+    public function getApproved(): boolean
     {
         return $this->approved;
     }
@@ -208,9 +226,57 @@ class User
      *
      * @return User
      */
-    public function setApproved($approved)
+    public function setApproved($approved): User
     {
         $this->approved = $approved;
+
+        return $this;
+    }
+
+    /**
+     * Get Created
+     *
+     * @return \DateTime
+     */
+    public function getCreated(): \DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return User
+     */
+    public function setCreated($created): User
+    {
+        $this->createdAt = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get Userhash
+     *
+     * @return mixed
+     */
+    public function getUserhash(): string
+    {
+        return $this->userhash;
+    }
+
+    /**
+     * Set userhash
+     *
+     * @param mixed $userhash
+     *
+     * @return User
+     */
+    public function setUserhash($userhash): User
+    {
+        $this->userhash = $userhash;
 
         return $this;
     }
