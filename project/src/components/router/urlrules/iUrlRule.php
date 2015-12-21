@@ -51,5 +51,5 @@ interface iUrlRule
     /**
      * @return string
      */
-    public function getParams(): string;
+    public function getParams(): array;
 }

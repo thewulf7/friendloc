@@ -64,9 +64,9 @@ trait ApplicationHelper
      * @param string $name
      * @param mixed  $object
      *
-     * @return Application
+     * @return mixed
      */
-    public function addToContainer(string $name, $object): Application
+    public function addToContainer(string $name, $object)
     {
         $this->getContainer()->set($name, $object);
 

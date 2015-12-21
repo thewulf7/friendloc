@@ -23,14 +23,14 @@ return [
         'dbname'   => 'friendloc',
     ],
     'urlRules'          => [
-        [
-            'rule'    => \thewulf7\friendloc\components\router\UrlRule::REST_RULE,
-            'class'   => \thewulf7\friendloc\controllers\UserController::class,
-        ],
-        [
-            'rule'  => \thewulf7\friendloc\components\router\UrlRule::SIMPLE_RULE,
-            'class' => \thewulf7\friendloc\controllers\AuthController::class,
-        ],
+//        [
+//            'rule'    => \thewulf7\friendloc\components\router\UrlRule::REST_RULE,
+//            'class'   => \thewulf7\friendloc\controllers\UserController::class,
+//        ],
+//        [
+//            'rule'  => \thewulf7\friendloc\components\router\UrlRule::SIMPLE_RULE,
+//            'class' => \thewulf7\friendloc\controllers\AuthController::class,
+//        ],
         [
             'class' => \thewulf7\friendloc\controllers\DefaultController::class,
             'route' => '/',
