@@ -7,8 +7,8 @@ use thewulf7\friendloc\models\User;
 
 class UserController extends Controller
 {
-    public function view($id)
+    public function viewAction($id)
     {
-        $model = $this->getEntityManager();
+        echo 'usre '.$id;
     }
 }
