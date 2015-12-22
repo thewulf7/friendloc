@@ -24,7 +24,7 @@ class AuthService extends AbstractService
         $entityManager = $this->getEntityManager();
 
         /** @var User $model */
-        $model = $entityManager->getRepository('User')->findOneBy(['email' => $email]);
+        $model = $entityManager->getRepository('thewulf7\friendloc\models\User')->findOneBy(['email' => $email]);
 
         $hashpasswd = crypt($password, $model->getSalt());
 
@@ -53,7 +53,7 @@ class AuthService extends AbstractService
         $entityManager = $this->getEntityManager();
 
         /** @var User $model */
-        $model = $entityManager->getRepository('User')->findOneBy(['userhash' => $hash]);
+        $model = $entityManager->getRepository('thewulf7\friendloc\models\User')->findOneBy(['userhash' => $hash]);
 
         return $model ?? false;
     }

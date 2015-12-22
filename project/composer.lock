@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c489f6fe439dfeb9f5eff35e2298d537",
-    "content-hash": "e811cb7b4b7957afa1f6cc5bebdadd0f",
+    "hash": "ea0c0819eddb50807b222fc1ba478e49",
+    "content-hash": "467cf2670076fffd3bbb4990f799d6f7",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -845,12 +845,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "ff96711b696b2f6ee7cb8a0f0348084709207138"
+                "reference": "35e6edac0d40267c70b6ad820023efa6e6fb8225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/ff96711b696b2f6ee7cb8a0f0348084709207138",
-                "reference": "ff96711b696b2f6ee7cb8a0f0348084709207138",
+                "url": "https://api.github.com/repos/symfony/console/zipball/35e6edac0d40267c70b6ad820023efa6e6fb8225",
+                "reference": "35e6edac0d40267c70b6ad820023efa6e6fb8225",
                 "shasum": ""
             },
             "require": {
@@ -897,7 +897,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-12-15 02:03:25"
+            "time": "2015-12-22 10:39:31"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -960,25 +960,25 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "dev-master",
+            "version": "2.8.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "8bae579c7afa252c055855f071c751eb75dcf6c4"
+                "reference": "6fbc4e2c0234c08036ef817cd79209787f9b20e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/8bae579c7afa252c055855f071c751eb75dcf6c4",
-                "reference": "8bae579c7afa252c055855f071c751eb75dcf6c4",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/6fbc4e2c0234c08036ef817cd79209787f9b20e7",
+                "reference": "6fbc4e2c0234c08036ef817cd79209787f9b20e7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -1005,7 +1005,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-12-05 11:13:35"
+            "time": "2015-12-22 10:25:57"
         },
         {
             "name": "twig/twig",

@@ -31,7 +31,7 @@ class User
     private $name;
 
     /**
-     * @Column(type="integer")
+     * @Column(type="integer", nullable=TRUE)
      * @var int
      */
     private $locationId;
@@ -49,7 +49,7 @@ class User
     private $passwd;
 
     /**
-     * @Column(type="string",length=40)
+     * @Column(type="string",length=40,nullable=TRUE)
      */
     private $userhash;
 

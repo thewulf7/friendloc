@@ -19,6 +19,9 @@ abstract class Controller
 {
     use ApplicationHelper;
 
+    /**
+     * @var string
+     */
     public $layout = 'main';
 
     /**
@@ -55,12 +58,12 @@ abstract class Controller
      */
     public function renderPHP($view, $variables = [], $output = true)
     {
-        $layout         = 'layout/' . $this->layout;
+        $layout = 'layout/' . $this->layout;
 
         $this->renderPartial(
             $layout,
             [
-                'content' => $this->renderPartial($view, $variables, false)
+                'content' => $this->renderPartial($view, $variables, false),
             ],
             $output
         );
@@ -106,6 +109,36 @@ abstract class Controller
         {
             throw new \Exception('File ' . $fullpath . ' not found');
         }
+    }
 
+    /**
+     * @return array
+     */
+    protected function guestAllowedMethods(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param string $method
+     *
+     * @return bool
+     */
+    public function beforeAction(string $method): bool
+    {
+        $methods = $this->guestAllowedMethods();
+        $model   = $this->getAuthService()->authByHash(Auth::getHash());
+
+        if ($model === false && in_array($method, $methods, true))
+        {
+            return true;
+        }
+
+        if ($model === false)
+        {
+            $this->redirect('/auth/login');
+        }
+
+        return true;
     }
 }

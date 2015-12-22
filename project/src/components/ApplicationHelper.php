@@ -83,6 +83,7 @@ trait ApplicationHelper
     public function __call($name, $args)
     {
         $methodName = lcfirst(substr($name, 3));
+
         if ($this->getContainer()->has($methodName))
         {
             return $this->getContainer()->get($methodName);

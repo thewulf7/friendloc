@@ -7,6 +7,8 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use thewulf7\friendloc\components\Auth;
+use thewulf7\friendloc\models\User;
 
 class CreateUserCommand extends Command
 {
@@ -35,7 +37,6 @@ class CreateUserCommand extends Command
 
         $email    = '';
         $name     = '';
-        $password = '';
 
         $helper = $this->getHelper('question');
 
@@ -52,6 +53,23 @@ class CreateUserCommand extends Command
             }
         }
 
-        $output->writeln($email);
+        $password = Auth::generatePassword();
+        $salt     = Auth::generateSalt();
+
+        $output->writeln('Your password: ' . $password);
+
+        $em = $this->getHelper('em')->getEntityManager();
+
+        $model = new User();
+        $model
+            ->setEmail($email)
+            ->setName($name)
+            ->setPasswd(Auth::createPassword($password, $salt))
+            ->setApproved(1)
+            ->setCreated(new \DateTime('now'))
+            ->setSalt($salt);
+
+        $em->persist($model);
+        $em->flush();
     }
 }

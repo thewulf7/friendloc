@@ -14,6 +14,16 @@ use thewulf7\friendloc\services\AuthService;
  */
 class AuthController extends Controller
 {
+    public function guestAllowedMethods(): array
+    {
+        $methods = parent::guestAllowedMethods();
+
+        return array_merge($methods, [
+            'loginAction',
+            'signupAction',
+        ]);
+    }
+
     /**
      * Login page & action
      */
@@ -24,17 +34,18 @@ class AuthController extends Controller
             $params = $this->getRequest()->getBodyParams();
             /** @var AuthService $service */
             $service = $this->getAuthService();
-            if($service->auth($params['email'], $params['passwd']) instanceof User)
+            if ($service->auth($params['email'], $params['passwd']) instanceof User)
             {
-                $this->redirect('/profile');
-            } else {
-                return $this->render('/auth/login',[
-                    'errors' => ['Wrong email or password']
+                $this->redirect('/');
+            } else
+            {
+                $this->render('/auth/login', [
+                    'errors' => ['Wrong email or password'],
                 ]);
             }
         }
 
-        return $this->render('/auth/login');
+        $this->render('/auth/login');
     }
 
     /**
