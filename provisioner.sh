@@ -82,6 +82,14 @@ installpkg php7.0-pgsql
 
 service postgresql restart
 
+#elasticsearch
+installpkg openjdk-7-jre-headless
+wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb http://packages.elasticsearch.org/elasticsearch/1.3/debian stable main" | sudo tee -a /etc/apt/sources.list
+apt-get update
+installpkg elasticsearch
+service elasticsearch start
+
 #nginx
 
 add-apt-repository ppa:nginx/stable -y && apt-get update
