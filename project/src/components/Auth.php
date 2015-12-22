@@ -77,6 +77,10 @@ class Auth
      */
     public static function getHash()
     {
-        return $_COOKIE['AUTH_KEY'] ?? false;
+        $authkey = $_SERVER['HTTP_AUTH_KEY'] ?? false;
+
+        $authkey = $authkey === false ? $authkey : $_COOKIE['AUTH_KEY'];
+
+        return $authkey ?? false;
     }
 }
