@@ -30,15 +30,15 @@ class Auth
      */
     public static function generatePassword(int $length = 8): string
     {
-        $pass     = '';
+        $pass     = [];
         $alphabet = 'abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789';
         for ($i = 0; $i <= $length; $i++)
         {
-            $n        = mt_rand(0, count($alphabet) - 1);
+            $n        = mt_rand(0, strlen($alphabet) - 1);
             $pass[$i] = $alphabet[$n];
         }
 
-        return $pass;
+        return implode('',$pass);
     }
 
     /**
@@ -70,5 +70,17 @@ class Auth
     public static function logout()
     {
         unset($_COOKIE['AUTH_KEY']);
+    }
+
+    /**
+     * @return bool
+     */
+    public static function getHash()
+    {
+        $authkey = $_SERVER['HTTP_AUTH_KEY'] ?? false;
+
+        $authkey = $authkey === false ? $authkey : $_COOKIE['AUTH_KEY'];
+
+        return $authkey ?? false;
     }
 }

@@ -162,10 +162,10 @@ class SimpleUrlRule implements iUrlRule
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getParams(): string
+    public function getParams(): array
     {
-        // TODO: Implement getParams() method.
+        return [];
     }
 }

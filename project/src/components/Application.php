@@ -33,6 +33,7 @@ class Application
             ->addToContainer('entityManager', function (iConfig $config)
             {
                 $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
+
                 return EntityManager::create($config->get('db'), $setup);
             })
             ->addToContainer('request', function ()
@@ -42,6 +43,12 @@ class Application
                 $query = $urlParts['query'] ?? '';
 
                 return new Request($urlParts['path'], $query, $_SERVER['REQUEST_METHOD'], $_POST);
+            })
+            ->addToContainer('templater', function (iConfig $config)
+            {
+                $templater = $config->get('templater');
+
+                return $templater['loader']();
             });
         $this->getEntityManager();
     }
@@ -75,7 +82,13 @@ class Application
             return new Router($config, $c->get('request'));
         })->getRouter();
 
-        return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
+        if ($this->getContainer()->call([$router->getController(), 'beforeAction'], ['method' => $router->getAction()]))
+        {
+            return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
+        } else
+        {
+            return $this->getContainer()->call([$router->getController(), 'redirect'], ['path' => '/']);
+        }
     }
 
     /**

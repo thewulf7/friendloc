@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9bd9dfe5fd8b3cced30cad3f8704cb60",
-    "content-hash": "fff31530d5909225d5b9de32234b5e97",
+    "hash": "ea0c0819eddb50807b222fc1ba478e49",
+    "content-hash": "467cf2670076fffd3bbb4990f799d6f7",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -559,16 +559,16 @@
         },
         {
             "name": "doctrine/migrations",
-            "version": "dev-master",
+            "version": "v1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/migrations.git",
-                "reference": "9d866f93b665a161bd0f978aeb8b5ea3c124eaa7"
+                "reference": "57e50714fcb34235cf055edc409e169b8d7af690"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/migrations/zipball/9d866f93b665a161bd0f978aeb8b5ea3c124eaa7",
-                "reference": "9d866f93b665a161bd0f978aeb8b5ea3c124eaa7",
+                "url": "https://api.github.com/repos/doctrine/migrations/zipball/57e50714fcb34235cf055edc409e169b8d7af690",
+                "reference": "57e50714fcb34235cf055edc409e169b8d7af690",
                 "shasum": ""
             },
             "require": {
@@ -623,7 +623,7 @@
                 "database",
                 "migrations"
             ],
-            "time": "2015-12-18 16:23:44"
+            "time": "2015-12-15 21:46:29"
         },
         {
             "name": "doctrine/orm",
@@ -845,12 +845,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "ff96711b696b2f6ee7cb8a0f0348084709207138"
+                "reference": "35e6edac0d40267c70b6ad820023efa6e6fb8225"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/ff96711b696b2f6ee7cb8a0f0348084709207138",
-                "reference": "ff96711b696b2f6ee7cb8a0f0348084709207138",
+                "url": "https://api.github.com/repos/symfony/console/zipball/35e6edac0d40267c70b6ad820023efa6e6fb8225",
+                "reference": "35e6edac0d40267c70b6ad820023efa6e6fb8225",
                 "shasum": ""
             },
             "require": {
@@ -897,7 +897,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2015-12-15 02:03:25"
+            "time": "2015-12-22 10:39:31"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -960,25 +960,25 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "dev-master",
+            "version": "2.8.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "8bae579c7afa252c055855f071c751eb75dcf6c4"
+                "reference": "6fbc4e2c0234c08036ef817cd79209787f9b20e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/8bae579c7afa252c055855f071c751eb75dcf6c4",
-                "reference": "8bae579c7afa252c055855f071c751eb75dcf6c4",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/6fbc4e2c0234c08036ef817cd79209787f9b20e7",
+                "reference": "6fbc4e2c0234c08036ef817cd79209787f9b20e7",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5.9"
+                "php": ">=5.3.9"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "2.8-dev"
                 }
             },
             "autoload": {
@@ -1005,7 +1005,68 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2015-12-05 11:13:35"
+            "time": "2015-12-22 10:25:57"
+        },
+        {
+            "name": "twig/twig",
+            "version": "1.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twigphp/Twig.git",
+                "reference": "db93842e80d758f6c74c3e1f1f088badb3fc84f0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/db93842e80d758f6c74c3e1f1f088badb3fc84f0",
+                "reference": "db93842e80d758f6c74c3e1f1f088badb3fc84f0",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.7"
+            },
+            "require-dev": {
+                "symfony/debug": "~2.7",
+                "symfony/phpunit-bridge": "~2.7"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.23-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "http://twig.sensiolabs.org/contributors",
+                    "role": "Contributors"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "time": "2015-11-17 12:22:13"
         }
     ],
     "packages-dev": [

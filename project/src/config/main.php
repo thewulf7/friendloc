@@ -22,11 +22,18 @@ return [
         'password' => '123456',
         'dbname'   => 'friendloc',
     ],
+    'templater'         => [
+        'class'  => Twig_Environment::class,
+        'loader' => function(){
+            $loader = new Twig_Loader_Filesystem(__DIR__ . '/../views');
+            return new Twig_Environment($loader);
+        },
+    ],
     'urlRules'          => [
-        [
-            'rule'    => \thewulf7\friendloc\components\router\UrlRule::REST_RULE,
-            'class'   => \thewulf7\friendloc\controllers\UserController::class,
-        ],
+//        [
+//            'rule'    => \thewulf7\friendloc\components\router\UrlRule::REST_RULE,
+//            'class'   => \thewulf7\friendloc\controllers\UserController::class,
+//        ],
         [
             'rule'  => \thewulf7\friendloc\components\router\UrlRule::SIMPLE_RULE,
             'class' => \thewulf7\friendloc\controllers\AuthController::class,
