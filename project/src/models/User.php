@@ -31,12 +31,6 @@ class User
     private $name;
 
     /**
-     * @Column(type="integer", nullable=TRUE)
-     * @var int
-     */
-    private $locationId;
-
-    /**
      * @Column(type="string")
      * @var string
      */
@@ -133,30 +127,6 @@ class User
     public function setName($name): User
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get LocationId
-     *
-     * @return mixed
-     */
-    public function getLocationId(): int
-    {
-        return $this->locationId;
-    }
-
-    /**
-     * Set locationId
-     *
-     * @param mixed $locationId
-     *
-     * @return User
-     */
-    public function setLocationId($locationId): User
-    {
-        $this->locationId = $locationId;
 
         return $this;
     }

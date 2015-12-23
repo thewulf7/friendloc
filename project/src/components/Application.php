@@ -49,6 +49,12 @@ class Application
                 $templater = $config->get('templater');
 
                 return $templater['loader']();
+            })
+            ->addToContainer('elastic', function (iConfig $config)
+            {
+                $client = \Elasticsearch\ClientBuilder::create()->build();
+
+                return new ElasticSearch($client, $config->get('modelsFolder'));
             });
         $this->getEntityManager();
     }
