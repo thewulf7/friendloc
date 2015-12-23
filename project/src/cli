@@ -16,9 +16,9 @@ $containerBuilder->addDefinitions(
         \thewulf7\friendloc\components\Application::class    => \DI\object(\thewulf7\friendloc\components\Application::class),
     ]
 );
-
+$c = $containerBuilder->build();
 /** @var \thewulf7\friendloc\components\Application $app */
-$app = $containerBuilder->build()->get('\thewulf7\friendloc\components\Application');
+$app = $c->get('\thewulf7\friendloc\components\Application');
 
 $entityManager = $app->getEntityManager();
 
@@ -40,6 +40,8 @@ $app = ConsoleRunner::createApplication($helper, [
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand(),
     // User Commands
     new \thewulf7\friendloc\command\CreateUserCommand(),
+    //elastic
+    new \thewulf7\friendloc\command\ElasticCommand($c->get('elastic')),
 ]);
 
 $app->run();
