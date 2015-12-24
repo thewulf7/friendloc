@@ -11,8 +11,8 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
 {
     /**
      * @ElasticSearch\Id
-     * @ElasticSearch\ElasticField(type="integer", includeInAll=false)
-     * @var int
+     * @ElasticSearch\ElasticField(type="string", includeInAll=false)
+     * @var string
      */
     private $id;
 
@@ -29,12 +29,6 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
     private $latlng;
 
     /**
-     * @ElasticSearch\ElasticField(type="integer", includeInAll=false)
-     * @var int
-     */
-    private $userId;
-
-    /**
      * @ElasticSearch\ElasticField(type="string", includeInAll=true)
      * @var string
      */
@@ -48,10 +42,11 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
     public function toArray(): array
     {
         return [
-            'id'           => $this->getId(),
             'locationName' => $this->getLocationName(),
-            'latlng'       => $this->getLatlng()->toArray(),
-            'userId'       => $this->getUserId(),
+            'latlng'       => [
+                'lat' => $this->getLatlng()->getLatitude(),
+                'lon' => $this->getLatlng()->getLongitude(),
+            ],
             'userName'     => $this->getUsername(),
         ];
     }
@@ -59,7 +54,7 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
     /**
      * Get Id
      *
-     * @return int
+     * @return string
      */
     public function getId()
     {
@@ -67,13 +62,13 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
     }
 
     /**
-     * Set id
+     * Set Id
      *
-     * @param mixed $id
+     * @param string $id
      *
      * @return Location
      */
-    public function setId(int $id)
+    public function setId(string $id)
     {
         $this->id = $id;
 
@@ -100,30 +95,6 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
     public function setLatlng(array $latlng): Location
     {
         $this->latlng = new Point($latlng);
-
-        return $this;
-    }
-
-    /**
-     * Get UserId
-     *
-     * @return int
-     */
-    public function getUserId(): int
-    {
-        return $this->userId;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param int $userId
-     *
-     * @return Location
-     */
-    public function setUserId(int $userId): Location
-    {
-        $this->userId = $userId;
 
         return $this;
     }

@@ -53,7 +53,7 @@ class UserService extends AbstractService
     {
         $entityManager = $this->getEntityManager();
 
-        $model = $entityManager->find('User', $id);
+        $model = $entityManager->find('thewulf7\friendloc\models\User', $id);
 
         return $model;
     }
@@ -70,7 +70,7 @@ class UserService extends AbstractService
     {
         $entityManager = $this->getEntityManager();
 
-        $model = $entityManager->find('User', $id);
+        $model = $entityManager->find('thewulf7\friendloc\models\User', $id);
 
         $entityManager->remove($model);
 
@@ -97,7 +97,7 @@ class UserService extends AbstractService
     {
         $entityManager = $this->getEntityManager();
 
-        $model = $entityManager->find('User', $id);
+        $model = $entityManager->find('thewulf7\friendloc\models\User', $id);
 
         if (strlen($name) > 0)
         {

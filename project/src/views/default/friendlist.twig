@@ -1,104 +1,17 @@
 <div class="col-sm-4 blog-sidebar">
     <div class="list-group friend">
-        <a href="#" class="list-group-item">
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="userpicsmallpic alert-info">OK</div>
+        {% for friend in friends %}
+            <a href="{{ friend.link }}" class="list-group-item">
+                <div class="row">
+                    <div class="col-md-3 col-xs-12">
+                        <div class="userpicsmallpic alert-info">{{ friend.sign }}</div>
+                    </div>
+                    <div class="col-md-9 col-xs-12">
+                        <h4 class="list-group-item-heading">{{ friend.name }}</h4>
+                        <p class="list-group-item-text">{{ friend.location }}</p>
+                    </div>
                 </div>
-                <div class="col-md-9 col-xs-12">
-                    <h4 class="list-group-item-heading">Ostroumova Kate</h4>
-                    <p class="list-group-item-text">Russia, St.Petersburg, Kirillovskaya 18</p>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="list-group-item">
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="userpicsmallpic alert-info">OK</div>
-                </div>
-                <div class="col-md-9 col-xs-12">
-                    <h4 class="list-group-item-heading">Ostroumova Kate</h4>
-                    <p class="list-group-item-text">Russia, St.Petersburg, Kirillovskaya 18</p>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="list-group-item">
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="userpicsmallpic alert-info">OK</div>
-                </div>
-                <div class="col-md-9 col-xs-12">
-                    <h4 class="list-group-item-heading">Ostroumova Kate</h4>
-                    <p class="list-group-item-text">Russia, St.Petersburg, Kirillovskaya 18</p>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="list-group-item">
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="userpicsmallpic alert-info">OK</div>
-                </div>
-                <div class="col-md-9 col-xs-12">
-                    <h4 class="list-group-item-heading">Ostroumova Kate</h4>
-                    <p class="list-group-item-text">Russia, St.Petersburg, Kirillovskaya 18</p>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="list-group-item">
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="userpicsmallpic alert-info">OK</div>
-                </div>
-                <div class="col-md-9 col-xs-12">
-                    <h4 class="list-group-item-heading">Ostroumova Kate</h4>
-                    <p class="list-group-item-text">Russia, St.Petersburg, Kirillovskaya 18</p>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="list-group-item">
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="userpicsmallpic alert-info">OK</div>
-                </div>
-                <div class="col-md-9 col-xs-12">
-                    <h4 class="list-group-item-heading">Ostroumova Kate</h4>
-                    <p class="list-group-item-text">Russia, St.Petersburg, Kirillovskaya 18</p>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="list-group-item">
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="userpicsmallpic alert-info">OK</div>
-                </div>
-                <div class="col-md-9 col-xs-12">
-                    <h4 class="list-group-item-heading">Ostroumova Kate</h4>
-                    <p class="list-group-item-text">Russia, St.Petersburg, Kirillovskaya 18</p>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="list-group-item">
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="userpicsmallpic alert-info">OK</div>
-                </div>
-                <div class="col-md-9 col-xs-12">
-                    <h4 class="list-group-item-heading">Ostroumova Kate</h4>
-                    <p class="list-group-item-text">Russia, St.Petersburg, Kirillovskaya 18</p>
-                </div>
-            </div>
-        </a>
-        <a href="#" class="list-group-item">
-            <div class="row">
-                <div class="col-md-3 col-xs-12">
-                    <div class="userpicsmallpic alert-info">OK</div>
-                </div>
-                <div class="col-md-9 col-xs-12">
-                    <h4 class="list-group-item-heading">Ostroumova Kate</h4>
-                    <p class="list-group-item-text">Russia, St.Petersburg, Kirillovskaya 18</p>
-                </div>
-            </div>
-        </a>
-
+            </a>
+        {% endfor %}
     </div>
 </div>

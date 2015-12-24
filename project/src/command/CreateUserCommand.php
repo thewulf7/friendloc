@@ -87,7 +87,7 @@ class CreateUserCommand extends Command
             ->setLatlng([56,30])
             ->setLocationName('Saint-P')
             ->setUserName($model->getName())
-            ->setUserId($model->getId());
+            ->setId('location_' . $model->getId());
 
         $this->elastic->persist($location);
     }

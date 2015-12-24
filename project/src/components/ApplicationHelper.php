@@ -16,7 +16,7 @@ use thewulf7\friendloc\components\router\Router;
  * @method entityManager getEntityManager()
  * @method Request getRequest()
  * @method Router getRouter()
- * @method SearchManager getElastic()
+ * @method ElasticSearch getElastic()
  */
 trait ApplicationHelper
 {

@@ -188,16 +188,15 @@ class ElasticSearch
         $params = [
             'type'  => $entityModel->type,
             'index' => $entityModel->index,
+            'id'    => $entity->getId(),
         ];
 
-        if ($entity->getId())
+        try
         {
-            $params = [
-                'id'      => $entity->getId(),
-                '_source' => $entity->toArray(),
-            ];
+            $this->getClient()->get($params);
+            $params['_source'] = $entity->toArray();
             $this->getClient()->update($params);
-        } else
+        } catch (\Elasticsearch\Common\Exceptions\Missing404Exception $e)
         {
             $params['body'] = $entity->toArray();
             $this->getClient()->index($params);
@@ -224,7 +223,7 @@ class ElasticSearch
         $this->getClient()->delete($params);
     }
 
-    public function find(string $entityName, int $id): Model
+    public function find(string $entityName, $id): Model
     {
         $entityModel = $this->getEntities()[$entityName];
 

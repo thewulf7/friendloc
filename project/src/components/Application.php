@@ -8,6 +8,7 @@ use Doctrine\ORM\Tools\Setup;
 use thewulf7\friendloc\components\config\iConfig;
 use thewulf7\friendloc\components\router\Request;
 use thewulf7\friendloc\components\router\Router;
+use thewulf7\friendloc\models\User;
 
 use function DI\object;
 use function DI\get;
@@ -88,8 +89,14 @@ class Application
             return new Router($config, $c->get('request'));
         })->getRouter();
 
-        if ($this->getContainer()->call([$router->getController(), 'beforeAction'], ['method' => $router->getAction()]))
+        $user = $this->getContainer()->call([$router->getController(), 'beforeAction'], ['method' => $router->getAction()]);
+
+        if ($user)
         {
+            if(is_object($user))
+            {
+                $this->addToContainer('currentUser', $user);
+            }
             return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
         } else
         {
