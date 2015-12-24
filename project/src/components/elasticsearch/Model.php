@@ -10,9 +10,9 @@ namespace thewulf7\friendloc\components\elasticsearch;
 interface Model
 {
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): int;
+    public function getId();
 
     /**
      * @param int $id

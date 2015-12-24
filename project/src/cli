@@ -39,7 +39,7 @@ $app = ConsoleRunner::createApplication($helper, [
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\StatusCommand(),
     new \Doctrine\DBAL\Migrations\Tools\Console\Command\VersionCommand(),
     // User Commands
-    new \thewulf7\friendloc\command\CreateUserCommand(),
+    new \thewulf7\friendloc\command\CreateUserCommand($c->get('elastic')),
     //elastic
     new \thewulf7\friendloc\command\ElasticCommand($c->get('elastic')),
 ]);

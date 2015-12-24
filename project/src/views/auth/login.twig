@@ -7,9 +7,17 @@
 {% block content %}
 
     <div class="container">
-
         <form class="form-signin" action="/auth/login" method="post">
             <h2 class="form-signin-heading">Please sign in</h2>
+            {% if errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
             <label for="inputEmail" class="sr-only">Email address</label>
             <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address"
                    required="required"
@@ -24,7 +32,6 @@
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
-
     </div>
 
 {% endblock %}

@@ -26,10 +26,16 @@ class AuthService extends AbstractService
         /** @var User $model */
         $model = $entityManager->getRepository('thewulf7\friendloc\models\User')->findOneBy(['email' => $email]);
 
+        if(!$model)
+        {
+            return false;
+        }
+
         $hashpasswd = crypt($password, $model->getSalt());
 
         if($hashpasswd === $model->getPasswd())
         {
+
             $hash = hash('sha1', time() . '|' . $model->getId());
             $model->setUserhash($hash);
 

@@ -48,11 +48,11 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
     public function toArray(): array
     {
         return [
-            'id'       => $this->getId(),
-            'locationName'     => $this->getName(),
-            'latlng'   => $this->getLatlng()->toArray(),
-            'userId'   => $this->getUserId(),
-            'userName' => $this->getUsername(),
+            'id'           => $this->getId(),
+            'locationName' => $this->getLocationName(),
+            'latlng'       => $this->getLatlng()->toArray(),
+            'userId'       => $this->getUserId(),
+            'userName'     => $this->getUsername(),
         ];
     }
 
@@ -61,7 +61,7 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
      *
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
@@ -73,7 +73,7 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
      *
      * @return Location
      */
-    public function setId(int $id): Location
+    public function setId(int $id)
     {
         $this->id = $id;
 
