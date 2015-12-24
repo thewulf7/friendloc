@@ -7,13 +7,13 @@ server {
     server_name friendloc.dev;
 
     access_log  /home/vagrant/project/log/friendloc_access.log;
-    error_log   /home/vagrant/project/log/friendloc_error.log info;
+    error_log   /home/vagrant/project/log/friendloc_error.log;
 
-    root        "/home/vagrant/project/src/web";
+    root        /home/vagrant/project/src/web;
     index       index.html index.php;
 
     location / {
-        root "/home/vagrant/project/src/web";
+        root /home/vagrant/project/src/web;
         try_files $uri $uri/ /index.php?$is_args$args;
         autoindex on;
         index index.html index.php;
@@ -24,7 +24,7 @@ server {
     }
 
     location ~ \.php$ {
-        root "/home/vagrant/project/src/web";
+        root /home/vagrant/project/src/web;
         fastcgi_index index.php;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         try_files $uri =404;
@@ -36,8 +36,8 @@ server {
     location ~ \.(js|css|png|jpg|gif|swf|ico|pdf|mov|fla|zip|rar)$ {
         root  /home/vagrant/project/src/web;
         try_files $uri =404;
-         autoindex off;
+        autoindex off;
         index  index.html index.htm index.php;
-      }
+    }
 
 }

@@ -22,10 +22,20 @@ return [
         'password' => '123456',
         'dbname'   => 'friendloc',
     ],
+    'elastic'           => [
+        'connections' => [
+            'servers' => [
+                'host' => 'localhost',
+                'port' => 9200,
+            ],
+        ],
+    ],
     'templater'         => [
         'class'  => Twig_Environment::class,
-        'loader' => function(){
+        'loader' => function ()
+        {
             $loader = new Twig_Loader_Filesystem(__DIR__ . '/../views');
+
             return new Twig_Environment($loader);
         },
     ],

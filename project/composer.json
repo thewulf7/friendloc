@@ -16,12 +16,14 @@
         }
     },
     "require"           : {
-        "php"                 : ">=7.0",
-        "doctrine/orm"        : "2.5.2",
-        "symfony/yaml"        : "2.*",
-        "doctrine/migrations" : "1.2.*",
-        "php-di/php-di"       : "*",
-        "twig/twig"           : "^1.18"
+        "php"                         : ">=7.0",
+        "doctrine/orm"                : "2.5.2",
+        "symfony/yaml"                : "2.*",
+        "doctrine/migrations"         : "1.2.*",
+        "creof/doctrine2-spatial"     : "1.0.0",
+        "php-di/php-di"               : "*",
+        "twig/twig"                   : "^1.18",
+        "elasticsearch/elasticsearch" : "*"
     },
     "require-dev"       : {
         "phpunit/phpunit"     : "5.0.*",

@@ -8,10 +8,20 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use thewulf7\friendloc\components\Auth;
+use thewulf7\friendloc\components\ElasticSearch;
+use thewulf7\friendloc\models\Location;
 use thewulf7\friendloc\models\User;
 
 class CreateUserCommand extends Command
 {
+
+    private $elastic;
+
+    public function __construct(ElasticSearch $e)
+    {
+        $this->elastic = $e;
+        parent::__construct();
+    }
 
     protected function configure()
     {
@@ -71,5 +81,14 @@ class CreateUserCommand extends Command
 
         $em->persist($model);
         $em->flush();
+
+        $location = new Location();
+        $location
+            ->setLatlng([56,30])
+            ->setLocationName('Saint-P')
+            ->setUserName($model->getName())
+            ->setUserId($model->getId());
+
+        $this->elastic->persist($location);
     }
 }

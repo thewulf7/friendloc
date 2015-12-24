@@ -70,6 +70,7 @@ class Auth
     public static function logout()
     {
         unset($_COOKIE['AUTH_KEY']);
+        setcookie('AUTH_KEY', null, 1, '/');
     }
 
     /**
@@ -79,7 +80,7 @@ class Auth
     {
         $authkey = $_SERVER['HTTP_AUTH_KEY'] ?? false;
 
-        $authkey = $authkey === false ? $authkey : $_COOKIE['AUTH_KEY'];
+        $authkey = $authkey === false && isset($_COOKIE['AUTH_KEY']) ? $_COOKIE['AUTH_KEY'] : $authkey;
 
         return $authkey ?? false;
     }

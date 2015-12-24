@@ -34,12 +34,13 @@ class AuthController extends Controller
             $params = $this->getRequest()->getBodyParams();
             /** @var AuthService $service */
             $service = $this->getAuthService();
-            if ($service->auth($params['email'], $params['passwd']) instanceof User)
+
+            if ($service->auth($params['email'], $params['password']) instanceof User)
             {
                 $this->redirect('/');
             } else
             {
-                $this->render('/auth/login', [
+                return $this->render('/auth/login', [
                     'errors' => ['Wrong email or password'],
                 ]);
             }
