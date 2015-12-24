@@ -1,11 +1,34 @@
+.wrap
+{
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+.container {
+    display: table-cell;
+    vertical-align: middle;
+}
 .form-signin {
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
 }
+.logo {
+    font-size: 41px;
+    color: #000;
+}
+.form-signin-heading {
+    font-family: Georgia, serif;
+    font-size: 45px;
+    margin-left: 20px;
+    display: inline-block;
+}
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
     margin-bottom: 10px;
+}
+.signup-link {
+    float: right;
 }
 .form-signin .checkbox {
     font-weight: normal;

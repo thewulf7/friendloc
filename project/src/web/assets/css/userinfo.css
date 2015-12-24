@@ -1,4 +1,3 @@
-
 /*
  * Masthead for nav
  */
@@ -136,4 +135,87 @@
 
 .blog-footer p:last-child {
     margin-bottom: 0;
+}
+
+.userinfo {
+    text-align: center;
+    padding: 15px 0px;
+}
+
+.userinfo .userpic {
+    border-radius: 80px;
+    display: block;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+    font-size: 4em;
+    padding: 35px;
+}
+
+.userinfo .username {
+    margin: 10px 0;
+}
+
+.userinfo .userlocation {
+    color:#aaa;
+    width:150px;
+    margin: 0 auto;
+    line-height: 22px;
+    margin-bottom: 20px;
+}
+
+.list-group.friend
+{
+    margin-bottom: 0;
+    height: 610px;
+    overflow-y: scroll;
+}
+.list-group.friend .list-group-item
+{
+    border-radius: 0;
+}
+
+.userpicsmallpic {
+    border-radius: 50px;
+    margin: 0 auto 10px;
+    font-size: 1em;
+    padding: 15px;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+}
+
+.userpicsmall,.userinfosmall
+{
+    display: inline-block;
+    vertical-align: top;
+}
+.userinfosmall {
+    padding-left: 10px;
+    width: 73%;
+}
+
+.userpicsmall
+{
+    width: 25%;
+}
+
+.userinfosmall .list-group-item-text
+{
+    color: #aaa;
+}
+
+.blog-main .info {
+    height: 610px;
+    overflow-y: scroll;
+    padding-top: 10px;
+}
+
+.blog-main .info .userpic {
+    border-radius: 50px;
+    padding: 37px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 1em;
 }

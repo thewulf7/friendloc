@@ -5,10 +5,11 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="wrap">
     <div class="container">
         <form class="form-signin" action="/auth/login" method="post">
-            <h2 class="form-signin-heading">Please sign in</h2>
+            <span class="logo glyphicon glyphicon-lock" aria-hidden="true"></span>
+            <h2 class="form-signin-heading">FriendLock</h2>
             {% if errors %}
                 <div class="alert alert-danger">
                     <ul>
@@ -29,9 +30,10 @@
                 <label>
                     <input type="checkbox" value="remember-me"/> Remember me
                 </label>
+                <a class="signup-link" href="/auth/signup">Signup</a>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
         </form>
     </div>
-
+</div>
 {% endblock %}
