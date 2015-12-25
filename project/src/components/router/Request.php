@@ -77,11 +77,11 @@ class Request
     /**
      * Get BodyParams
      *
-     * @return array
+     * @return mixed
      */
-    public function getBodyParams(): array
+    public function getBodyParams($name = '')
     {
-        return $this->_bodyParams;
+        return $this->_bodyParams[$name] ?? $this->_bodyParams;
     }
 
 

@@ -112,7 +112,7 @@ class RestUrlRule implements iUrlRule
                 ],
                 [
                     '\/',
-                    '(\S*?)',
+                    '([0-9A-Za-z\_]*?)',
                 ], $uri);
 
             if (preg_match_all('/^' . $pattern . '$/', $this->getUri(), $param))

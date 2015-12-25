@@ -8,6 +8,9 @@
  * Time: 11:55
  */
 
+use \thewulf7\friendloc\components\router\urlrules\RestUrlRule;
+use \thewulf7\friendloc\components\router\UrlRule;
+
 return [
     'appName'           => 'FriendLock',
     'defaultAction'     => 'index',
@@ -40,12 +43,16 @@ return [
         },
     ],
     'urlRules'          => [
-//        [
-//            'rule'    => \thewulf7\friendloc\components\router\UrlRule::REST_RULE,
-//            'class'   => \thewulf7\friendloc\controllers\UserController::class,
-//        ],
         [
-            'rule'  => \thewulf7\friendloc\components\router\UrlRule::SIMPLE_RULE,
+            'rule'    => UrlRule::REST_RULE,
+            'class'   => \thewulf7\friendloc\controllers\UserController::class,
+            'special' => [
+                'GET ' . RestUrlRule::API_VERSION . 'users/{id}/getFriendList' => 'getFriendsList',
+                'POST ' . RestUrlRule::API_VERSION . 'users/addToFriends'      => 'addToFriends',
+            ],
+        ],
+        [
+            'rule'  => UrlRule::SIMPLE_RULE,
             'class' => \thewulf7\friendloc\controllers\AuthController::class,
         ],
         [
