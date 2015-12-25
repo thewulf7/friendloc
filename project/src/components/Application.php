@@ -107,8 +107,12 @@ class Application
             {
                 $this->addToContainer('currentUser', $user);
             }
-
-            return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
+            try
+            {
+                return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
+            }catch(\ReflectionException $e){
+                echo '404';
+            }
         } else
         {
             return $this->getContainer()->call([$router->getController(), 'redirect'], ['path' => '/auth/login']);

@@ -6,7 +6,7 @@ define(function (require) {
 
     templater.prototype = {
         renderUserView: function (user) {
-            var template = require('twigjs!assets/templates/user');
+            var template = require('twigjs!templates/user');
 
             return template(
                 {
@@ -16,7 +16,7 @@ define(function (require) {
             );
         },
         renderFriendList: function (friends) {
-            var template = require('twigjs!assets/templates/friend_line');
+            var template = require('twigjs!templates/friend_line');
             var output = '';
 
             for (var i in friends) {
@@ -34,7 +34,7 @@ define(function (require) {
             return output;
         },
         renderSearchView: function (result) {
-            var template = require('twigjs!assets/templates/friend_line');
+            var template = require('twigjs!templates/friend_line');
             var output = '';
 
             for (var i in result) {

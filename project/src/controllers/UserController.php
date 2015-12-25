@@ -74,14 +74,20 @@ class UserController extends Controller
      */
     public function getFriendsListAction(int $id)
     {
-
         $friends = $this->getUserService()->getFriends($id);
 
-        $this->sendResponse($id, User::class,
-                            [
-                                'friends' => $friends,
-                            ]
-        );
+        $data = array_map(function ($result)
+        {
+            $model = $this->getUserService()->get($result['_id']);
+            $loc   = $this->getLocationService()->getLocation($model->getId());
+
+            return [
+                'user'     => $model,
+                'location' => $loc,
+            ];
+        }, $friends);
+
+        $this->sendResponse($id, User::class, $data);
     }
 
 }

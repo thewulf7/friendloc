@@ -2,12 +2,13 @@
 namespace thewulf7\friendloc\models;
 
 use thewulf7\friendloc\components\elasticsearch\annotations as ElasticSearch;
+use thewulf7\friendloc\components\elasticsearch\Model;
 use CrEOF\Spatial\PHP\Types\Geography\Point;
 
 /**
- * @ElasticSearch\Entity(index="users", type="location", number_of_shards=5, number_of_replicas=1)
+ * @ElasticSearch\Entity(index="users", type="location", number_of_shards=1, number_of_replicas=1, autocomplete=true)
  */
-class Location implements \thewulf7\friendloc\components\elasticsearch\Model
+class Location implements Model,\JsonSerializable
 {
     /**
      * @ElasticSearch\Id
@@ -116,4 +117,14 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'locationName' => $this->getLocationName(),
+            'latlng'       => $this->getLatlng(),
+        ];
+    }
 }

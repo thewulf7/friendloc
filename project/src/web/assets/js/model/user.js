@@ -1,9 +1,10 @@
 define(function () {
-    function user(id, username, location, latlng) {
+    function user(id, username, location, latlng, sign) {
         this.id = id;
         this.username = username;
         this.location = location;
         this.latlng = latlng;
+        this.sign = sign;
     }
 
     user.prototype = {
@@ -23,7 +24,7 @@ define(function () {
             return '/users/' + this.id;
         },
         getSign: function(){
-            return this.username;
+            return this.sign;
         }
     };
 

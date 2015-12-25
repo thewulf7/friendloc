@@ -150,7 +150,7 @@ abstract class Controller
      *
      * @return bool
      */
-    public function sendResponse(int $id, string $type, array $data = [], $code = 200)
+    public function sendResponse(int $id = 0, string $type = '', array $data = [], $code = 200)
     {
         http_response_code($code);
         echo json_encode(new Response($id, $type, $data));

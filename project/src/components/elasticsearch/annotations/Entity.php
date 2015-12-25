@@ -26,4 +26,9 @@ final class Entity
      * @var int
      */
     public $number_of_replicas = 1;
+
+    /**
+     * @var bool
+     */
+    public $autocomplete = false;
 }

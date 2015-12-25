@@ -18,6 +18,55 @@ class ElasticCommand extends Command
         parent::__construct();
     }
 
+    public function execute(InputInterface $input, OutputInterface $output)
+    {
+
+        $ent = $this->getElastic()->getMappings();
+
+        $i = 0;
+
+        foreach ($ent as $entity)
+        {
+            if ($entity['body']['settings']['autocomplete'])
+            {
+                $entity['body']['settings']['analysis'] = [
+                    'filter'   => [
+                        'autocomplete_filter' => [
+                            'type'        => "nGram",
+                            'min_gram'    => 2,
+                            'max_gram'    => 10,
+                            'token_chars' => [
+                                'letter',
+                                'digit',
+                                'punctuation',
+                                'symbol',
+                            ],
+                        ],
+                    ],
+                    'analyzer' => [
+                        'autocomplete' => [
+                            'type'      => 'custom',
+                            'tokenizer' => 'whitespace',
+                            'filter'    => [
+                                'lowercase',
+                                'autocomplete_filter',
+                                'asciifolding',
+                            ],
+                        ],
+                    ],
+                ];
+            }
+
+            unset($entity['body']['settings']['autocomplete']);
+            if ($this->getElastic()->createIndex($entity))
+            {
+                $i++;
+            }
+        }
+
+        $output->writeln('Created indexes:' . $i);
+    }
+
     /**
      * Get Elastic
      *
@@ -35,22 +84,5 @@ class ElasticCommand extends Command
             ->setDescription('Update all indexes');
 
         parent::configure();
-    }
-
-    public function execute(InputInterface $input, OutputInterface $output)
-    {
-
-        $ent = $this->getElastic()->getMappings();
-
-        $i = 0;
-
-        foreach ($ent as $entity)
-        {
-            if($this->getElastic()->createIndex($entity)){
-                $i++;
-            }
-        }
-
-        $output->writeln('Created indexes:' . $i);
     }
 }

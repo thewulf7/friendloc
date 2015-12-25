@@ -62,7 +62,7 @@ class ElasticSearch
                     $content   = file_get_contents($fileinfo->getPath() . '/' . $fileinfo->getFilename());
                     preg_match('/namespace\s([\S]*)\;/', $content, $namespace);
 
-                    $class  = new \ReflectionClass($namespace[1] . '\\' . $className);
+                    $class = new \ReflectionClass($namespace[1] . '\\' . $className);
 
                     $entity = $reader->getClassAnnotation($class, 'thewulf7\friendloc\components\elasticsearch\annotations\Entity');
 
@@ -85,19 +85,24 @@ class ElasticSearch
 
                             $properties[] = [
                                 $prop->getName() => [
-                                    'type'         => $annotation->type,
-                                    'includeInAll' => $annotation->includeInAll,
+                                    'type'           => $annotation->type,
+                                    'include_in_all' => $annotation->includeInAll,
                                 ],
                             ];
                         }
                     }
 
                     $mappings[$entity->index]['mappings'][$entity->type] = [
+                        '_all'       => [
+                            'index_analyzer'  => 'autocomplete',
+//                            'search_analyzer' => 'autocomplete',
+                        ],
                         'properties' => $properties,
                     ];
-                    $mappings[$entity->index]['settings'] = [
+                    $mappings[$entity->index]['settings']                = [
                         'number_of_shards'   => $entity->number_of_shards,
                         'number_of_replicas' => $entity->number_of_replicas,
+                        'autocomplete'       => $entity->autocomplete,
                     ];
 
                     $this->_entities[$className] = $entity;
@@ -113,7 +118,7 @@ class ElasticSearch
                 'body'  => [
                     'mappings' => $mapp['mappings'],
                     'settings' => $mapp['settings'],
-                ]
+                ],
             ];
         }
     }
@@ -165,6 +170,8 @@ class ElasticSearch
             $this->getClient()->indices()->create($entity);
         } catch (\Elasticsearch\Common\Exceptions\BadRequest400Exception $e)
         {
+            echo $e->getMessage()."\n";
+
             return false;
         }
 

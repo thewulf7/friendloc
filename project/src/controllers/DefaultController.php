@@ -13,15 +13,13 @@ class DefaultController extends Controller
         /** @var User $model */
         $model = $this->getCurrentUser();
 
-        $name = explode(' ', $model->getName());
-        $sign = count($name) > 1 ? $name[0][0] . $name[1][0] : $name[0][0] . $name[0][1];
-
         $locationService = $this->getLocationService();
 
         $this->render('default/index', [
             'user'    => [
+                'id'       => $model->getId(),
                 'name'     => $model->getName(),
-                'sign'     => strtoupper($sign),
+                'sign'     => $model->getSign(),
                 'location' => $locationService->getLocation($model->getId())->getLocationName(),
             ],
             'friends' => array_map(function (User $user) use ($locationService)
@@ -29,7 +27,7 @@ class DefaultController extends Controller
                 return [
                     'id'       => $user->getId(),
                     'name'     => $user->getName(),
-                    'sign'     => 'OK',
+                    'sign'     => $user->getSign(),
                     'location' => $locationService->getLocation($user->getId())->getLocationName(),
                     'link'     => '/user/' . $user->getId(),
                 ];
