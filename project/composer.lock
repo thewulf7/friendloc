@@ -4,9 +4,204 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dc0044789f409f6021df957134035670",
-    "content-hash": "32a446d7641b151328faf3d6098e56f4",
+    "hash": "bbb1e624e3320518a64ac0ae00f985af",
+    "content-hash": "c73084dbe2ab4c183c1c01b3011a9ec2",
     "packages": [
+        {
+            "name": "bower-asset/bootstrap",
+            "version": "v3.3.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/bootstrap.git",
+                "reference": "81df608a40bf0629a1dc08e584849bb1e43e0b7a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/bootstrap/zipball/81df608a40bf0629a1dc08e584849bb1e43e0b7a",
+                "reference": "81df608a40bf0629a1dc08e584849bb1e43e0b7a",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/jquery": ">=1.9.1,<=2"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": [
+                    "less/bootstrap.less",
+                    "dist/js/bootstrap.js"
+                ],
+                "bower-asset-ignore": [
+                    "/.*",
+                    "_config.yml",
+                    "CNAME",
+                    "composer.json",
+                    "CONTRIBUTING.md",
+                    "docs",
+                    "js/tests",
+                    "test-infra"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "The most popular front-end framework for developing responsive, mobile first projects on the web.",
+            "keywords": [
+                "css",
+                "framework",
+                "front-end",
+                "js",
+                "less",
+                "mobile-first",
+                "responsive",
+                "web"
+            ]
+        },
+        {
+            "name": "bower-asset/jquery",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jquery/jquery.git",
+                "reference": "a55c5eeb709b584f58a1f3d8d0bc9f1432cd998a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jquery/jquery/zipball/a55c5eeb709b584f58a1f3d8d0bc9f1432cd998a",
+                "reference": "a55c5eeb709b584f58a1f3d8d0bc9f1432cd998a",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "jquery.js"
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "jQuery component",
+            "keywords": [
+                "component",
+                "jquery"
+            ]
+        },
+        {
+            "name": "bower-asset/requirejs",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jrburke/requirejs-bower.git",
+                "reference": "b295d2bb6d397cc34eea2bc38dbea5b519614035"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jrburke/requirejs-bower/zipball/b295d2bb6d397cc34eea2bc38dbea5b519614035",
+                "reference": "b295d2bb6d397cc34eea2bc38dbea5b519614035",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "require.js",
+                "bower-asset-ignore": [],
+                "branch-alias": {
+                    "dev-master": "2.1.22-dev"
+                }
+            },
+            "license": [
+                "BSD-3-Clause",
+                "MIT"
+            ],
+            "description": "A file and module loader for JavaScript",
+            "keywords": [
+                "AMD"
+            ],
+            "time": "2015-11-20 23:56:56"
+        },
+        {
+            "name": "bower-asset/requirejs-twig",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dyurkavets/requirejs-twig.git",
+                "reference": "4e55d83c6024007428e05b942e915ce1282c1a7d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dyurkavets/requirejs-twig/zipball/4e55d83c6024007428e05b942e915ce1282c1a7d",
+                "reference": "4e55d83c6024007428e05b942e915ce1282c1a7d",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/twig.js": ">=0.6.0"
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "twig.js",
+                "bower-asset-ignore": [
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "karma.conf.js"
+                ],
+                "branch-alias": {
+                    "dev-master": "1.0.4-dev"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "A plugin for twig in require.js",
+            "keywords": [
+                "requirejs",
+                "twig",
+                "twig.js",
+                "twigjs"
+            ],
+            "time": "2015-05-27 23:05:36"
+        },
+        {
+            "name": "bower-asset/twig.js",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justjohn/twig.js.git",
+                "reference": "a1e31efc3af16e9bd0f3b1ed211755d48e02c43f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justjohn/twig.js/zipball/a1e31efc3af16e9bd0f3b1ed211755d48e02c43f",
+                "reference": "a1e31efc3af16e9bd0f3b1ed211755d48e02c43f",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "twig.min.js",
+                "bower-asset-ignore": [
+                    "Makefile",
+                    "src",
+                    "demos",
+                    "bin",
+                    "lib",
+                    "**/.*",
+                    "node_modules",
+                    "bower_components",
+                    "test",
+                    "test-ext"
+                ],
+                "branch-alias": {
+                    "dev-master": "0.8.5-dev"
+                }
+            },
+            "license": [
+                "BSD 2-Clause"
+            ],
+            "description": "JS implementation of the Twig templating language.",
+            "keywords": [
+                "engine",
+                "template",
+                "twig"
+            ],
+            "time": "2015-12-24 21:04:37"
+        },
         {
             "name": "container-interop/container-interop",
             "version": "1.1.0",
@@ -810,6 +1005,62 @@
                 "search"
             ],
             "time": "2015-12-15 23:42:33"
+        },
+        {
+            "name": "fxp/composer-asset-plugin",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/francoispluchino/composer-asset-plugin.git",
+                "reference": "d7b64960502a1154255c7b17dcf4755b24c2edcf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/francoispluchino/composer-asset-plugin/zipball/d7b64960502a1154255c7b17dcf4755b24c2edcf",
+                "reference": "d7b64960502a1154255c7b17dcf4755b24c2edcf",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.0",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "composer/composer": "~1.0@dev"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Fxp\\Composer\\AssetPlugin\\FxpAssetPlugin",
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Fxp\\Composer\\AssetPlugin\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Pluchino",
+                    "email": "francois.pluchino@gmail.com"
+                }
+            ],
+            "description": "NPM/Bower Dependency Manager for Composer",
+            "homepage": "https://github.com/francoispluchino/composer-asset-plugin",
+            "keywords": [
+                "asset",
+                "bower",
+                "composer",
+                "dependency manager",
+                "nodejs",
+                "npm",
+                "package"
+            ],
+            "time": "2015-12-25 08:07:55"
         },
         {
             "name": "guzzlehttp/ringphp",
