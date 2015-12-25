@@ -47,7 +47,8 @@ class ElasticSearch
         AnnotationRegistry::registerFile(__DIR__ . '/elasticsearch/annotations/ElasticField.php');
         AnnotationRegistry::registerFile(__DIR__ . '/elasticsearch/annotations/Id.php');
 
-        $reader = new AnnotationReader();
+        $reader   = new AnnotationReader();
+        $mappings = [];
 
         foreach ($entityPaths as $entityPath)
         {
@@ -61,11 +62,11 @@ class ElasticSearch
                     $content   = file_get_contents($fileinfo->getPath() . '/' . $fileinfo->getFilename());
                     preg_match('/namespace\s([\S]*)\;/', $content, $namespace);
 
-                    $class = new \ReflectionClass($namespace[1] . '\\' . $className);
-                    try
-                    {
-                        $entity = $reader->getClassAnnotation($class, 'thewulf7\friendloc\components\elasticsearch\Entity');
-                    } catch (\Doctrine\Common\Annotations\AnnotationException $e)
+                    $class  = new \ReflectionClass($namespace[1] . '\\' . $className);
+
+                    $entity = $reader->getClassAnnotation($class, 'thewulf7\friendloc\components\elasticsearch\annotations\Entity');
+
+                    if ($entity === null)
                     {
                         continue;
                     }
@@ -77,7 +78,7 @@ class ElasticSearch
                     {
                         try
                         {
-                            $reader->getPropertyAnnotation($prop, 'thewulf7\friendloc\components\elasticsearch\Id');
+                            $reader->getPropertyAnnotation($prop, 'thewulf7\friendloc\components\elasticsearch\annotations\Id');
                         } catch (\Doctrine\Common\Annotations\AnnotationException $e)
                         {
                             $annotation = $reader->getPropertyAnnotation($prop, 'thewulf7\friendloc\components\elasticsearch\ElasticField');
@@ -91,25 +92,29 @@ class ElasticSearch
                         }
                     }
 
-                    $this->_mappings[$className] = [
-                        'index' => $entity->index,
-                        'body'  => [
-                            'mappings' => [
-                                $entity->type => [
-                                    'properties' => $properties,
-                                ],
-                            ],
-                            'settings' => [
-                                'number_of_shards'   => $entity->number_of_shards,
-                                'number_of_replicas' => $entity->number_of_replicas,
-                            ],
-                        ],
+                    $mappings[$entity->index]['mappings'][$entity->type] = [
+                        'properties' => $properties,
+                    ];
+                    $mappings[$entity->index]['settings'] = [
+                        'number_of_shards'   => $entity->number_of_shards,
+                        'number_of_replicas' => $entity->number_of_replicas,
                     ];
 
                     $this->_entities[$className] = $entity;
                     $this->_classes[$className]  = $class;
                 }
             }
+        }
+
+        foreach ($mappings as $index => $mapp)
+        {
+            $this->_mappings[] = [
+                'index' => $index,
+                'body'  => [
+                    'mappings' => $mapp['mappings'],
+                    'settings' => $mapp['settings'],
+                ]
+            ];
         }
     }
 
@@ -188,16 +193,18 @@ class ElasticSearch
         $params = [
             'type'  => $entityModel->type,
             'index' => $entityModel->index,
+            'id'    => (string)$entity->getId(),
         ];
 
-        if ($entity->getId())
+        try
         {
-            $params = [
-                'id'      => $entity->getId(),
-                '_source' => $entity->toArray(),
-            ];
+            $this->getClient()->get($params);
+
+            $params['_source'] = $entity->toArray();
+
             $this->getClient()->update($params);
-        } else
+
+        } catch (\Elasticsearch\Common\Exceptions\Missing404Exception $e)
         {
             $params['body'] = $entity->toArray();
             $this->getClient()->index($params);
@@ -224,7 +231,7 @@ class ElasticSearch
         $this->getClient()->delete($params);
     }
 
-    public function find(string $entityName, int $id): Model
+    public function find(string $entityName, $id): Model
     {
         $entityModel = $this->getEntities()[$entityName];
 

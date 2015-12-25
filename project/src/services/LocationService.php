@@ -18,8 +18,6 @@ class LocationService extends AbstractService
      * @param int     $userId
      * @param string  $name
      * @param array   $latlng
-     *
-     * @internal param array $location
      */
     public function addLocation(int $userId, string $name, array $latlng)
     {
@@ -31,7 +29,7 @@ class LocationService extends AbstractService
 
         $model
             ->setLocationName($name)
-            ->setUserId($user->getId())
+            ->setId($user->getId())
             ->setUserName($user->getName())
             ->setLatlng($latlng);
 
@@ -49,12 +47,28 @@ class LocationService extends AbstractService
         $service = $this->getElastic();
 
         /** @var Location $entity */
-        $entity = $service->findBy('Location', ['userId' => $userId]);
+        $entity = $service->find('Location', $userId);
 
         $entity
             ->setLocationName($name)
             ->setLatlng($latlng);
 
         $service->persist($entity);
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return Location
+     */
+    public function getLocation(int $userId)
+    {
+        /** @var ElasticSearch $service */
+        $service = $this->getElastic();
+
+        /** @var Location $entity */
+        $entity = $service->find('Location', $userId);
+
+        return $entity;
     }
 }

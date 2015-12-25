@@ -3,11 +3,14 @@ namespace thewulf7\friendloc\components;
 
 
 use DI\Container;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use thewulf7\friendloc\components\config\iConfig;
 use thewulf7\friendloc\components\router\Request;
 use thewulf7\friendloc\components\router\Router;
+use thewulf7\friendloc\models\User;
 
 use function DI\object;
 use function DI\get;
@@ -32,7 +35,14 @@ class Application
         $this
             ->addToContainer('entityManager', function (iConfig $config)
             {
+                $cache  = new \Doctrine\Common\Cache\ArrayCache();
+                $reader = new AnnotationReader();
+
+                $driver = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($reader, $config->get('modelsFolder'));
                 $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
+                $setup->setMetadataCacheImpl($cache);
+                $setup->setQueryCacheImpl($cache);
+                $setup->setMetadataDriverImpl($driver);
 
                 return EntityManager::create($config->get('db'), $setup);
             })
@@ -57,6 +67,7 @@ class Application
                 return new ElasticSearch($client, $config->get('modelsFolder'));
             });
         $this->getEntityManager();
+        $this->getElastic();
     }
 
     /**
@@ -88,12 +99,19 @@ class Application
             return new Router($config, $c->get('request'));
         })->getRouter();
 
-        if ($this->getContainer()->call([$router->getController(), 'beforeAction'], ['method' => $router->getAction()]))
+        $user = $this->getContainer()->call([$router->getController(), 'beforeAction'], ['method' => $router->getAction()]);
+
+        if ($user)
         {
+            if (is_object($user))
+            {
+                $this->addToContainer('currentUser', $user);
+            }
+
             return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
         } else
         {
-            return $this->getContainer()->call([$router->getController(), 'redirect'], ['path' => '/']);
+            return $this->getContainer()->call([$router->getController(), 'redirect'], ['path' => '/auth/login']);
         }
     }
 

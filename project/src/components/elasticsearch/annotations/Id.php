@@ -1,12 +1,5 @@
 <?php
-/**
- * friendloc.Id.php
- * User: johnnyutkin
- * Date: 23.12.15
- * Time: 21:27
- */
-
-namespace thewulf7\friendloc\components\elasticsearch;
+namespace thewulf7\friendloc\components\elasticsearch\annotations;
 
 /**
  * @Annotation

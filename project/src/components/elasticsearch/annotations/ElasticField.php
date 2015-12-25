@@ -1,5 +1,5 @@
 <?php
-namespace thewulf7\friendloc\components\elasticsearch;
+namespace thewulf7\friendloc\components\elasticsearch\annotations;
 
 /**
  * @Annotation

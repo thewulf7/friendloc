@@ -4,15 +4,19 @@ namespace thewulf7\friendloc\components;
 
 use thewulf7\friendloc\services\
 {
-    AuthService, UserService
+    AuthService, UserService, LocationService
 };
+use thewulf7\friendloc\components\router\Response;
+use thewulf7\friendloc\models\User;
 
 /**
  * Class Controller
  *
  * @package thewulf7\friendloc\components
- * @method AuthService getAuthService()
- * @method UserService getUserService()
+ * @method \thewulf7\friendloc\services\AuthService getAuthService()
+ * @method \thewulf7\friendloc\services\LocationService getLocationService()
+ * @method \thewulf7\friendloc\services\UserService getUserService()
+ * @method \thewulf7\friendloc\models\User getCurrentUser()
  * @method mixed getTemplater()
  */
 abstract class Controller
@@ -122,10 +126,11 @@ abstract class Controller
     /**
      * @param string $method
      *
-     * @return bool
+     * @return mixed
      */
-    public function beforeAction(string $method): bool
+    public function beforeAction(string $method)
     {
+
         $methods = $this->guestAllowedMethods();
         $model   = $this->getAuthService()->authByHash(Auth::getHash());
 
@@ -134,11 +139,21 @@ abstract class Controller
             return true;
         }
 
-        if ($model === false)
-        {
-            $this->redirect('/auth/login');
-        }
+        return $model;
+    }
 
+    /**
+     * @param int    $id
+     * @param string $type
+     * @param array  $data
+     * @param int    $code
+     *
+     * @return bool
+     */
+    public function sendResponse(int $id, string $type, array $data = [], $code = 200)
+    {
+        http_response_code($code);
+        echo json_encode(new Response($id, $type, $data));
         return true;
     }
 }

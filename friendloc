@@ -19,10 +19,6 @@ server {
         index index.html index.php;
     }
 
-    location ~ \.(ico|jpg|jpeg|png|gif|swf|css)$ {
-        try_files $uri =404;
-    }
-
     location ~ \.php$ {
         root /home/vagrant/project/src/web;
         fastcgi_index index.php;
@@ -37,6 +33,7 @@ server {
         root  /home/vagrant/project/src/web;
         try_files $uri =404;
         autoindex off;
+        sendfile  off;
         index  index.html index.htm index.php;
     }
 

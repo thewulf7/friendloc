@@ -45,8 +45,8 @@ class CreateUserCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output)
     {
 
-        $email    = '';
-        $name     = '';
+        $email = '';
+        $name  = '';
 
         $helper = $this->getHelper('question');
 
@@ -82,12 +82,15 @@ class CreateUserCommand extends Command
         $em->persist($model);
         $em->flush();
 
+        $id = $model->getId();
+
+        $this->elastic->persist($model);
+
         $location = new Location();
         $location
-            ->setLatlng([56,30])
+            ->setLatlng([56, 30])
             ->setLocationName('Saint-P')
-            ->setUserName($model->getName())
-            ->setUserId($model->getId());
+            ->setId($id);
 
         $this->elastic->persist($location);
     }
