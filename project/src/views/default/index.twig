@@ -1,0 +1,29 @@
+{% extends layout %}
+
+{% block style %}
+    <link href="/assets/css/userinfo.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+    <section>
+        <div class="row">
+
+            {% include "default/userinfo.twig" %}
+
+            <div class="col-sm-10">
+                {#{% include "default/search.twig" %}#}
+                {% include "default/friendlist.twig" %}
+                {% include "default/container.twig" %}
+            </div>
+        </div><!-- /.row -->
+    </section>
+    <footer class="blog-footer">
+        <p>Blog template built for <a href="http://getbootstrap.com">Bootstrap</a> by <a
+                    href="https://twitter.com/mdo">@mdo</a>.</p>
+        <p>
+            <a href="#">Back to top</a>
+        </p>
+    </footer>
+
+{% endblock %}
