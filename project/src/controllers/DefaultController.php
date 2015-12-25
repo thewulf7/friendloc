@@ -16,20 +16,24 @@ class DefaultController extends Controller
         $name = explode(' ', $model->getName());
         $sign = count($name) > 1 ? $name[0][0] . $name[1][0] : $name[0][0] . $name[0][1];
 
+        $locationService = $this->getLocationService();
+
         $this->render('default/index', [
             'user'    => [
                 'name'     => $model->getName(),
                 'sign'     => strtoupper($sign),
-                'location' => $this->getLocationService()->getLocation($model->getId())->getLocationName(),
+                'location' => $locationService->getLocation($model->getId())->getLocationName(),
             ],
-            'friends' => [
-                [
-                    'name'     => 'Ostroumova Kate',
+            'friends' => array_map(function (User $user) use ($locationService)
+            {
+                return [
+                    'id'       => $user->getId(),
+                    'name'     => $user->getName(),
                     'sign'     => 'OK',
-                    'location' => 'Russia, St.Petersburg, Kirillovskaya 18',
-                    'link'     => '/user/1',
-                ],
-            ],
+                    'location' => $locationService->getLocation($user->getId())->getLocationName(),
+                    'link'     => '/user/' . $user->getId(),
+                ];
+            }, $this->getFriendsService()->getFriends($model->getId())),
         ]);
     }
 }
