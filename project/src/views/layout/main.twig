@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="FriendLock - friendlock your friends">
     <meta name="author" content="thewulf7">
     <link rel="icon" href="/favicon.ico">
@@ -12,10 +11,7 @@
     <title>{{ title }}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="/assets/bootstrap/css/ie10-viewport-bug-workaround.css" rel="stylesheet"/>
+    <link href="/assets/vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 
     <!-- Custom styles for this template -->
     <link href="/assets/css/style.css" rel="stylesheet"/>
@@ -33,13 +29,6 @@
 
 {% block content %}
 {% endblock %}
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="/assets/bootstrap/js/ie10-viewport-bug-workaround.js"></script>
+<script data-main="assets/js/app" src="/assets/vendor/requirejs/require.js"></script>
 </body>
 </html>

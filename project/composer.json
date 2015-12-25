@@ -23,11 +23,20 @@
         "creof/doctrine2-spatial"     : "1.0.0",
         "php-di/php-di"               : "*",
         "twig/twig"                   : "^1.18",
-        "elasticsearch/elasticsearch" : "*"
+        "elasticsearch/elasticsearch" : "*",
+        "fxp/composer-asset-plugin"   : "~1.1",
+        "bower-asset/bootstrap"       : "3.3.6",
+        "bower-asset/requirejs"       : "*",
+        "bower-asset/requirejs-twig"  : "*"
     },
     "require-dev"       : {
         "phpunit/phpunit"     : "5.0.*",
         "phpunit/php-invoker" : ">=1.1.0@stable"
+    },
+    "extra"             : {
+        "asset-installer-paths" : {
+            "bower-asset-library" : "src/web/assets/vendor"
+        }
     },
     "license"           : "MIT",
     "minimum-stability" : "dev"
