@@ -52,7 +52,7 @@ class UserController extends Controller
     {
         $model = $this->getCurrentUser();
 
-        $friendId = $this->getFriendsService()->addToFriends($model->getId(), $this->getRequest()->getBodyParams('id'));
+        $friendId = $this->getUserService()->addToFriends($model->getId(), $this->getRequest()->getBodyParams('id'));
 
         if ($friendId > 0)
         {
@@ -75,7 +75,7 @@ class UserController extends Controller
     public function getFriendsListAction(int $id)
     {
 
-        $friends = $this->getFriendsService()->getFriends($id);
+        $friends = $this->getUserService()->getFriends($id);
 
         $this->sendResponse($id, User::class,
                             [

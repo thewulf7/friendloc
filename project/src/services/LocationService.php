@@ -47,7 +47,7 @@ class LocationService extends AbstractService
         $service = $this->getElastic();
 
         /** @var Location $entity */
-        $entity = $service->find('Location', 'location_' . $userId);
+        $entity = $service->find('Location', $userId);
 
         $entity
             ->setLocationName($name)

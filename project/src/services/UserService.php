@@ -4,6 +4,7 @@ namespace thewulf7\friendloc\services;
 
 use thewulf7\friendloc\components\AbstractService;
 use thewulf7\friendloc\components\Auth;
+use thewulf7\friendloc\components\ElasticSearch;
 use thewulf7\friendloc\models\User;
 
 /**
@@ -74,9 +75,11 @@ class UserService extends AbstractService
 
         $entityManager->remove($model);
 
-        try {
+        try
+        {
             $entityManager->flush();
-        } catch(\Doctrine\ORM\OptimisticLockException $e) {
+        } catch (\Doctrine\ORM\OptimisticLockException $e)
+        {
             return false;
         }
 
@@ -113,5 +116,43 @@ class UserService extends AbstractService
         $entityManager->flush();
 
         return $model;
+    }
+
+    /**
+     * @param int $userId
+     *
+     * @return array
+     */
+    public function getFriends(int $userId): array
+    {
+        /** @var User $entity */
+        $entity = $this->getElastic()->find('User', $userId);
+
+        return array_map(function ($friendId)
+        {
+            return $this->get($friendId);
+        }, $entity->getFriendList());
+    }
+
+    /**
+     * @param int $userId
+     * @param int $friendId
+     *
+     * @return mixed
+     */
+    public function addToFriends(int $userId, int $friendId)
+    {
+        return true;
+    }
+
+    /**
+     * @param int $userId
+     * @param int $friendId
+     *
+     * @return mixed
+     */
+    public function removeFromFriends(int $userId, int $friendId)
+    {
+        return true;
     }
 }

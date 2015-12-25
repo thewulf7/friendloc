@@ -1,4 +1,10 @@
 <div class="col-sm-4 blog-sidebar">
+    <form method="post" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control"
+                   placeholder="Find your friends: by name or location"/>
+        </div>
+    </form>
     <div class="list-group friend">
         {% for friend in friends %}
             <a href="{{ friend.link }}" class="list-group-item">

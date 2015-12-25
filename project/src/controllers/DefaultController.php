@@ -33,7 +33,7 @@ class DefaultController extends Controller
                     'location' => $locationService->getLocation($user->getId())->getLocationName(),
                     'link'     => '/user/' . $user->getId(),
                 ];
-            }, $this->getFriendsService()->getFriends($model->getId())),
+            }, $this->getUserService()->getFriends($model->getId())),
         ]);
     }
 }
