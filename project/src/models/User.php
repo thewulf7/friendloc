@@ -1,70 +1,94 @@
 <?php
 namespace thewulf7\friendloc\models;
 
-
+use thewulf7\friendloc\components\elasticsearch\annotations as ElasticSearch;
+use thewulf7\friendloc\components\elasticsearch\Model;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @Entity
- * @Table(name="users")
+ * @ORM\Entity
+ * @ORM\Table(name="users")
+ *
+ * @ElasticSearch\Entity(index="users", type="user", number_of_shards=5, number_of_replicas=1)
  */
-class User
+class User implements Model
 {
     /**
-     * @Id
-     * @GeneratedValue(strategy="AUTO")
-     * @Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     *
+     * @ElasticSearch\ElasticField(type="string", includeInAll=false)
      * @var int
      */
     private $id;
 
     /**
-     * @Column(type="string",unique=TRUE)
+     * @ORM\Column(type="string",unique=TRUE)
      * @var string
      */
     private $email;
 
     /**
-     * @Column(type="string")
+     * @ORM\Column(type="string")
+     *
+     * @ElasticSearch\ElasticField(type="string", includeInAll=true)
      * @var string
      */
     private $name;
 
     /**
-     * @Column(type="string")
+     * @ORM\Column(type="string")
      * @var string
      */
     private $salt;
 
     /**
-     * @Column(type="string")
+     * @ORM\Column(type="string")
      * @var string
      */
     private $passwd;
 
     /**
-     * @Column(type="string",length=40,nullable=TRUE)
+     * @ORM\Column(type="string",length=40,nullable=TRUE)
      */
     private $userhash;
 
     /**
-     * @Column(type="boolean")
+     * @ORM\Column(type="boolean")
      * @var boolean
      */
     private $approved;
 
     /**
-     * @Column(type="datetime", name="created")
+     * @ORM\Column(type="datetime", name="created")
      * @var \DateTime
      */
     private $createdAt;
+
+    /**
+     * @ElasticSearch\ElasticField(type="array", includeInAll=true)
+     * @var array
+     */
+    private $friendList = [];
+
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'name'       => $this->getName(),
+            'friendList' => $this->getFriendList(),
+        ];
+    }
 
     /**
      * Get Id
      *
      * @return mixed
      */
-    public function getId(): string
+    public function getId()
     {
         return $this->id;
     }
@@ -247,6 +271,47 @@ class User
     public function setUserhash($userhash): User
     {
         $this->userhash = $userhash;
+
+        return $this;
+    }
+
+    /**
+     * Get FriendList
+     *
+     * @return array
+     */
+    public function getFriendList()
+    {
+        return $this->friendList;
+    }
+
+    /**
+     * Set friendList
+     *
+     * @param array $friendList
+     *
+     * @return Friends
+     */
+    public function setFriendList($friendList)
+    {
+        $this->friendList = $friendList;
+
+        return $this;
+    }
+
+    /**
+     * Add item to friendList
+     *
+     * @param int $friendId
+     *
+     * @return $this
+     */
+    public function addToFriendList(int $friendId)
+    {
+        if (!in_array($friendId, $this->friendList, true))
+        {
+            $this->friendList[] = $friendId;
+        }
 
         return $this;
     }

@@ -1,11 +1,11 @@
 <?php
 namespace thewulf7\friendloc\models;
 
-use thewulf7\friendloc\components\elasticsearch as ElasticSearch;
+use thewulf7\friendloc\components\elasticsearch\annotations as ElasticSearch;
 use CrEOF\Spatial\PHP\Types\Geography\Point;
 
 /**
- * @ElasticSearch\Entity(index="users", type="location", number_of_shards=3, number_of_replicas=2)
+ * @ElasticSearch\Entity(index="users", type="location", number_of_shards=5, number_of_replicas=1)
  */
 class Location implements \thewulf7\friendloc\components\elasticsearch\Model
 {
@@ -29,12 +29,6 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
     private $latlng;
 
     /**
-     * @ElasticSearch\ElasticField(type="string", includeInAll=true)
-     * @var string
-     */
-    private $userName;
-
-    /**
      * Print entity as array
      *
      * @return array
@@ -44,10 +38,9 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
         return [
             'locationName' => $this->getLocationName(),
             'latlng'       => [
-                'lat' => $this->getLatlng()->getLatitude(),
-                'lon' => $this->getLatlng()->getLongitude(),
+                $this->getLatlng()->getLatitude(),
+                $this->getLatlng()->getLongitude(),
             ],
-            'userName'     => $this->getUsername(),
         ];
     }
 
@@ -68,7 +61,7 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
      *
      * @return Location
      */
-    public function setId(string $id)
+    public function setId($id)
     {
         $this->id = $id;
 
@@ -95,30 +88,6 @@ class Location implements \thewulf7\friendloc\components\elasticsearch\Model
     public function setLatlng(array $latlng): Location
     {
         $this->latlng = new Point($latlng);
-
-        return $this;
-    }
-
-    /**
-     * Get Username
-     *
-     * @return string
-     */
-    public function getUserName(): string
-    {
-        return $this->userName;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $userName
-     *
-     * @return Location
-     */
-    public function setUserName(string $userName): Location
-    {
-        $this->userName = $userName;
 
         return $this;
     }
