@@ -29,9 +29,9 @@ class Response implements \JsonSerializable
      *
      * @param int    $id
      * @param string $type
-     * @param array  $array
+     * @param mixed  $array
      */
-    public function __construct(int $id, string $type, array $array)
+    public function __construct(int $id, string $type, $array)
     {
         $this->_id   = $id;
         $this->_type = $type;

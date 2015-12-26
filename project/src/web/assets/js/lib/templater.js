@@ -6,28 +6,16 @@ define(function (require) {
 
     templater.prototype = {
         renderUserView: function (user) {
-            var template = require('twigjs!templates/user');
-
-            return template(
-                {
-                    name: user.getName(),
-                    location: user.getLocationName(),
-                }
-            );
+            var template = require('twigjs!templates/friend');
+            return template(user);
         },
         renderFriendList: function (friends) {
             var template = require('twigjs!templates/friend_line');
             var output = '';
 
             for (var i in friends) {
-                var friend = friends[i];
                 output += template({
-                    friend: {
-                        name: friend.getName(),
-                        location: friend.getLocationName(),
-                        link: friend.getLink(),
-                        sign: friend.getSign()
-                    }
+                    friend: friends[i]
                 });
             }
 
@@ -38,14 +26,8 @@ define(function (require) {
             var output = '';
 
             for (var i in result) {
-                var friend = friends[i];
                 output += template({
-                    friend: {
-                        name: friend.getName(),
-                        location: friend.getLocationName(),
-                        link: friend.getLink(),
-                        sign: friend.getSign()
-                    }
+                    friend: friends[i]
                 });
             }
 

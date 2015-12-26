@@ -27,7 +27,8 @@
         "fxp/composer-asset-plugin"   : "~1.1",
         "bower-asset/bootstrap"       : "3.3.6",
         "bower-asset/requirejs"       : "*",
-        "bower-asset/requirejs-twig"  : "*"
+        "bower-asset/requirejs-twig"  : "*",
+        "bower-asset/jquery-typewatch": "*"
     },
     "require-dev"       : {
         "phpunit/phpunit"     : "5.0.*",

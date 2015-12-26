@@ -19,14 +19,12 @@ class UserController extends Controller
     public function viewAction(int $id)
     {
         $model = $this->getUserService()->get($id);
+        $loc   = $this->getLocationService()->getLocation($model->getId());
 
-        $this->sendResponse($model->getId(), User::class,
-                            [
-                                'name'  => $model->getName(),
-                                'email' => $model->getEmail(),
-                                'date'  => $model->getCreated()->format('Y-m-d H:i:s'),
-                            ]
-        );
+        $this->sendResponse($model->getId(), User::class, [
+            'user'     => $model,
+            'location' => $loc,
+        ]);
     }
 
     /**

@@ -29,7 +29,7 @@ class DefaultController extends Controller
                     'name'     => $user->getName(),
                     'sign'     => $user->getSign(),
                     'location' => $locationService->getLocation($user->getId())->getLocationName(),
-                    'link'     => '/user/' . $user->getId(),
+                    'link'     => '/users/' . $user->getId(),
                 ];
             }, $this->getUserService()->getFriends($model->getId())),
         ]);

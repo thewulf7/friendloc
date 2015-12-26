@@ -76,7 +76,10 @@ class RestUrlRule implements iUrlRule
         $classShortName = array_pop($class);
         $route          = lcfirst(str_replace('Controller', '', $classShortName));
         $this->_route   = array_key_exists('plularize', $arRule) && $arRule['plularize'] === false ? $route : $route . 's';
-        $this->_strict  = array_key_exists('strict', $arRule) && $arRule['strict'] === false ? $this->_strict : true;
+        if(array_key_exists('strict', $arRule))
+        {
+            $this->_strict = $arRule['strict'];
+        }
     }
 
     /**
