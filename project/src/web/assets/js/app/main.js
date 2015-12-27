@@ -31,19 +31,25 @@ define(function (require) {
                 if (string.length > 2) {
                     apiObject.search(string).done(function (response) {
                         var html = '';
-                        for (var type in response.properties) {
+                        for (var type in response.properties.result) {
                             var friends = [];
-                            if(type==='other' || (type==='my' && response.properties[type].length > 0)) {
-                                for (var i in response.properties[type]) {
+                            if((type==='other' && response.properties.result['my'].length === 0) || (type==='my' && response.properties.result[type].length > 0)) {
+
+                                var isFriend = type === 'my';
+
+                                for (var i in response.properties.result[type]) {
+
+                                    var userResp = response.properties.result[type][i];
+
                                     var user = new User();
 
                                     user
-                                        .setId(response.properties[type][i].user.id)
-                                        .setName(response.properties[type][i].user.name)
-                                        .setLocation(response.properties[type][i].location.locationName)
-                                        .setLatLng(response.properties[type][i].location.latlng)
-                                        .setSign(response.properties[type][i].user.sign)
-                                        .setIsFriend(response.properties[type][i].user.isFriend);
+                                        .setId(userResp.id)
+                                        .setName(userResp.name)
+                                        .setLocation(userResp.locationName)
+                                        .setLatLng(userResp.latlng)
+                                        .setSign(userResp.sign)
+                                        .setIsFriend(isFriend);
 
                                     friends.push(user);
                                 }
@@ -55,25 +61,7 @@ define(function (require) {
                         friendList.html(html);
                     });
                 } else {
-
-                    apiObject.getFriends(userId).done(function (response) {
-                        var friends = [];
-                        for (var i in response.properties) {
-                            var user = new User();
-
-                            user
-                                .setId(response.properties[i].user.id)
-                                .setName(response.properties[i].user.name)
-                                .setLocation(response.properties[i].location.locationName)
-                                .setLatLng(response.properties[i].location.latlng)
-                                .setSign(response.properties[i].user.sign)
-                                .setIsFriend(response.properties[i].user.isFriend);
-
-                            friends.push(user);
-                        }
-
-                        friendList.html(renderer.renderFriendsList('my', friends));
-                    });
+                    require('js/controllers/default').friends();
                 }
             },
         });

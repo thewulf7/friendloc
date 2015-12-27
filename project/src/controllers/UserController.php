@@ -92,7 +92,7 @@ class UserController extends Controller
                 'type'       => User::class,
                 'properties' => [
                     'user'     => $friend,
-                    'isFriend' => in_array($friend->getId(), $model->getFriendList(), false),
+                    'isFriend' => true,
                 ],
             ]
         );
@@ -123,7 +123,7 @@ class UserController extends Controller
                 'type'       => User::class,
                 'properties' => [
                     'user'     => $friend,
-                    'isFriend' => in_array($friend->getId(), $model->getFriendList(), false),
+                    'isFriend' => false,
                 ],
             ]
         );

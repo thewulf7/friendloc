@@ -18,18 +18,20 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user'], function (Ba
         var friendList = $('.list-group.friend');
 
         apiObject.getFriends(userId).done(function (response) {
-
             var friends = [];
-            for (var i in response.properties) {
+
+            for (var i in response.properties.friends) {
                 var user = new User();
 
+                var usr = response.properties.friends[i];
+
                 user
-                    .setId(response.properties[i].user.id)
-                    .setName(response.properties[i].user.name)
-                    .setLocation(response.properties[i].location.locationName)
-                    .setLatLng(response.properties[i].location.latlng)
-                    .setSign(response.properties[i].user.sign)
-                    .setIsFriend(response.properties[i].user.isFriend);
+                    .setId(usr.id)
+                    .setName(usr.name)
+                    .setLocation(usr.locationName)
+                    .setLatLng(usr.latlng)
+                    .setSign(usr.sign)
+                    .setIsFriend(true);
 
                 friends.push(user);
             }

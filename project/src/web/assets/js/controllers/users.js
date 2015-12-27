@@ -9,13 +9,14 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
         console.info('users/view');
 
         function loadUser(props) {
+
             var user = new User();
 
             user
                 .setId(props.user.id)
                 .setName(props.user.name)
-                .setLocation(props.location.locationName)
-                .setLatLng(props.location.latlng)
+                .setLocation(props.user.locationName)
+                .setLatLng(props.user.latlng)
                 .setSign(props.user.sign)
                 .setIsFriend(props.isFriend);
 
@@ -27,6 +28,8 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
                 apiObject.addToFriends(friendId).done(function (response) {
                     loadUser(response.properties);
                     defaultC.friends();
+                }).fail(function(response){
+                    console.warn(response);
                 });
             });
 

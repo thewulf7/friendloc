@@ -97,7 +97,10 @@ class User implements \JsonSerializable
             'link'         => '/#/users/' . $this->getId(),
             'friendList'   => $this->getFriendList(),
             'locationName' => $this->getLocationName(),
-            'latlng'       => $this->getLatlng() ? [$this->getLatlng()->getLatitude(),$this->getLatlng()->getLongitude()] : null,
+            'latlng'       => $this->getLatlng() ? [
+                'lat' => $this->getLatlng()->getLatitude(),
+                'lon' => $this->getLatlng()->getLongitude(),
+            ] : null,
         ];
     }
 
@@ -386,7 +389,7 @@ class User implements \JsonSerializable
      */
     public function setLatlng(array $latlng): User
     {
-        list($latitude, $longitude) = $latlng;
+        list($latitude, $longitude) = array_values($latlng);
 
         $this->latlng = new Coordinates($latitude, $longitude);
 
