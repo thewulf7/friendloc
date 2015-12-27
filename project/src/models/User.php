@@ -1,8 +1,8 @@
 <?php
 namespace thewulf7\friendloc\models;
 
+use Geocoder\Model\Coordinates;
 use thewulf7\friendloc\components\elasticsearch\annotations as ElasticSearch;
-use thewulf7\friendloc\components\elasticsearch\Model;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ElasticSearch\Entity(index="users", type="user", number_of_shards=1, number_of_replicas=1, autocomplete=true)
  */
-class User implements Model, \JsonSerializable
+class User implements \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -73,13 +73,31 @@ class User implements Model, \JsonSerializable
     private $friendList = [];
 
     /**
+     * @ElasticSearch\ElasticField(type="string", includeInAll=true)
+     * @var string
+     */
+    private $locationName;
+
+    /**
+     * @ElasticSearch\ElasticField(type="geo_point", includeInAll=true)
+     * @var Coordinates
+     */
+    private $latlng;
+
+    /**
      * @return array
      */
-    public function toArray(): array
+    public function jsonSerialize()
     {
         return [
-            'name'       => $this->getName(),
-            'friendList' => $this->getFriendList(),
+            'id'           => $this->getId(),
+            'name'         => $this->getName(),
+            'email'        => $this->getEmail(),
+            'sign'         => $this->getSign(),
+            'link'         => '/#/users/' . $this->getId(),
+            'friendList'   => $this->getFriendList(),
+            'locationName' => $this->getLocationName(),
+            'latlng'       => $this->getLatlng() ? [$this->getLatlng()->getLatitude(),$this->getLatlng()->getLongitude()] : null,
         ];
     }
 
@@ -126,9 +144,11 @@ class User implements Model, \JsonSerializable
      */
     public function setEmail($email): User
     {
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
             $this->email = $email;
-        } else {
+        } else
+        {
             throw new \InvalidArgumentException('Wrong email');
         }
 
@@ -294,9 +314,9 @@ class User implements Model, \JsonSerializable
      *
      * @param array $friendList
      *
-     * @return Friends
+     * @return User
      */
-    public function setFriendList($friendList)
+    public function setFriendList(array $friendList): User
     {
         $this->friendList = $friendList;
 
@@ -323,7 +343,7 @@ class User implements Model, \JsonSerializable
     /**
      * @param int $friendId
      *
-     * @return $this
+     * @return User
      */
     public function removeFromFriendList(int $friendId)
     {
@@ -348,15 +368,52 @@ class User implements Model, \JsonSerializable
     }
 
     /**
-     * @return array
+     * Get Latlng
+     *
+     * @return Coordinates
      */
-    public function jsonSerialize()
+    public function getLatlng()
     {
-        return [
-            'id'    => $this->getId(),
-            'name'  => $this->getName(),
-            'email' => $this->getEmail(),
-            'sign'  => $this->getSign(),
-        ];
+        return $this->latlng;
+    }
+
+    /**
+     * Set latlng
+     *
+     * @param array $latlng
+     *
+     * @return User
+     */
+    public function setLatlng(array $latlng): User
+    {
+        list($latitude, $longitude) = $latlng;
+
+        $this->latlng = new Coordinates($latitude, $longitude);
+
+        return $this;
+    }
+
+    /**
+     * Get LocationName
+     *
+     * @return string
+     */
+    public function getLocationName()
+    {
+        return $this->locationName;
+    }
+
+    /**
+     * Set locationName
+     *
+     * @param string $locationName
+     *
+     * @return User
+     */
+    public function setLocationName($locationName): User
+    {
+        $this->locationName = $locationName;
+
+        return $this;
     }
 }

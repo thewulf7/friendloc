@@ -15,6 +15,7 @@ use thewulf7\friendloc\services\
  * @method \thewulf7\friendloc\services\AuthService getAuthService()
  * @method \thewulf7\friendloc\services\UserService getUserService()
  * @method \thewulf7\friendloc\services\LocationService getLocationService()
+ * @method \thewulf7\friendloc\services\MapService getMapService()
  */
 abstract class AbstractService
 {

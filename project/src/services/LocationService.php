@@ -4,7 +4,7 @@ namespace thewulf7\friendloc\services;
 
 use CrEOF\Spatial\PHP\Types\Geography\Point;
 use thewulf7\friendloc\components\AbstractService;
-use thewulf7\friendloc\models\Location;
+use thewulf7\friendloc\models\User;
 use thewulf7\friendloc\components\ElasticSearch;
 
 /**
@@ -24,7 +24,7 @@ class LocationService extends AbstractService
         /** @var ElasticSearch $service */
         $service = $this->getElastic();
 
-        $model = new Location();
+        $model = new User();
         $user = $this->getUserService()->get($userId);
 
         $model
@@ -54,21 +54,5 @@ class LocationService extends AbstractService
             ->setLatlng($latlng);
 
         $service->persist($entity);
-    }
-
-    /**
-     * @param int $userId
-     *
-     * @return Location
-     */
-    public function getLocation(int $userId)
-    {
-        /** @var ElasticSearch $service */
-        $service = $this->getElastic();
-
-        /** @var Location $entity */
-        $entity = $service->find('Location', $userId);
-
-        return $entity;
     }
 }
