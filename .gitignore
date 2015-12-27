@@ -7,7 +7,7 @@ gen
 .vagrant/
 
 project/vendor
-project/log/*
+project/log
 project/bin
 
 project/src/web/assets/vendor

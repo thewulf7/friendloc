@@ -2,6 +2,7 @@
 namespace thewulf7\friendloc\controllers;
 
 
+use thewulf7\friendloc\components\Auth;
 use thewulf7\friendloc\components\Controller;
 use thewulf7\friendloc\models\User;
 
@@ -18,15 +19,20 @@ class UserController extends Controller
      */
     public function viewAction(int $id)
     {
-        $model = $this->getUserService()->get($id);
+        $cUser   = $this->getCurrentUser();
+        $friends = array_map(function ($user)
+        {
+            return $user->getId();
+        }, $this->getUserService()->getFriends($cUser->getId()));
 
-        $this->sendResponse($model->getId(), User::class,
-                            [
-                                'name'  => $model->getName(),
-                                'email' => $model->getEmail(),
-                                'date'  => $model->getCreated()->format('Y-m-d H:i:s'),
-                            ]
-        );
+        $model = $this->getUserService()->get($id);
+        $loc   = $this->getLocationService()->getLocation($model->getId());
+
+        $this->sendResponse($model->getId(), User::class, [
+            'user'     => $model,
+            'location' => $loc,
+            'isFriend' => in_array($model->getId(), $friends),
+        ]);
     }
 
     /**
@@ -40,9 +46,15 @@ class UserController extends Controller
         $email    = $this->getRequest()->getBodyParams('email');
         $password = $this->getRequest()->getBodyParams('password');
 
-        $model = $this->getUserService()->update($model->getId(), $name, $password);
+        try
+        {
+            $model = $this->getUserService()->update($model->getId(), $name, $email, $password);
+        } catch (\InvalidArgumentException $e)
+        {
+            return $this->sendResponse($model->getId(), User::class, ['errors' => [$e->getMessage()]]);
+        }
 
-        $this->sendResponse($model->getId(), User::class, [ 'status' => $model ? 'ok' : 'error']);
+        $this->sendResponse($model->getId(), User::class, ['status' => $model ? 'ok' : 'error']);
     }
 
     /**
@@ -52,19 +64,55 @@ class UserController extends Controller
     {
         $model = $this->getCurrentUser();
 
-        $friendId = $this->getUserService()->addToFriends($model->getId(), $this->getRequest()->getBodyParams('id'));
-
-        if ($friendId > 0)
+        try
         {
-            $data = [
-                'friendId' => $friendId,
-            ];
-        } else
+            $friend = $this->getUserService()->addToFriends($model->getId(), $this->getRequest()->getBodyParams('id'));
+        } catch (\InvalidArgumentException $e)
         {
-            $data = ['errors' => $friendId];
+            return $this->sendResponse($model->getId(), User::class, ['errors' => [$e->getMessage()]]);
         }
 
-        $this->sendResponse($model->getId(), User::class, $data);
+        $loc = $this->getLocationService()->getLocation($friend->getId());
+
+        $friends = array_map(function ($user)
+        {
+            return $user->getId();
+        }, $this->getUserService()->getFriends($model->getId()));
+
+        $this->sendResponse($friend->getId(), User::class, [
+            'user'     => $friend,
+            'location' => $loc,
+            'isFriend' => in_array($friend->getId(), $friends),
+        ]);
+    }
+
+    /**
+     *  Remove from friends action
+     */
+    public function removeFromFriendsAction()
+    {
+        $model = $this->getCurrentUser();
+
+        try
+        {
+            $friend = $this->getUserService()->removeFromFriends($model->getId(), $this->getRequest()->getBodyParams('id'));
+        } catch (\InvalidArgumentException $e)
+        {
+            return $this->sendResponse($model->getId(), User::class, ['errors' => [$e->getMessage()]]);
+        }
+
+        $loc = $this->getLocationService()->getLocation($friend->getId());
+
+        $friends = array_map(function ($user)
+        {
+            return $user->getId();
+        }, $this->getUserService()->getFriends($model->getId()));
+
+        $this->sendResponse($friend->getId(), User::class, [
+            'user'     => $friend,
+            'location' => $loc,
+            'isFriend' => in_array($friend->getId(), $friends),
+        ]);
     }
 
     /**
@@ -74,14 +122,19 @@ class UserController extends Controller
      */
     public function getFriendsListAction(int $id)
     {
-
         $friends = $this->getUserService()->getFriends($id);
 
-        $this->sendResponse($id, User::class,
-                            [
-                                'friends' => $friends,
-                            ]
-        );
+        $data = array_map(function ($model)
+        {
+            $loc   = $this->getLocationService()->getLocation($model->getId());
+
+            return [
+                'user'     => $model,
+                'location' => $loc,
+            ];
+        }, $friends);
+
+        $this->sendResponse($id, User::class, $data);
     }
 
 }

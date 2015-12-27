@@ -9,9 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="users")
  *
- * @ElasticSearch\Entity(index="users", type="user", number_of_shards=5, number_of_replicas=1)
+ * @ElasticSearch\Entity(index="users", type="user", number_of_shards=1, number_of_replicas=1, autocomplete=true)
  */
-class User implements Model
+class User implements Model, \JsonSerializable
 {
     /**
      * @ORM\Id
@@ -126,7 +126,11 @@ class User implements Model
      */
     public function setEmail($email): User
     {
-        $this->email = $email;
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->email = $email;
+        } else {
+            throw new \InvalidArgumentException('Wrong email');
+        }
 
         return $this;
     }
@@ -314,5 +318,45 @@ class User implements Model
         }
 
         return $this;
+    }
+
+    /**
+     * @param int $friendId
+     *
+     * @return $this
+     */
+    public function removeFromFriendList(int $friendId)
+    {
+        if (in_array($friendId, $this->friendList, true))
+        {
+            $key = array_search($friendId, $this->friendList, true);
+            unset($this->friendList[$key]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSign()
+    {
+        $name = explode(' ', $this->getName());
+        $sign = count($name) > 1 ? $name[0][0] . $name[1][0] : $name[0][0] . $name[0][1];
+
+        return strtoupper($sign);
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id'    => $this->getId(),
+            'name'  => $this->getName(),
+            'email' => $this->getEmail(),
+            'sign'  => $this->getSign(),
+        ];
     }
 }

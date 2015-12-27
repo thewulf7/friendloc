@@ -15,7 +15,7 @@ define(['jquery'], function ($) {
                 data: data,
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-                    'Auth-Key': authKey,
+                    'HTTP_AUTH_KEY': authKey,
                 },
                 dataType: 'json'
             });
@@ -28,7 +28,7 @@ define(['jquery'], function ($) {
         },
 
         getFriends: function (id) {
-            return this.sendRequest('GET', '/v1/users/' + id + '/getFriendsList', {})
+            return this.sendRequest('GET', '/v1/users/' + id + '/getFriendList', {})
         },
 
         updateUser: function (id, uname, uemail, upassword) {
@@ -36,11 +36,11 @@ define(['jquery'], function ($) {
         },
 
         addToFriends: function (friendId) {
-            return this.sendRequest('GET', '/v1/users/addToFriends', { id: friendId})
+            return this.sendRequest('PUT', '/v1/users/addToFriends', { id: friendId })
         },
 
         removeFromFriends: function (friendId) {
-            return this.sendRequest('GET', '/v1/users/removeFromFriends', { id: friendId})
+            return this.sendRequest('DELETE', '/v1/users/removeFromFriends', { id: friendId})
         },
 
         search: function (string) {

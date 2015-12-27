@@ -1,29 +1,39 @@
 define(function () {
-    function user(id, username, location, latlng) {
-        this.id = id;
-        this.username = username;
-        this.location = location;
-        this.latlng = latlng;
+    function user() {
+        this.id = null;
+        this.name = null;
+        this.location = null;
+        this.latlng = null;
+        this.sign = null;
+        this.isFriend = false;
+        this.link = null;
     }
 
     user.prototype = {
-        getId: function () {
-            return this.id;
+        setId: function (id) {
+            this.id = id;
+            this.link = '/#/users/' + this.id;
+            return this;
         },
-        getName: function () {
-            return this.username;
+        setName: function (name) {
+            this.name = name;
+            return this;
         },
-        getLocationName: function () {
-            return this.location;
+        setLocation: function (loc) {
+            this.location = loc;
+            return this;
         },
-        getLatLng: function () {
-            return this.latlng;
+        setLatLng: function (lat) {
+            this.latlng = lat;
+            return this;
         },
-        getLink: function(){
-            return '/users/' + this.id;
+        setSign: function (sign) {
+            this.sign = sign;
+            return this;
         },
-        getSign: function(){
-            return this.username;
+        setIsFriend: function (friend) {
+            this.isFriend = friend === undefined ? false : friend;
+            return this;
         }
     };
 

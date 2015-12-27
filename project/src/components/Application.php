@@ -52,7 +52,21 @@ class Application
 
                 $query = $urlParts['query'] ?? '';
 
-                return new Request($urlParts['path'], $query, $_SERVER['REQUEST_METHOD'], $_POST);
+                $bodyParams = $_POST;
+
+                if($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'DELETE') {
+                    $putdata = file_get_contents('php://input');
+                    $exploded = explode('&', $putdata);
+
+                    foreach($exploded as $pair) {
+                        $item = explode('=', $pair);
+                        if(count($item) == 2) {
+                            $bodyParams[urldecode($item[0])] = urldecode($item[1]);
+                        }
+                    }
+                }
+
+                return new Request($urlParts['path'], $query, $_SERVER['REQUEST_METHOD'], $bodyParams);
             })
             ->addToContainer('templater', function (iConfig $config)
             {
@@ -107,8 +121,12 @@ class Application
             {
                 $this->addToContainer('currentUser', $user);
             }
-
-            return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
+            try
+            {
+                return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
+            }catch(\ReflectionException $e){
+                echo '404';
+            }
         } else
         {
             return $this->getContainer()->call([$router->getController(), 'redirect'], ['path' => '/auth/login']);

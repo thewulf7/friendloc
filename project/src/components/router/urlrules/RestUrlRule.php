@@ -50,6 +50,11 @@ class RestUrlRule implements iUrlRule
     private $_specialRules = [];
 
     /**
+     * @var bool
+     */
+    private $_strict = false;
+
+    /**
      * RestUrlRule constructor.
      *
      * @param array $arRule
@@ -71,6 +76,10 @@ class RestUrlRule implements iUrlRule
         $classShortName = array_pop($class);
         $route          = lcfirst(str_replace('Controller', '', $classShortName));
         $this->_route   = array_key_exists('plularize', $arRule) && $arRule['plularize'] === false ? $route : $route . 's';
+        if(array_key_exists('strict', $arRule))
+        {
+            $this->_strict = $arRule['strict'];
+        }
     }
 
     /**
@@ -92,7 +101,13 @@ class RestUrlRule implements iUrlRule
             'DELETE ' . self::API_VERSION . $this->getRoute() . '/{id}' => 'remove',
         ];
 
-        $rules += $this->_specialRules;
+        if ($this->isStrict())
+        {
+            $rules = $this->_specialRules;
+        } else
+        {
+            $rules += $this->_specialRules;
+        }
 
         foreach ($rules as $rule => $action)
         {
@@ -108,23 +123,33 @@ class RestUrlRule implements iUrlRule
             $pattern = preg_replace(
                 [
                     '/\//',
+                    '/\{id\}/',
                     '/\{(.*)\}/',
                 ],
                 [
                     '\/',
+                    '([0-9]+)',
                     '([0-9A-Za-z\_]*?)',
                 ], $uri);
 
-            if (preg_match_all('/^' . $pattern . '$/', $this->getUri(), $param))
-            {
-                $this->_action = $action;
-                $param         = explode('/', $param[1][0]);
 
-                if (count($param) > 0 && count($token[1]) > 0)
+
+            $pattern = str_replace('\\\\','\\',$pattern);
+
+            if (preg_match_all('/^' . $pattern . '\/?$/', $this->getUri(), $param))
+            {
+
+                $this->_action = $action;
+                if(isset($param[1]))
                 {
-                    foreach ($token[1] as $key => $tokenName)
+                    $param = explode('/', $param[1][0]);
+
+                    if (count($param) > 0 && count($token[1]) > 0)
                     {
-                        $this->_params[$tokenName] = $param[$key];
+                        foreach ($token[1] as $key => $tokenName)
+                        {
+                            $this->_params[$tokenName] = $param[$key];
+                        }
                     }
                 }
 
@@ -221,5 +246,15 @@ class RestUrlRule implements iUrlRule
     public function getParams(): array
     {
         return $this->_params;
+    }
+
+    /**
+     * Get Strict
+     *
+     * @return boolean
+     */
+    public function isStrict()
+    {
+        return $this->_strict;
     }
 }

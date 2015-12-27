@@ -6,46 +6,39 @@ define(function (require) {
 
     templater.prototype = {
         renderUserView: function (user) {
-            var template = require('twigjs!assets/templates/user');
 
-            return template(
-                {
-                    name: user.getName(),
-                    location: user.getLocationName(),
-                }
-            );
+            var template = require('twigjs!templates/friend');
+
+            return template(user);
         },
-        renderFriendList: function (friends) {
-            var template = require('twigjs!assets/templates/friend_line');
+        renderFriendsList: function(type, friends) {
+
+            var templateHeader = require('twigjs!templates/friends_list');
+            var templateLine = require('twigjs!templates/friend_line');
             var output = '';
 
+            output += templateHeader({title: type === 'my' ? 'My friends' : 'Search result'});
+
+            if(friends.length === 0)
+            {
+                output += type === 'my' ? 'You have 0 friends. To add them use the search bar.' : 'No users found';
+            }
+
             for (var i in friends) {
-                var friend = friends[i];
-                output += template({
-                    friend: {
-                        name: friend.getName(),
-                        location: friend.getLocationName(),
-                        link: friend.getLink(),
-                        sign: friend.getSign()
-                    }
+                output += templateLine({
+                    friend: friends[i]
                 });
             }
 
             return output;
         },
         renderSearchView: function (result) {
-            var template = require('twigjs!assets/templates/friend_line');
+            var template = require('twigjs!templates/friend_line');
             var output = '';
 
             for (var i in result) {
-                var friend = friends[i];
                 output += template({
-                    friend: {
-                        name: friend.getName(),
-                        location: friend.getLocationName(),
-                        link: friend.getLink(),
-                        sign: friend.getSign()
-                    }
+                    friend: friends[i]
                 });
             }
 
