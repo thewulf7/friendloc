@@ -229,3 +229,7 @@
 .info .btn-group {
     padding-top: 10px;
 }
+
+.panel.list-header {
+    margin-bottom: 0;
+}

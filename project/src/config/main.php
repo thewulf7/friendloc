@@ -47,8 +47,9 @@ return [
             'rule'    => UrlRule::REST_RULE,
             'class'   => \thewulf7\friendloc\controllers\UserController::class,
             'special' => [
-                'GET ' . RestUrlRule::API_VERSION . 'users/[id]/getFriendList' => 'getFriendsList',
-                'POST ' . RestUrlRule::API_VERSION . 'users/addToFriends'      => 'addToFriends',
+                'GET ' . RestUrlRule::API_VERSION . 'users/{id}/getFriendList' => 'getFriendsList',
+                'PUT ' . RestUrlRule::API_VERSION . 'users/addToFriends'      => 'addToFriends',
+                'DELETE ' . RestUrlRule::API_VERSION . 'users/removeFromFriends' => 'removeFromFriends',
             ],
         ],
         [

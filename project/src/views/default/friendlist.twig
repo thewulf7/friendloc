@@ -6,6 +6,14 @@
         </div>
     </form>
     <div class="list-group friend">
+        <div class="panel panel-default list-header">
+            <div class="panel-heading">My friends</div>
+        </div>
+
+        {% if friends is empty %}
+            You have 0 friends. To add them use the search bar.
+        {% endif %}
+
         {% for friend in friends %}
             <a href="{{ friend.link }}" class="list-group-item">
                 <div class="row">

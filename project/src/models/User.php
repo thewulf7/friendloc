@@ -126,7 +126,11 @@ class User implements Model, \JsonSerializable
      */
     public function setEmail($email): User
     {
-        $this->email = $email;
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->email = $email;
+        } else {
+            throw new \InvalidArgumentException('Wrong email');
+        }
 
         return $this;
     }
@@ -316,6 +320,25 @@ class User implements Model, \JsonSerializable
         return $this;
     }
 
+    /**
+     * @param int $friendId
+     *
+     * @return $this
+     */
+    public function removeFromFriendList(int $friendId)
+    {
+        if (in_array($friendId, $this->friendList, true))
+        {
+            $key = array_search($friendId, $this->friendList, true);
+            unset($this->friendList[$key]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getSign()
     {
         $name = explode(' ', $this->getName());

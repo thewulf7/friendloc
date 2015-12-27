@@ -9,6 +9,12 @@ class SearchController extends Controller
 {
     public function searchAction($q)
     {
+        $cUser    = $this->getCurrentUser();
+        $cFriends = array_map(function ($user)
+        {
+            return $user->getId();
+        }, $this->getUserService()->getFriends($cUser->getId()));
+
         $service = $this->getElastic();
         $types   = [];
 
@@ -22,10 +28,23 @@ class SearchController extends Controller
             'type'  => array_unique($types),
             'body'  => [
                 'query' => [
-                    "match" => [
-                        '_all' => [
-                            "query"     => $q,
-                            "fuzziness" => "AUTO",
+                    'filtered' => [
+                        'query' => [
+                            'match'    => [
+                                '_all' => [
+                                    'query'     => $q,
+                                    'fuzziness' => 'AUTO',
+                                ],
+                            ],
+                        ],
+                        'filter' => [
+                            'bool' => [
+                                'must_not' => [
+                                    'ids' => [
+                                        'values' => [$cUser->getId()],
+                                    ],
+                                ],
+                            ],
                         ],
                     ],
                 ],
@@ -33,26 +52,34 @@ class SearchController extends Controller
         ];
 
         $result  = $service->getClient()->search($params);
-        $records = [];
+        $records = [
+            'my'    => [],
+            'other' => [],
+        ];
 
         foreach ($result['hits']['hits'] as $record)
         {
-            $records[$record['_id']] = $record;
+            if (!array_key_exists($record['_id'], $records['my']) && in_array($record['_id'], $cFriends, false))
+            {
+                $records['my'][$record['_id']] = [
+                    'user'     => $this->getUserService()->get($record['_id']),
+                    'location' => $this->getLocationService()->getLocation($record['_id']),
+                ];
+
+            } elseif (!array_key_exists($record['_id'], $records['other']))
+            {
+                $records['other'][$record['_id']] = [
+                    'user'     => $this->getUserService()->get($record['_id']),
+                    'location' => $this->getLocationService()->getLocation($record['_id']),
+                ];
+            }
         }
 
-        $data = array_map(function ($result)
-        {
-            $model = $this->getUserService()->get($result['_id']);
-            $loc   = $this->getLocationService()->getLocation($model->getId());
 
-            return [
-                'user'     => $model,
-                'location' => $loc,
-            ];
-        }, $records);
+        sort($records['my']);
+        sort($records['other']);
 
-        sort($data);
 
-        $this->sendResponse(0, User::class, $data);
+        $this->sendResponse(0, User::class, $records);
     }
 }

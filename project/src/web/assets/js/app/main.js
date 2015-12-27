@@ -30,21 +30,29 @@ define(function (require) {
             callback: function (string) {
                 if (string.length > 2) {
                     apiObject.search(string).done(function (response) {
-                        var friends = [];
-                        for (var i in response.properties) {
-                            var user = new User();
+                        var html = '';
+                        for (var type in response.properties) {
+                            var friends = [];
+                            if(type==='other' || (type==='my' && response.properties[type].length > 0)) {
+                                for (var i in response.properties[type]) {
+                                    var user = new User();
 
-                            user
-                                .setId(response.properties[i].user.id)
-                                .setName(response.properties[i].user.name)
-                                .setLocation(response.properties[i].location.locationName)
-                                .setLatLng(response.properties[i].location.latlng)
-                                .setSign(response.properties[i].user.sign)
-                                .setIsFriend(response.properties[i].user.isFriend);
+                                    user
+                                        .setId(response.properties[type][i].user.id)
+                                        .setName(response.properties[type][i].user.name)
+                                        .setLocation(response.properties[type][i].location.locationName)
+                                        .setLatLng(response.properties[type][i].location.latlng)
+                                        .setSign(response.properties[type][i].user.sign)
+                                        .setIsFriend(response.properties[type][i].user.isFriend);
 
-                            friends.push(user);
+                                    friends.push(user);
+                                }
+
+                                html += renderer.renderFriendsList(type, friends);
+                            }
                         }
-                        friendList.html(renderer.renderFriendList(friends));
+
+                        friendList.html(html);
                     });
                 } else {
 
@@ -61,9 +69,10 @@ define(function (require) {
                                 .setSign(response.properties[i].user.sign)
                                 .setIsFriend(response.properties[i].user.isFriend);
 
-                            friends.push(new User(usr.user.id, usr.user.name, usr.location.locationName, usr.location.latlng, usr.user.sign));
+                            friends.push(user);
                         }
-                        friendList.html(renderer.renderFriendList(friends));
+
+                        friendList.html(renderer.renderFriendsList('my', friends));
                     });
                 }
             },

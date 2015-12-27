@@ -12,9 +12,9 @@
         <div class="col-lg-10 col-lg-offset-2 col-md-offset-3 col-md-9 col-xs-12">
             <div class="btn-group">
                 {% if isFriend == false %}
-                    <button class="btn btn-success" id="addToFriends">Add to friends</button>
+                    <button class="btn btn-success" data-id="{{ id }}" id="addToFriends">Add to friends</button>
                 {% elseif isFriend == true %}
-                    <button class="btn btn-danger" id="removeFromFriends">Remove from friends</button>
+                    <button class="btn btn-danger" data-id="{{ id }}" id="removeFromFriends">Remove from friends</button>
                 {% endif %}
             </div>
         </div>

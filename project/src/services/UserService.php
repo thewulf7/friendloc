@@ -96,7 +96,7 @@ class UserService extends AbstractService
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function update(int $id, string $name = '', string $password = ''): User
+    public function update(int $id, string $name = '', string $email, string $password = ''): User
     {
         $entityManager = $this->getEntityManager();
 
@@ -105,6 +105,11 @@ class UserService extends AbstractService
         if (strlen($name) > 0)
         {
             $model->setName($name);
+        }
+
+        if (strlen($email) > 0)
+        {
+            $model->setEmail($email);
         }
 
         if (strlen($password) > 0)
@@ -142,7 +147,19 @@ class UserService extends AbstractService
      */
     public function addToFriends(int $userId, int $friendId)
     {
-        return true;
+        /** @var User $entity */
+        $entity = $this->getElastic()->find('User', $userId);
+        /** @var User $friend */
+        $friend = $this->getElastic()->find('User', $friendId);
+
+        $entity->addToFriendList($friend->getId());
+        $friend->addToFriendList($entity->getId());
+
+        $this->getElastic()->persist($entity);
+        $this->getElastic()->persist($friend);
+
+        return $this->getUserService()->get($friendId);
+
     }
 
     /**
@@ -153,6 +170,18 @@ class UserService extends AbstractService
      */
     public function removeFromFriends(int $userId, int $friendId)
     {
-        return true;
+        /** @var User $entity */
+        $entity = $this->getElastic()->find('User', $userId);
+        /** @var User $friend */
+        $friend = $this->getElastic()->find('User', $friendId);
+
+        $entity->removeFromFriendList($friend->getId());
+        $friend->removeFromFriendList($entity->getId());
+
+        $this->getElastic()->persist($entity);
+        $this->getElastic()->persist($friend);
+
+        return $this->getUserService()->get($friendId);
+
     }
 }
