@@ -123,14 +123,22 @@ class RestUrlRule implements iUrlRule
             $pattern = preg_replace(
                 [
                     '/\//',
+                    '/\{id\}/',
                     '/\{(.*)\}/',
                 ],
                 [
                     '\/',
+                    '([0-9]+)',
                     '([0-9A-Za-z\_]*?)',
                 ], $uri);
+
+
+
+            $pattern = str_replace('\\\\','\\',$pattern);
+
             if (preg_match_all('/^' . $pattern . '\/?$/', $this->getUri(), $param))
             {
+
                 $this->_action = $action;
                 if(isset($param[1]))
                 {

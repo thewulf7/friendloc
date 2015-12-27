@@ -79,9 +79,9 @@ class Auth
     public static function getHash()
     {
 
-        if(isset($_SERVER['HTTP_AUTH_KEY']))
+        if(isset($_SERVER['AUTH_KEY']))
         {
-            return $_SERVER['HTTP_AUTH_KEY'];
+            return $_SERVER['AUTH_KEY'];
         }
 
         if(isset($_COOKIE['AUTH_KEY']))

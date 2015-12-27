@@ -207,7 +207,7 @@ class ElasticSearch
         {
             $this->getClient()->get($params);
 
-            $params['_source'] = $entity->toArray();
+            $params['body']['doc'] = $entity->toArray();
 
             $this->getClient()->update($params);
 
@@ -252,11 +252,13 @@ class ElasticSearch
 
         $model = $this->getClasses()[$entityName]->newInstance();
         $model->setId($item['_id']);
-
         foreach ($item['_source'] as $paramName => $paramValue)
         {
             $method = 'set' . ucfirst($paramName);
-            $model->$method($paramValue);
+            if(method_exists($model, $method))
+            {
+                $model->$method($paramValue);
+            }
         }
 
         return $model;
