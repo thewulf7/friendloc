@@ -7,6 +7,7 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
 
     Base.prototype.view = function (id) {
         console.info('users/view');
+        defaultC.index();
 
         function loadUser(props) {
 
@@ -22,6 +23,7 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
 
             var text = $('<textarea />').html(props.location.html).text();
             var js = $('<textarea />').html(props.location.js).text();
+
             container.html(renderer.renderUserView(user)).find('.map').append(text).append(js);
 
             load_ivory_google_map_api();

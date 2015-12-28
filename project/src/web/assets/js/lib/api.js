@@ -31,8 +31,8 @@ define(['jquery'], function ($) {
             return this.sendRequest('GET', '/v1/users/' + id + '/getFriendList', {})
         },
 
-        updateUser: function (id, uname, uemail, upassword) {
-            return this.sendRequest('PUT', '/v1/users/' + id, { name: uname, email: uemail,password: upassword})
+        updateUser: function (id, params) {
+            return this.sendRequest('PUT', '/v1/users/' + id, params)
         },
 
         addToFriends: function (friendId) {

@@ -26,15 +26,15 @@
                         </div>
                     {% endif %}
                     <label for="inputName" class="sr-only">Name</label>
-                    <input type="email" name="name" id="inputName" class="form-control" placeholder="Name"
+                    <input type="text" name="name" id="inputName" class="form-control" placeholder="Name"
                            required="required"
-                           autofocus="autofocus"/>
+                           autofocus="autofocus" value="{{ data.name }}"/>
                     <label for="inputEmail" class="sr-only">Email address</label>
                     <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address"
-                           required="required"/>
+                           required="required" value="{{ data.email }}"/>
                     <br/>
-                    <input type="hidden" name="location[lat]"/>
-                    <input type="hidden" name="location[lng]"/>
+                    <input type="hidden" name="location[lat]" value="{{ data.lat }}"/>
+                    <input type="hidden" name="location[lng]" value="{{ data.lng }}"/>
                     {{ location.html | raw }}
                 </div>
                 {{ location.map | raw }}

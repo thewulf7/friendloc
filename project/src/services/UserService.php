@@ -20,15 +20,13 @@ class UserService extends AbstractService
      *
      * @param        $email
      * @param        $name
-     * @param string $passwd
+     * @param        $passwd
      *
-     * @return int
+     * @return array
      */
-    public function create($email, $name, $passwd = ''): int
+    public function create(string $email, string $name, string $passwd, string $salt, string $locationName, array $latlng): User
     {
         $entityManager = $this->getEntityManager();
-        $salt          = Auth::generateSalt();
-        $passwd        = $passwd ?? Auth::generatePassword();
 
         $model = new User();
         $model
@@ -37,12 +35,21 @@ class UserService extends AbstractService
             ->setPasswd(Auth::createPassword($passwd, $salt))
             ->setSalt($salt)
             ->setApproved(false)
-            ->setCreated(new \DateTime("now"));
+            ->setCreated(new \DateTime("now"))
+            ->setLatlng($latlng)
+            ->setLocationName($locationName);
+
+        $entityManager->persist($model);
+
+        $this->getElastic()->persist($model);
+
+        $hash = hash('sha1', time() . '|' . $model->getId());
+        $model->setUserhash($hash);
 
         $entityManager->persist($model);
         $entityManager->flush();
 
-        return $model->getId();
+        return $model;
     }
 
     /**
@@ -66,12 +73,12 @@ class UserService extends AbstractService
         /** @var User $eModel */
         $eModel = $entityManager->find('thewulf7\friendloc\models\User', $id);
 
-        if(!$elModel)
+        if (!$elModel)
         {
-            throw new NotFoundException('User with id `'.$id.'` not found');
+            throw new NotFoundException('User with id `' . $id . '` not found');
         }
 
-        $latlng = $elModel->getLatlng() ? [$elModel->getLatlng()->getLatitude(),$elModel->getLatlng()->getLongitude()] : null;
+        $latlng = $elModel->getLatlng() ? [$elModel->getLatlng()->getLatitude(), $elModel->getLatlng()->getLongitude()] : null;
         $eModel->setLocationName($elModel->getLocationName());
         $eModel->setLatlng($latlng);
         $eModel->setFriendList($elModel->getFriendList());
@@ -120,11 +127,10 @@ class UserService extends AbstractService
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
      */
-    public function update(int $id, string $name = '', string $email, string $password = ''): User
+    public function update(int $id, string $name = '', string $email, string $password = '', string $locationName = '', array $location = []): User
     {
         $entityManager = $this->getEntityManager();
-
-        $model = $entityManager->find('thewulf7\friendloc\models\User', $id);
+        $model         = $this->get($id);
 
         if (strlen($name) > 0)
         {
@@ -138,11 +144,24 @@ class UserService extends AbstractService
 
         if (strlen($password) > 0)
         {
-            $salt = Auth::generateSalt();
-            $model->setPasswd(Auth::createPassword($password, $salt));
+            $model->setPasswd($password);
         }
 
+        if (strlen($locationName) > 0)
+        {
+            $model->setLocationName($locationName);
+        }
+
+        if (count($location) > 0)
+        {
+            $model->setLatlng($location);
+        }
+
+
+        $entityManager->persist($model);
         $entityManager->flush();
+
+        $this->getElastic()->persist($model);
 
         return $model;
     }

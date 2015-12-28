@@ -3,10 +3,12 @@ define(function () {
         this.id = null;
         this.name = null;
         this.location = null;
-        this.latlng = null;
+        this.lat = null;
+        this.lng = null;
         this.sign = null;
         this.isFriend = false;
         this.link = null;
+        this.email = null;
     }
 
     user.prototype = {
@@ -23,8 +25,9 @@ define(function () {
             this.location = loc;
             return this;
         },
-        setLatLng: function (lat) {
-            this.latlng = lat;
+        setLatLng: function (latlng) {
+            this.lat = latlng.lat;
+            this.lng = latlng.lon;
             return this;
         },
         setSign: function (sign) {
@@ -33,6 +36,10 @@ define(function () {
         },
         setIsFriend: function (friend) {
             this.isFriend = friend === undefined ? false : friend;
+            return this;
+        },
+        setEmail: function (email) {
+            this.email = email;
             return this;
         }
     };
