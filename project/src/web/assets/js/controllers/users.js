@@ -9,17 +9,22 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
         console.info('users/view');
 
         function loadUser(props) {
+
             var user = new User();
 
             user
                 .setId(props.user.id)
                 .setName(props.user.name)
-                .setLocation(props.location.locationName)
-                .setLatLng(props.location.latlng)
+                .setLocation(props.user.locationName)
+                .setLatLng(props.user.latlng)
                 .setSign(props.user.sign)
                 .setIsFriend(props.isFriend);
 
-            container.html(renderer.renderUserView(user));
+            var text = $('<textarea />').html(props.location.html).text();
+            var js = $('<textarea />').html(props.location.js).text();
+            container.html(renderer.renderUserView(user)).find('.map').append(text).append(js);
+
+            load_ivory_google_map_api();
 
             $('#addToFriends').on('click', function () {
                 var friendId = $(this).data('id');
@@ -27,6 +32,8 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
                 apiObject.addToFriends(friendId).done(function (response) {
                     loadUser(response.properties);
                     defaultC.friends();
+                }).fail(function (response) {
+                    console.warn(response);
                 });
             });
 

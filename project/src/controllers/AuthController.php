@@ -2,6 +2,7 @@
 namespace thewulf7\friendloc\controllers;
 
 
+use Ivory\GoogleMap\Base\Coordinate;
 use thewulf7\friendloc\components\Auth;
 use thewulf7\friendloc\components\Controller;
 use thewulf7\friendloc\models\User;
@@ -29,6 +30,18 @@ class AuthController extends Controller
      */
     public function loginAction()
     {
+        $query = $this->getRequest()->getQuery();
+
+        if($this->getRequest()->getMethod() === 'GET' && isset($query['newuser']) && $query['newuser'] === 'true')
+        {
+            return $this->render('/auth/login', [
+                'notice' => [
+                    'Thanks for registration.',
+                    'Confirmation email with password has been send to your email.'
+                ],
+            ]);
+        }
+
         if ($this->getRequest()->getMethod() === 'POST')
         {
             $params = $this->getRequest()->getBodyParams();
@@ -54,7 +67,22 @@ class AuthController extends Controller
      */
     public function signupAction()
     {
-        return $this->render('/auth/signup');
+        if ($this->getRequest()->getMethod() === 'POST')
+        {
+            return $this->redirect('/auth/login?newuser=true');
+        }
+        $autocomplete = $this->getMapService()->getAutocomplete();
+
+        $map = $this->getMapService()->createEmptyMap(new Coordinate());
+        $mapRender = $this->getMapService()->renderMap($map);
+
+        return $this->render('/auth/signup', [
+            'location' => [
+                'map'  => trim($mapRender['html']),
+                'html' => trim($autocomplete['html']),
+                'js'   => trim($autocomplete['js']) . trim($mapRender['js']),
+            ],
+        ]);
     }
 
     /**

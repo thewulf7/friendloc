@@ -1,5 +1,5 @@
 requirejs.config({
-    baseUrl: 'assets',
+    baseUrl: '/assets',
     paths: {
         app: 'js/app',
         api: 'js/lib/api',

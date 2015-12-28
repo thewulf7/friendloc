@@ -4,7 +4,7 @@ namespace thewulf7\friendloc\components;
 
 use thewulf7\friendloc\services\
 {
-    AuthService, UserService, LocationService
+    AuthService, UserService, LocationService, MapService
 };
 use thewulf7\friendloc\components\router\Response;
 use thewulf7\friendloc\models\User;
@@ -15,6 +15,7 @@ use thewulf7\friendloc\models\User;
  * @package thewulf7\friendloc\components
  * @method \thewulf7\friendloc\services\AuthService getAuthService()
  * @method \thewulf7\friendloc\services\LocationService getLocationService()
+ * @method \thewulf7\friendloc\services\MapService getMapService()
  * @method \thewulf7\friendloc\services\UserService getUserService()
  * @method \thewulf7\friendloc\models\User getCurrentUser()
  * @method mixed getTemplater()
@@ -143,17 +144,22 @@ abstract class Controller
     }
 
     /**
-     * @param int    $id
-     * @param string $type
      * @param mixed  $data
      * @param int    $code
      *
      * @return bool
      */
-    public function sendResponse(int $id = 0, string $type = '', $data = [], $code = 200)
+    public function sendResponse($data = [], $code = 200)
     {
         http_response_code($code);
-        echo json_encode(new Response($id, $type, $data));
+        echo json_encode(new Response($data));
+        return true;
+    }
+
+    public function sendErrorResponse($data = [], $code = 400)
+    {
+        http_response_code($code);
+        echo json_encode(new Response(['errors' => $data, 'status' => $code]));
         return true;
     }
 }

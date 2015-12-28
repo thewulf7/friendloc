@@ -191,7 +191,7 @@ class ElasticSearch
         return true;
     }
 
-    public function persist(Model $entity)
+    public function persist(\JsonSerializable $entity)
     {
         $class = new \ReflectionClass($entity);
 
@@ -207,18 +207,18 @@ class ElasticSearch
         {
             $this->getClient()->get($params);
 
-            $params['body']['doc'] = $entity->toArray();
+            $params['body']['doc'] = $entity->jsonSerialize();
 
             $this->getClient()->update($params);
 
         } catch (\Elasticsearch\Common\Exceptions\Missing404Exception $e)
         {
-            $params['body'] = $entity->toArray();
+            $params['body'] = $entity->jsonSerialize();
             $this->getClient()->index($params);
         }
     }
 
-    public function remove(Model $entity)
+    public function remove(\JsonSerializable $entity)
     {
         $class = new \ReflectionClass($entity);
 
@@ -238,7 +238,7 @@ class ElasticSearch
         $this->getClient()->delete($params);
     }
 
-    public function find(string $entityName, $id): Model
+    public function find(string $entityName, $id)
     {
         $entityModel = $this->getEntities()[$entityName];
 
@@ -247,11 +247,17 @@ class ElasticSearch
             'index' => $entityModel->index,
             'id'    => $id,
         ];
-
-        $item = $this->getClient()->get($params);
+        try
+        {
+            $item = $this->getClient()->get($params);
+        } catch (\Elasticsearch\Common\Exceptions\Missing404Exception $e)
+        {
+            return false;
+        }
 
         $model = $this->getClasses()[$entityName]->newInstance();
         $model->setId($item['_id']);
+
         foreach ($item['_source'] as $paramName => $paramValue)
         {
             $method = 'set' . ucfirst($paramName);

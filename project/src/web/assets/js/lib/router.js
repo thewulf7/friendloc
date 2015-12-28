@@ -6,7 +6,8 @@ define(function (require) {
 
         this.controllers = {
             '/': require('js/controllers/default'),
-            'users': require('js/controllers/users')
+            'users': require('js/controllers/users'),
+            'auth' : require('js/controllers/auth')
         };
     }
 

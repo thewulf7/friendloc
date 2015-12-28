@@ -2,6 +2,7 @@
 namespace thewulf7\friendloc\services;
 
 
+use DI\NotFoundException;
 use thewulf7\friendloc\components\AbstractService;
 use thewulf7\friendloc\components\Auth;
 use thewulf7\friendloc\components\ElasticSearch;
@@ -15,6 +16,8 @@ use thewulf7\friendloc\models\User;
 class UserService extends AbstractService
 {
     /**
+     * Create new user
+     *
      * @param        $email
      * @param        $name
      * @param string $passwd
@@ -43,6 +46,8 @@ class UserService extends AbstractService
     }
 
     /**
+     * Get User model by ID
+     *
      * @param int $id
      *
      * @return User
@@ -53,13 +58,30 @@ class UserService extends AbstractService
     public function get(int $id): User
     {
         $entityManager = $this->getEntityManager();
+        /** @var ElasticSearch $service */
+        $service = $this->getElastic();
 
-        $model = $entityManager->find('thewulf7\friendloc\models\User', $id);
+        /** @var User $elModel */
+        $elModel = $service->find('User', $id);
+        /** @var User $eModel */
+        $eModel = $entityManager->find('thewulf7\friendloc\models\User', $id);
 
-        return $model;
+        if(!$elModel)
+        {
+            throw new NotFoundException('User with id `'.$id.'` not found');
+        }
+
+        $latlng = $elModel->getLatlng() ? [$elModel->getLatlng()->getLatitude(),$elModel->getLatlng()->getLongitude()] : null;
+        $eModel->setLocationName($elModel->getLocationName());
+        $eModel->setLatlng($latlng);
+        $eModel->setFriendList($elModel->getFriendList());
+
+        return $eModel;
     }
 
     /**
+     * Delete user by ID
+     *
      * @param int $id
      *
      * @return bool
@@ -87,6 +109,8 @@ class UserService extends AbstractService
     }
 
     /**
+     * Update user
+     *
      * @param int    $id
      * @param string $name
      * @param string $password
@@ -124,6 +148,8 @@ class UserService extends AbstractService
     }
 
     /**
+     * Get user friends by id
+     *
      * @param int $userId
      *
      * @return array
@@ -131,7 +157,7 @@ class UserService extends AbstractService
     public function getFriends(int $userId): array
     {
         /** @var User $entity */
-        $entity = $this->getElastic()->find('User', $userId);
+        $entity = $this->get($userId);
 
         return array_map(function ($friendId)
         {
@@ -140,6 +166,8 @@ class UserService extends AbstractService
     }
 
     /**
+     * Add to friends by ID
+     *
      * @param int $userId
      * @param int $friendId
      *
@@ -148,9 +176,9 @@ class UserService extends AbstractService
     public function addToFriends(int $userId, int $friendId)
     {
         /** @var User $entity */
-        $entity = $this->getElastic()->find('User', $userId);
+        $entity = $this->get($userId);
         /** @var User $friend */
-        $friend = $this->getElastic()->find('User', $friendId);
+        $friend = $this->get($friendId);
 
         $entity->addToFriendList($friend->getId());
         $friend->addToFriendList($entity->getId());
@@ -163,6 +191,8 @@ class UserService extends AbstractService
     }
 
     /**
+     * Remove from friends by ID
+     *
      * @param int $userId
      * @param int $friendId
      *

@@ -77,21 +77,13 @@ class CreateUserCommand extends Command
             ->setPasswd(Auth::createPassword($password, $salt))
             ->setApproved(1)
             ->setCreated(new \DateTime('now'))
-            ->setSalt($salt);
+            ->setSalt($salt)
+            ->setLatlng([56, 30])
+            ->setLocationName('Saint-P');
 
         $em->persist($model);
         $em->flush();
 
-        $id = $model->getId();
-
         $this->elastic->persist($model);
-
-        $location = new Location();
-        $location
-            ->setLatlng([56, 30])
-            ->setLocationName('Saint-P')
-            ->setId($id);
-
-        $this->elastic->persist($location);
     }
 }

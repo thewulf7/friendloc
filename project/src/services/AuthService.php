@@ -61,6 +61,8 @@ class AuthService extends AbstractService
         /** @var User $model */
         $model = $entityManager->getRepository('thewulf7\friendloc\models\User')->findOneBy(['userhash' => $hash]);
 
+        $model = $model ? $this->getUserService()->get($model->getId()) : null;
+
         return $model ?? false;
     }
 

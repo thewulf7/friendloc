@@ -10,16 +10,6 @@ namespace thewulf7\friendloc\components\router;
 class Response implements \JsonSerializable
 {
     /**
-     * @var
-     */
-    private $_id;
-
-    /**
-     * @var
-     */
-    private $_type;
-
-    /**
      * @var array
      */
     private $_data;
@@ -27,14 +17,10 @@ class Response implements \JsonSerializable
     /**
      * Response constructor.
      *
-     * @param int    $id
-     * @param string $type
      * @param mixed  $array
      */
-    public function __construct(int $id, string $type, $array)
+    public function __construct($array)
     {
-        $this->_id   = $id;
-        $this->_type = $type;
         $this->_data = $array;
     }
 
@@ -43,10 +29,6 @@ class Response implements \JsonSerializable
      */
     public function jsonSerialize()
     {
-        return [
-            'id'         => $this->_id,
-            'type'       => $this->_type,
-            'properties' => $this->_data,
-        ];
+        return $this->_data;
     }
 }
