@@ -22,6 +22,7 @@ class AuthController extends Controller
         return array_merge($methods, [
             'loginAction',
             'signupAction',
+            'approveAction',
         ]);
     }
 
@@ -32,12 +33,12 @@ class AuthController extends Controller
     {
         $query = $this->getRequest()->getQuery();
 
-        if($this->getRequest()->getMethod() === 'GET' && isset($query['newuser']) && $query['newuser'] === 'true')
+        if ($this->getRequest()->getMethod() === 'GET' && isset($query['newuser']) && $query['newuser'] === 'true')
         {
             return $this->render('/auth/login', [
                 'notice' => [
                     'Thanks for registration.',
-                    'Confirmation email with password has been send to your email.'
+                    'Confirmation email with password has been send to your email.',
                 ],
             ]);
         }
@@ -67,13 +68,55 @@ class AuthController extends Controller
      */
     public function signupAction()
     {
-        if ($this->getRequest()->getMethod() === 'POST')
-        {
-            return $this->redirect('/auth/login?newuser=true');
-        }
         $autocomplete = $this->getMapService()->getAutocomplete();
 
-        $map = $this->getMapService()->createEmptyMap(new Coordinate());
+        if ($this->getRequest()->getMethod() === 'POST')
+        {
+            $params = $this->getRequest()->getBodyParams();
+
+            $name         = $params['name'];
+            $email        = $params['email'];
+            $locationName = $params['locationName'];
+            $lat          = $params['location']['lat'];
+            $lng          = $params['location']['lng'];
+
+            try
+            {
+                $salt   = Auth::generateSalt();
+                $passwd = Auth::generatePassword();
+
+                $user = $this->getUserService()->create($email, $name, $passwd, $salt, $locationName, [$lat, $lng]);
+
+                $this->getEmailService()->sendConfirmationEmail($user, $passwd);
+
+                return $this->redirect('/auth/login?newuser=true');
+            } catch (\Exception $e)
+            {
+
+                $map       = $this->getMapService()->createEmptyMap(new Coordinate($lat, $lng));
+                $mapRender = $this->getMapService()->renderMap($map);
+
+                return $this->render('/auth/signup', [
+                    'errors'   => [
+                        $e->getMessage(),
+                    ],
+                    'data'     => [
+                        'name'         => $name,
+                        'email'        => $email,
+                        'locationName' => $locationName,
+                        'lat'          => $lat,
+                        'lng'          => $lng,
+                    ],
+                    'location' => [
+                        'map'  => trim($mapRender['html']),
+                        'html' => trim($autocomplete['html']),
+                        'js'   => trim($autocomplete['js']) . trim($mapRender['js']),
+                    ],
+                ]);
+            }
+        }
+
+        $map       = $this->getMapService()->createEmptyMap(new Coordinate());
         $mapRender = $this->getMapService()->renderMap($map);
 
         return $this->render('/auth/signup', [
@@ -92,5 +135,39 @@ class AuthController extends Controller
     {
         Auth::logout();
         $this->redirect('/');
+    }
+
+    /**
+     * Approve user
+     *
+     * @param $hash
+     */
+    public function approveAction($hash)
+    {
+        try
+        {
+            $model = $this->getAuthService()->authByHash($hash);
+            if ($model)
+            {
+                $hash = hash('sha1', time() . '|' . $model->getId());
+
+                $model->setUserhash($hash);
+                $model->setApproved(true);
+                $this->getEntityManager()->persist($model);
+                $this->getEntityManager()->flush();
+
+                Auth::setAuth($hash);
+
+                $this->getEmailService()->sendSuccessEmail($model);
+
+                $this->redirect('/');
+            } else
+            {
+                echo 'Wrong hash given.';
+            }
+        } catch (\Exception $e)
+        {
+            echo 'Wrong hash given.';
+        }
     }
 }

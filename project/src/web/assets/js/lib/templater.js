@@ -31,6 +31,10 @@ define(function (require) {
 
             return output;
         },
+        renderUpdate: function (user) {
+            var template = require('twigjs!templates/updateme');
+            return template(user);
+        },
         renderSearchView: function (result) {
             var template = require('twigjs!templates/friend_line');
             var output = '';

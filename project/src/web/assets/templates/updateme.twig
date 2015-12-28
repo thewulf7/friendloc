@@ -1,0 +1,40 @@
+<div class="info">
+<div class="modal-body">
+    <h2 style="text-align: center">Update personal information</h2>
+    {% if errors %}
+        <div class="alert alert-info">
+            <ul style="padding-left: 10px">
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    <form id="updatePersonal" action="" method="post">
+        <div class="form-signin">
+            <label for="inputName" class="sr-only">Name</label>
+            <input type="text" name="name" id="inputName" class="form-control" placeholder="Name"
+                   required="required"
+                   autofocus="autofocus" value="{{ name }}"/>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address"
+                   required="required" value="{{ email }}"/>
+            <label for="inputPassword" class="sr-only">Current password</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Current password"
+                   />
+            <label for="inputNewPassword" class="sr-only">New password</label>
+            <input type="password" name="newpassword" id="inputNewPassword" class="form-control" placeholder="New password"
+                   />
+            <label for="inputRNewPassword" class="sr-only">Repeat new password</label>
+            <input type="password" name="rnewpassword" id="inputRNewPassword" class="form-control" placeholder="Repeat new password"
+                   />
+            <input type="hidden" name="lat" value="{{ lat }}"/>
+            <input type="hidden" name="lng" value="{{ lng }}"/>
+            <div class="mapper"></div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+    </form>
+</div>
+</div>

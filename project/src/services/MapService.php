@@ -54,8 +54,8 @@ class MapService extends AbstractService
     public function renderMap(Map $map): array
     {
         $mapHelper = new MapHelper();
-        $jsMap = $mapHelper->renderJsLibraries($map);
-        $jsMap = $this->removeJsCaller($jsMap);
+        $jsMap     = $mapHelper->renderJsLibraries($map);
+        $jsMap     = $this->removeJsCaller($jsMap);
 
         $jsMap .= '<script type="text/javascript"> function load_ivory_google_map(){' . $mapHelper->renderJsContainer($map) . '}</script>';
 
@@ -94,7 +94,7 @@ class MapService extends AbstractService
         return $this->renderMap($map);
     }
 
-    public function getAutocomplete()
+    public function getAutocomplete($value=null)
     {
         $autocomplete       = new Autocomplete();
         $autocompleteHelper = new AutocompleteHelper();
@@ -104,6 +104,8 @@ class MapService extends AbstractService
 
         $autocomplete->setInputAttributes(['class' => 'form-control', 'name' => 'locationName', 'required' => 'required']);
 
+        $autocomplete->setInputAttribute('value', $value);
+
         $autocomplete->setJavascriptVariable('location_autocomplete');
 
         $autocomplete->setTypes([AutocompleteType::GEOCODE]);
@@ -111,11 +113,11 @@ class MapService extends AbstractService
         $autocomplete->setAsync(true);
         $autocomplete->setLanguage('en');
 
-        $js = str_replace('load_ivory_google_map_api', 'load_ivory_google_map_api_auto',$autocompleteHelper->renderJavascripts($autocomplete));
+        $js = str_replace('load_ivory_google_map_api', 'load_ivory_google_map_api_auto', $autocompleteHelper->renderJavascripts($autocomplete));
 
         return [
-            'html' => $autocompleteHelper->renderHtmlContainer($autocomplete),
-            'js'   => $this->removeJsCaller($js),
+            'html'   => $autocompleteHelper->renderHtmlContainer($autocomplete),
+            'js'     => $this->removeJsCaller($js),
         ];
     }
 

@@ -3,6 +3,10 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user'], function (Ba
     var renderer = new templater();
     var apiObject = new Api($.cookie('AUTH_KEY'));
 
+    Base.prototype.login = function(){
+        console.info('auth/login');
+    };
+
     Base.prototype.signup = function () {
         console.info('auth/signup');
 

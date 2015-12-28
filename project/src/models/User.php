@@ -56,6 +56,7 @@ class User implements \JsonSerializable
 
     /**
      * @ORM\Column(type="boolean")
+     * @ElasticSearch\ElasticField(type="boolean", includeInAll=false)
      * @var boolean
      */
     private $approved;
@@ -97,9 +98,10 @@ class User implements \JsonSerializable
             'link'         => '/#/users/' . $this->getId(),
             'friendList'   => $this->getFriendList(),
             'locationName' => $this->getLocationName(),
+            'approved'     => $this->getApproved(),
             'latlng'       => $this->getLatlng() ? [
-                'lat' => $this->getLatlng()->getLatitude(),
-                'lon' => $this->getLatlng()->getLongitude(),
+                'lat' => (double)$this->getLatlng()->getLatitude(),
+                'lon' => (double)$this->getLatlng()->getLongitude(),
             ] : null,
         ];
     }
@@ -235,7 +237,7 @@ class User implements \JsonSerializable
      *
      * @return mixed
      */
-    public function getApproved(): boolean
+    public function getApproved()
     {
         return $this->approved;
     }

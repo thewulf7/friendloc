@@ -6,6 +6,7 @@ use DI\NotFoundException;
 use Ivory\GoogleMap\Helper\MapHelper;
 use Ivory\GoogleMap\Map;
 use Ivory\GoogleMap\Overlays\InfoWindow;
+use thewulf7\friendloc\components\Auth;
 use thewulf7\friendloc\components\Controller;
 use thewulf7\friendloc\models\User;
 
@@ -35,8 +36,9 @@ class UserController extends Controller
         {
             return $this->sendErrorResponse([$e->getMessage()]);
         }
+        $autocomplete = $this->getMapService()->getAutocomplete($model->getLocationName());
+        $mapRender    = $this->getMapService()->renderMapWithMarker($model->getLatlng(), $model->getLocationName());
 
-        $map = $this->getMapService()->renderMapWithMarker($model->getLatlng(), $model->getLocationName());
 
         return $this->sendResponse(
             [
@@ -46,8 +48,10 @@ class UserController extends Controller
                     'user'     => $model,
                     'isFriend' => in_array($model->getId(), $cUser->getFriendList(), false),
                     'location' => [
-                        'html' => htmlentities($map['html']),
-                        'js'   => htmlentities(trim($map['js'])),
+                        'html'  => htmlentities(trim($mapRender['html'])),
+                        'js'    => htmlentities(trim($mapRender['js'])),
+                        'htmlA' => htmlentities(trim($autocomplete['html'])),
+                        'jsA'   => htmlentities(trim($autocomplete['js'])),
                     ],
                 ],
             ]
@@ -55,27 +59,37 @@ class UserController extends Controller
     }
 
     /**
-     * TODO: update
+     * Update user
      *
      * @param $id
      */
     public function updateAction(int $id)
     {
-        $model = $this->getUserService()->get($id);
+        $params = $this->getRequest()->getBodyParams();
 
-        $name     = $this->getRequest()->getBodyParams('name');
-        $email    = $this->getRequest()->getBodyParams('email');
-        $password = $this->getRequest()->getBodyParams('password');
+        $name         = $params['name'];
+        $email        = $params['email'];
+        $spassword    = $params['password'];
+        $newPassword  = $params['newpassword'];
+        $rnewPassword = $params['rnewpassword'];
+        $locationName = $params['locationName'];
+        $location     = [$params['lat'], $params['lng']];
 
         try
         {
-            $model = $this->getUserService()->update($model->getId(), $name, $email, $password);
+            $model    = $this->getUserService()->get($id);
+            $password = '';
+            if ($newPassword === $rnewPassword && Auth::createPassword($spassword, $model->getSalt()) === $model->getPasswd())
+            {
+                $password = Auth::createPassword($newPassword, $model->getSalt());
+            }
+            $model = $this->getUserService()->update($model->getId(), $name, $email, $password, $locationName, $location);
         } catch (\InvalidArgumentException $e)
         {
-            return $this->sendResponse($model->getId(), User::class, ['errors' => [$e->getMessage()]]);
+            return $this->sendErrorResponse([$e->getMessage()]);
         }
 
-        $this->sendResponse($model->getId(), User::class, ['status' => $model ? 'ok' : 'error']);
+        $this->sendResponse(['code' => 200]);
     }
 
     /**

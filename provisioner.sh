@@ -37,6 +37,7 @@ installpkg php7.0-curl
 installpkg php7.0-opcache
 installpkg php7.0-json
 installpkg php-xdebug
+installpkg postfix
 
 service php7.0-fpm restart
 

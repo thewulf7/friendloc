@@ -253,3 +253,91 @@ PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/
 PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
 PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
 PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->loginAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /auth/login HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/auth/signup"
+2015/12/28 16:44:42 [error] 18257#0: *38 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to thewulf7\friendloc\services\MapService::renderMap() must be an instance of Ivory\GoogleMap\Map, array given, called in /home/vagrant/project/src/controllers/UserController.php on line 40 and defined in /home/vagrant/project/src/services/MapService.php:54
+Stack trace:
+#0 /home/vagrant/project/src/controllers/UserController.php(40): thewulf7\friendloc\services\MapService->renderMap(Array)
+#1 [internal function]: thewulf7\friendloc\controllers\UserController->viewAction(56)
+#2 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#3 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#4 /home/vagrant/project/src/components/Application.php(126): DI\Container->call(Array, Array)
+#5 /home/vagrant/project/src/web/index.php(25): thewulf7\friendloc\components\Application->run()
+#6 {main}
+  thrown in /home/vagrant/project/src/services/MapService" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/56 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 16:44:44 [error] 18257#0: *38 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to thewulf7\friendloc\services\MapService::renderMap() must be an instance of Ivory\GoogleMap\Map, array given, called in /home/vagrant/project/src/controllers/UserController.php on line 40 and defined in /home/vagrant/project/src/services/MapService.php:54
+Stack trace:
+#0 /home/vagrant/project/src/controllers/UserController.php(40): thewulf7\friendloc\services\MapService->renderMap(Array)
+#1 [internal function]: thewulf7\friendloc\controllers\UserController->viewAction(43)
+#2 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#3 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#4 /home/vagrant/project/src/components/Application.php(126): DI\Container->call(Array, Array)
+#5 /home/vagrant/project/src/web/index.php(25): thewulf7\friendloc\components\Application->run()
+#6 {main}
+  thrown in /home/vagrant/project/src/services/MapService" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 16:45:10 [error] 18257#0: *38 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to thewulf7\friendloc\services\MapService::renderMap() must be an instance of Ivory\GoogleMap\Map, array given, called in /home/vagrant/project/src/controllers/UserController.php on line 40 and defined in /home/vagrant/project/src/services/MapService.php:54
+Stack trace:
+#0 /home/vagrant/project/src/controllers/UserController.php(40): thewulf7\friendloc\services\MapService->renderMap(Array)
+#1 [internal function]: thewulf7\friendloc\controllers\UserController->viewAction(43)
+#2 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#3 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#4 /home/vagrant/project/src/components/Application.php(126): DI\Container->call(Array, Array)
+#5 /home/vagrant/project/src/web/index.php(25): thewulf7\friendloc\components\Application->run()
+#6 {main}
+  thrown in /home/vagrant/project/src/services/MapService" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/28 18:16:16 [error] 18633#0: *115 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Ivory\GoogleMap\Exception\BaseException: The latitude of a coordinate must be a numeric value. in /home/vagrant/project/vendor/egeloen/google-map/src/Exception/BaseException.php:60
+Stack trace:
+#0 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(70): Ivory\GoogleMap\Exception\BaseException::invalidCoordinateLatitude()
+#1 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(45): Ivory\GoogleMap\Base\Coordinate->setLatitude('Evgenii Utkin')
+#2 /home/vagrant/project/src/models/User.php(396): Ivory\GoogleMap\Base\Coordinate->__construct('Evgenii Utkin', 'thewulf7@gmail....')
+#3 /home/vagrant/project/src/services/UserService.php(157): thewulf7\friendloc\models\User->setLatlng(Array)
+#4 /home/vagrant/project/src/controllers/UserController.php(84): thewulf7\friendloc\services\UserService->update(42, 'Evgenii Utkin', 'thewulf7@gmail....', '', 'Long Beach, CA,...', Array)
+#5 [internal function]: thewulf7\friendloc\controllers\UserCon" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:16:26 [error] 18633#0: *115 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Ivory\GoogleMap\Exception\BaseException: The latitude of a coordinate must be a numeric value. in /home/vagrant/project/vendor/egeloen/google-map/src/Exception/BaseException.php:60
+Stack trace:
+#0 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(70): Ivory\GoogleMap\Exception\BaseException::invalidCoordinateLatitude()
+#1 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(45): Ivory\GoogleMap\Base\Coordinate->setLatitude('Evgenii Utkin')
+#2 /home/vagrant/project/src/models/User.php(396): Ivory\GoogleMap\Base\Coordinate->__construct('Evgenii Utkin', 'thewulf7@gmail....')
+#3 /home/vagrant/project/src/services/UserService.php(157): thewulf7\friendloc\models\User->setLatlng(Array)
+#4 /home/vagrant/project/src/controllers/UserController.php(84): thewulf7\friendloc\services\UserService->update(42, 'Evgenii Utkin', 'thewulf7@gmail....', '', 'Long Beach, CA,...', Array)
+#5 [internal function]: thewulf7\friendloc\controllers\UserCon" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:16:55 [error] 18633#0: *115 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Ivory\GoogleMap\Exception\BaseException: The latitude of a coordinate must be a numeric value. in /home/vagrant/project/vendor/egeloen/google-map/src/Exception/BaseException.php:60
+Stack trace:
+#0 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(70): Ivory\GoogleMap\Exception\BaseException::invalidCoordinateLatitude()
+#1 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(45): Ivory\GoogleMap\Base\Coordinate->setLatitude('Evgenii Utkin')
+#2 /home/vagrant/project/src/models/User.php(396): Ivory\GoogleMap\Base\Coordinate->__construct('Evgenii Utkin', 'thewulf7@gmail....')
+#3 /home/vagrant/project/src/services/UserService.php(157): thewulf7\friendloc\models\User->setLatlng(Array)
+#4 /home/vagrant/project/src/controllers/UserController.php(84): thewulf7\friendloc\services\UserService->update(42, 'Evgenii Utkin', 'thewulf7@gmail....', '$2a$10$W9SvrEO1...', 'Long Beach, CA,...', Array)
+#5 [internal function]: thewulf7\friendloc\c" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:17:54 [error] 18633#0: *122 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Ivory\GoogleMap\Exception\BaseException: The latitude of a coordinate must be a numeric value. in /home/vagrant/project/vendor/egeloen/google-map/src/Exception/BaseException.php:60
+Stack trace:
+#0 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(70): Ivory\GoogleMap\Exception\BaseException::invalidCoordinateLatitude()
+#1 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(45): Ivory\GoogleMap\Base\Coordinate->setLatitude('Evgenii Utkin')
+#2 /home/vagrant/project/src/models/User.php(396): Ivory\GoogleMap\Base\Coordinate->__construct('Evgenii Utkin', 'thewulf7@gmail....')
+#3 /home/vagrant/project/src/services/UserService.php(157): thewulf7\friendloc\models\User->setLatlng(Array)
+#4 /home/vagrant/project/src/controllers/UserController.php(84): thewulf7\friendloc\services\UserService->update(42, 'Evgenii Utkin', 'thewulf7@gmail....', '', 'Long Beach, CA,...', Array)
+#5 [internal function]: thewulf7\friendloc\controllers\UserCon" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:20:59 [error] 18633#0: *128 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined index: location in /home/vagrant/project/src/controllers/UserController.php on line 76
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->updateAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:21:30 [error] 18633#0: *128 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined index: location in /home/vagrant/project/src/controllers/UserController.php on line 76
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->updateAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:24:25 [error] 18633#0: *136 FastCGI sent in stderr: "PHP message: PHP Warning:  http_response_code() expects parameter 1 to be integer, string given in /home/vagrant/project/src/components/Controller.php on line 155
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->updateAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\components\Controller->sendResponse() /home/vagrant/project/src/controllers/UserController.php:92
+PHP message: PHP   8. http_response_code() /home/vagrant/project/src/components/Controller.php:155" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"

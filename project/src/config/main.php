@@ -70,4 +70,7 @@ return [
             'route' => '/',
         ],
     ],
+    'emailFrom' => [
+        'no-reply@friendloc.dev' => 'Evgenii Utkin'
+    ],
 ];

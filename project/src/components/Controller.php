@@ -4,7 +4,7 @@ namespace thewulf7\friendloc\components;
 
 use thewulf7\friendloc\services\
 {
-    AuthService, UserService, LocationService, MapService
+    AuthService, UserService, LocationService, MapService, EmailService
 };
 use thewulf7\friendloc\components\router\Response;
 use thewulf7\friendloc\models\User;
@@ -14,6 +14,7 @@ use thewulf7\friendloc\models\User;
  *
  * @package thewulf7\friendloc\components
  * @method \thewulf7\friendloc\services\AuthService getAuthService()
+ * @method \thewulf7\friendloc\services\EmailService getEmailService()
  * @method \thewulf7\friendloc\services\LocationService getLocationService()
  * @method \thewulf7\friendloc\services\MapService getMapService()
  * @method \thewulf7\friendloc\services\UserService getUserService()

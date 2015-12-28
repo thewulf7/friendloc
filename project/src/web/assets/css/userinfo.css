@@ -210,7 +210,7 @@
 }
 
 .blog-main .info {
-    height: 610px;
+    height: 680px;
     overflow-y: scroll;
     padding-top: 10px;
 }
@@ -236,4 +236,10 @@
 
 .info .map {
     padding-top: 20px;
+}
+.edit-profile {
+    cursor: pointer;
+}
+#updatePersonal .form-control {
+    margin: 5px 0;
 }

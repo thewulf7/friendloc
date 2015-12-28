@@ -23,13 +23,11 @@
         "creof/doctrine2-spatial"      : "1.0.0",
         "php-di/php-di"                : "*",
         "twig/twig"                    : "^1.18",
-
         "elasticsearch/elasticsearch"  : "*",
-
         "egeloen/google-map"           : "dev-master",
         "willdurand/geocoder"          : "*",
         "widop/http-adapter"           : "1.0.*",
-
+        "swiftmailer/swiftmailer"      : "@stable",
         "fxp/composer-asset-plugin"    : "~1.1",
         "bower-asset/bootstrap"        : "3.3.6",
         "bower-asset/requirejs"        : "*",
