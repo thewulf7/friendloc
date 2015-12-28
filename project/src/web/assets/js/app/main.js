@@ -15,7 +15,8 @@ define(function (require) {
 
     $(function () {
 
-        var hash = window.location.hash.replace('#/', '');
+        var hash = (window.location.pathname==='' || window.location.pathname==='/') ? window.location.hash.replace('#/', '') :
+            window.location.pathname.substr(1);
 
         var route = new Router(hash);
 

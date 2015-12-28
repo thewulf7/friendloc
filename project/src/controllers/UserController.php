@@ -3,6 +3,9 @@ namespace thewulf7\friendloc\controllers;
 
 
 use DI\NotFoundException;
+use Ivory\GoogleMap\Helper\MapHelper;
+use Ivory\GoogleMap\Map;
+use Ivory\GoogleMap\Overlays\InfoWindow;
 use thewulf7\friendloc\components\Controller;
 use thewulf7\friendloc\models\User;
 
@@ -33,6 +36,8 @@ class UserController extends Controller
             return $this->sendErrorResponse([$e->getMessage()]);
         }
 
+        $map = $this->getMapService()->createMap($model->getLatlng(), $model->getLocationName());
+
         return $this->sendResponse(
             [
                 'id'         => $model->getId(),
@@ -40,12 +45,15 @@ class UserController extends Controller
                 'properties' => [
                     'user'     => $model,
                     'isFriend' => in_array($model->getId(), $cUser->getFriendList(), false),
+                    'map'      => htmlentities($map),
                 ],
             ]
         );
     }
 
     /**
+     * TODO: update
+     *
      * @param $id
      */
     public function updateAction(int $id)
@@ -86,6 +94,8 @@ class UserController extends Controller
             return $this->sendErrorResponse([$e->getMessage()]);
         }
 
+        $map = $this->getMapService()->createMap($model->getLatlng(), $model->getLocationName());
+
         $this->sendResponse(
             [
                 'id'         => $model->getId(),
@@ -93,6 +103,7 @@ class UserController extends Controller
                 'properties' => [
                     'user'     => $friend,
                     'isFriend' => true,
+                    'map'      => htmlentities($map),
                 ],
             ]
         );
@@ -117,6 +128,8 @@ class UserController extends Controller
             return $this->sendErrorResponse([$e->getMessage()]);
         }
 
+        $map = $this->getMapService()->createMap($model->getLatlng(), $model->getLocationName());
+
         $this->sendResponse(
             [
                 'id'         => $model->getId(),
@@ -124,6 +137,7 @@ class UserController extends Controller
                 'properties' => [
                     'user'     => $friend,
                     'isFriend' => false,
+                    'map'      => htmlentities($map),
                 ],
             ]
         );

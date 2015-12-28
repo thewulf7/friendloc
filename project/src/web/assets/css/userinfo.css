@@ -233,3 +233,7 @@
 .panel.list-header {
     margin-bottom: 0;
 }
+
+.info .map {
+    padding-top: 20px;
+}

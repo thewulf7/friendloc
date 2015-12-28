@@ -1,7 +1,7 @@
 <?php
 namespace thewulf7\friendloc\models;
 
-use Geocoder\Model\Coordinates;
+use Ivory\GoogleMap\Base\Coordinate;
 use thewulf7\friendloc\components\elasticsearch\annotations as ElasticSearch;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -80,7 +80,7 @@ class User implements \JsonSerializable
 
     /**
      * @ElasticSearch\ElasticField(type="geo_point", includeInAll=true)
-     * @var Coordinates
+     * @var Coordinate
      */
     private $latlng;
 
@@ -373,7 +373,7 @@ class User implements \JsonSerializable
     /**
      * Get Latlng
      *
-     * @return Coordinates
+     * @return Coordinate
      */
     public function getLatlng()
     {
@@ -391,7 +391,7 @@ class User implements \JsonSerializable
     {
         list($latitude, $longitude) = array_values($latlng);
 
-        $this->latlng = new Coordinates($latitude, $longitude);
+        $this->latlng = new Coordinate($latitude, $longitude);
 
         return $this;
     }

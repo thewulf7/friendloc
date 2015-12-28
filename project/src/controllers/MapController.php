@@ -11,7 +11,6 @@ class MapController extends Controller
     {
         $model = $this->getUserService()->get($userId);
 
-
         $map       = $this->getMapService()->createMap();
         $mapHelper = new MapHelper();
 

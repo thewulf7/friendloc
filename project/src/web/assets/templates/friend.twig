@@ -14,9 +14,13 @@
                 {% if isFriend == false %}
                     <button class="btn btn-success" data-id="{{ id }}" id="addToFriends">Add to friends</button>
                 {% elseif isFriend == true %}
-                    <button class="btn btn-danger" data-id="{{ id }}" id="removeFromFriends">Remove from friends</button>
+                    <button class="btn btn-danger" data-id="{{ id }}" id="removeFromFriends">Remove from friends
+                    </button>
                 {% endif %}
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 map"></div>
     </div>
 </div>

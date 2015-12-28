@@ -20,7 +20,10 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
                 .setSign(props.user.sign)
                 .setIsFriend(props.isFriend);
 
-            container.html(renderer.renderUserView(user));
+            var text = $('<textarea />').html(props.map).text();
+            container.html(renderer.renderUserView(user)).find('.map').append(text);
+
+            load_ivory_google_map_api();
 
             $('#addToFriends').on('click', function () {
                 var friendId = $(this).data('id');
@@ -28,7 +31,7 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
                 apiObject.addToFriends(friendId).done(function (response) {
                     loadUser(response.properties);
                     defaultC.friends();
-                }).fail(function(response){
+                }).fail(function (response) {
                     console.warn(response);
                 });
             });
