@@ -11,7 +11,7 @@ define(function (require) {
 
             return template(user);
         },
-        renderFriendsList: function(type, friends) {
+        renderFriendsList: function (type, friends) {
 
             var templateHeader = require('twigjs!templates/friends_list');
             var templateLine = require('twigjs!templates/friend_line');
@@ -19,8 +19,7 @@ define(function (require) {
 
             output += templateHeader({title: type === 'my' ? 'My friends' : 'Search result'});
 
-            if(friends.length === 0)
-            {
+            if (friends.length === 0) {
                 output += type === 'my' ? 'You have 0 friends. To add them use the search bar.' : 'No users found';
             }
 

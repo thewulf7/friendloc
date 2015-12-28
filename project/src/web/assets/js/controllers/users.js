@@ -20,8 +20,9 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
                 .setSign(props.user.sign)
                 .setIsFriend(props.isFriend);
 
-            var text = $('<textarea />').html(props.map).text();
-            container.html(renderer.renderUserView(user)).find('.map').append(text);
+            var text = $('<textarea />').html(props.location.html).text();
+            var js = $('<textarea />').html(props.location.js).text();
+            container.html(renderer.renderUserView(user)).find('.map').append(text).append(js);
 
             load_ivory_google_map_api();
 

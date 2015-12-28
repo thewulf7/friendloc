@@ -65,7 +65,7 @@ class MapService extends AbstractService
         ];
     }
 
-    public function renderMapWithMarker(Coordinate $point, string $info = '', bool $async = true): string
+    public function renderMapWithMarker(Coordinate $point, string $info = '', bool $async = true): array
     {
         $marker     = new Marker();
         $infoWindow = new InfoWindow();

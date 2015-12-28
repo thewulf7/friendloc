@@ -36,7 +36,7 @@ class UserController extends Controller
             return $this->sendErrorResponse([$e->getMessage()]);
         }
 
-        $map = $this->getMapService()->createMap($model->getLatlng(), $model->getLocationName());
+        $map = $this->getMapService()->renderMapWithMarker($model->getLatlng(), $model->getLocationName());
 
         return $this->sendResponse(
             [
@@ -45,7 +45,10 @@ class UserController extends Controller
                 'properties' => [
                     'user'     => $model,
                     'isFriend' => in_array($model->getId(), $cUser->getFriendList(), false),
-                    'map'      => htmlentities($map),
+                    'location' => [
+                        'html' => htmlentities($map['html']),
+                        'js'   => htmlentities(trim($map['js'])),
+                    ],
                 ],
             ]
         );
@@ -94,7 +97,7 @@ class UserController extends Controller
             return $this->sendErrorResponse([$e->getMessage()]);
         }
 
-        $map = $this->getMapService()->createMap($model->getLatlng(), $model->getLocationName());
+        $map = $this->getMapService()->renderMapWithMarker($model->getLatlng(), $model->getLocationName());
 
         $this->sendResponse(
             [
@@ -103,7 +106,10 @@ class UserController extends Controller
                 'properties' => [
                     'user'     => $friend,
                     'isFriend' => true,
-                    'map'      => htmlentities($map),
+                    'location' => [
+                        'html' => htmlentities($map['html']),
+                        'js'   => htmlentities(trim($map['js'])),
+                    ],
                 ],
             ]
         );
@@ -128,7 +134,7 @@ class UserController extends Controller
             return $this->sendErrorResponse([$e->getMessage()]);
         }
 
-        $map = $this->getMapService()->createMap($model->getLatlng(), $model->getLocationName());
+        $map = $this->getMapService()->renderMapWithMarker($model->getLatlng(), $model->getLocationName());
 
         $this->sendResponse(
             [
@@ -137,7 +143,10 @@ class UserController extends Controller
                 'properties' => [
                     'user'     => $friend,
                     'isFriend' => false,
-                    'map'      => htmlentities($map),
+                    'location' => [
+                        'html' => htmlentities($map['html']),
+                        'js'   => htmlentities(trim($map['js'])),
+                    ],
                 ],
             ]
         );
