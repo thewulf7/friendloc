@@ -9,3 +9,5 @@ gen
 project/vendor
 project/log
 project/bin
+
+project/src/web/assets/vendor

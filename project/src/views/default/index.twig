@@ -1,0 +1,29 @@
+{% extends layout %}
+
+{% block style %}
+    <link href="/assets/css/userinfo.css" rel="stylesheet">
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="//www.google.com/jsapi"></script>
+{% endblock %}
+
+{% block content %}
+
+    <section id="main-block" data-id="{{ user.id }}">
+        <div class="row">
+
+            {% include "default/userinfo.twig" %}
+
+            <div class="col-sm-10">
+                {#{% include "default/search.twig" %}#}
+                {% include "default/friendlist.twig" %}
+                {% include "default/container.twig" %}
+            </div>
+        </div><!-- /.row -->
+    </section>
+    <footer class="blog-footer">
+        <p>Friendloc</p>
+    </footer>
+
+{% endblock %}

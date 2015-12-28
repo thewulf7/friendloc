@@ -8,6 +8,8 @@ installpkg(){
 
 installpkg python-software-properties
 add-apt-repository ppa:ondrej/php-7.0
+wget -qO - http://packages.elasticsearch.org/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb http://packages.elasticsearch.org/elasticsearch/1.3/debian stable main" | sudo tee -a /etc/apt/sources.list
 
 PG_REPO_APT_SOURCE=/etc/apt/sources.list.d/pgdg.list
 if [ ! -f "$PG_REPO_APT_SOURCE" ]
@@ -35,6 +37,7 @@ installpkg php7.0-curl
 installpkg php7.0-opcache
 installpkg php7.0-json
 installpkg php-xdebug
+installpkg postfix
 
 service php7.0-fpm restart
 
@@ -82,15 +85,20 @@ installpkg php7.0-pgsql
 
 service postgresql restart
 
+#elasticsearch
+installpkg openjdk-7-jre-headless
+installpkg elasticsearch
+service elasticsearch start
+
 #nginx
 
-add-apt-repository ppa:nginx/stable -y && apt-get update
 installpkg nginx
 
 rm -f /etc/nginx/sites-enabled/default
 cp /tmp/friendloc /etc/nginx/sites-available
 ln -s -f /etc/nginx/sites-available/friendloc /etc/nginx/sites-enabled/friendloc
 
+/etc/init.d/apache2 stop
 service nginx restart
 
 locale-gen ru_RU.UTF-8

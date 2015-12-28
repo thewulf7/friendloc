@@ -1,0 +1,48 @@
+{% extends layout %}
+
+{% block style %}
+    <link href="/assets/css/login.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="wrap">
+    <div class="container">
+        <form class="form-signin" action="/auth/login" method="post">
+            <span class="logo glyphicon glyphicon-lock" aria-hidden="true"></span>
+            <h2 class="form-signin-heading">FriendLock</h2>
+            {% if notice %}
+                <div class="alert alert-info">
+                    <ul style="padding-left: 10px">
+                        {% for error in notice %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            {% if errors %}
+                <div class="alert alert-danger">
+                    <ul style="padding-left: 10px;">
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+            <label for="inputEmail" class="sr-only">Email address</label>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address"
+                   required="required"
+                   autofocus="autofocus"/>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password"
+                   required="required"/>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me"/> Remember me
+                </label>
+                <a class="signup-link" href="/auth/signup">Signup</a>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

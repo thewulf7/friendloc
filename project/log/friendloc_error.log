@@ -1,0 +1,343 @@
+2015/12/27 09:22:44 [error] 7102#0: *54 FastCGI sent in stderr: "PHP message: PHP Warning:  preg_match(): Unknown modifier 'j' in /home/vagrant/project/src/controllers/UserController.php on line 43
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->viewAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. preg_match() /home/vagrant/project/src/controllers/UserController.php:43" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/27 09:25:22 [error] 7102#0: *59 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined variable: matches in /home/vagrant/project/src/controllers/UserController.php on line 47
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->viewAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/27 09:42:51 [error] 7102#0: *135 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined variable: jsMap in /home/vagrant/project/src/controllers/UserController.php on line 53
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->viewAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/27 09:42:59 [error] 7102#0: *132 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined variable: jsMap in /home/vagrant/project/src/controllers/UserController.php on line 53
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->viewAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/27 09:47:34 [error] 7104#0: *147 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined offset: 0 in /home/vagrant/project/src/controllers/UserController.php on line 48
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->viewAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/27 10:06:23 [error] 7103#0: *218 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Return value of thewulf7\friendloc\services\MapService::createMap() must be an instance of Ivory\GoogleMap\Map, string returned in /home/vagrant/project/src/services/MapService.php:67
+Stack trace:
+#0 /home/vagrant/project/src/controllers/UserController.php(39): thewulf7\friendloc\services\MapService->createMap(Object(Ivory\GoogleMap\Base\Coordinate), 'Saint-P')
+#1 [internal function]: thewulf7\friendloc\controllers\UserController->viewAction(43)
+#2 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#3 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#4 /home/vagrant/project/src/components/Application.php(126): DI\Container->call(Array, Array)
+#5 /home/vagrant/project/src/web/index.php(25): thewulf7\friendloc\components\Application->run()
+#6 {main}
+  thrown in /home/vagrant/project/src/services/MapService.php on line 67" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 06:56:04 [error] 7103#0: *273 FastCGI sent in stderr: "PHP message: PHP Notice:  Array to string conversion in /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code on line 81
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->signupAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\components\Controller->render() /home/vagrant/project/src/controllers/AuthController.php:62
+PHP message: PHP   8. Twig_Environment->display() /home/vagrant/project/src/components/Controller.php:53
+PHP message: PHP   9. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php:362
+PHP message: PHP  10. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  11. __TwigTemplate_95f05042c1add0b99184afc89dddd0a7af69a710aecbe6ce93cc3ddaea63b7e5->doDisplay() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:381
+PHP message: PHP  12. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code:24
+PHP message: PHP  13. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  14. __TwigTemplate_d63fc3ca8d45d814bb6698e42f821a9583dd5bf54b706e992d2b9ab0622d293f->doDisplay() /home/vagrant/project/vendor/twig/twi
+2015/12/28 06:56:39 [error] 7103#0: *273 FastCGI sent in stderr: "PHP message: PHP Notice:  Array to string conversion in /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code on line 81
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->signupAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\components\Controller->render() /home/vagrant/project/src/controllers/AuthController.php:62
+PHP message: PHP   8. Twig_Environment->display() /home/vagrant/project/src/components/Controller.php:53
+PHP message: PHP   9. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php:362
+PHP message: PHP  10. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  11. __TwigTemplate_95f05042c1add0b99184afc89dddd0a7af69a710aecbe6ce93cc3ddaea63b7e5->doDisplay() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:381
+PHP message: PHP  12. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code:24
+PHP message: PHP  13. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  14. __TwigTemplate_d63fc3ca8d45d814bb6698e42f821a9583dd5bf54b706e992d2b9ab0622d293f->doDisplay() /home/vagrant/project/vendor/twig/twi
+2015/12/28 06:56:50 [error] 7103#0: *276 FastCGI sent in stderr: "PHP message: PHP Notice:  Array to string conversion in /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code on line 81
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->signupAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\components\Controller->render() /home/vagrant/project/src/controllers/AuthController.php:64
+PHP message: PHP   8. Twig_Environment->display() /home/vagrant/project/src/components/Controller.php:53
+PHP message: PHP   9. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php:362
+PHP message: PHP  10. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  11. __TwigTemplate_95f05042c1add0b99184afc89dddd0a7af69a710aecbe6ce93cc3ddaea63b7e5->doDisplay() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:381
+PHP message: PHP  12. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code:24
+PHP message: PHP  13. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  14. __TwigTemplate_d63fc3ca8d45d814bb6698e42f821a9583dd5bf54b706e992d2b9ab0622d293f->doDisplay() /home/vagrant/project/vendor/twig/twi
+2015/12/28 07:13:20 [error] 7104#0: *291 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined variable: model in /home/vagrant/project/src/controllers/AuthController.php on line 59
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->signupAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP Fatal error:  Uncaught Error: Call to a member function getLatlng() on unknown in /home/vagrant/project/src/controllers/AuthController.php:59
+Stack trace:
+#0 [internal function]: thewulf7\friendloc\controllers\AuthController->signupAction()
+#1 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#2 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#3 /home/vagrant/project/src/components/Application.php(126): DI\Container->call(Array, Array)
+#4 /home/vagrant/project/src/web/index.php(25): thewulf7\friendloc\components\Application->run()
+#5 {main}
+  thrown in /home/vagrant/project/src/controllers/AuthController.php on line 59" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /auth/signup HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/auth/login"
+2015/12/28 07:15:41 [error] 7104#0: *294 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Twig_Error_Syntax: Unknown "map" filter in "/auth/signup.twig" at line 37. in /home/vagrant/project/vendor/twig/twig/lib/Twig/ExpressionParser.php:601
+Stack trace:
+#0 /home/vagrant/project/vendor/twig/twig/lib/Twig/ExpressionParser.php(458): Twig_ExpressionParser->getFilterNodeClass('map', 37)
+#1 /home/vagrant/project/vendor/twig/twig/lib/Twig/ExpressionParser.php(443): Twig_ExpressionParser->parseFilterExpressionRaw(Object(Twig_Node_Expression_GetAttr))
+#2 /home/vagrant/project/vendor/twig/twig/lib/Twig/ExpressionParser.php(302): Twig_ExpressionParser->parseFilterExpression(Object(Twig_Node_Expression_GetAttr))
+#3 /home/vagrant/project/vendor/twig/twig/lib/Twig/ExpressionParser.php(194): Twig_ExpressionParser->parsePostfixExpression(Object(Twig_Node_Expression_GetAttr))
+#4 /home/vagrant/project/vendor/twig/twig/lib/Twig/ExpressionParser.php(84): Twig_ExpressionParser->parsePrimaryExpression()
+#5 /home/vagrant/project/vendor/twig/twig/lib/Twig/ExpressionParser.php(4" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /auth/signup/ HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/28 07:26:51 [error] 7103#0: *321 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught RuntimeException: Method `createMap` doesn't exists. in /home/vagrant/project/src/components/ApplicationHelper.php:93
+Stack trace:
+#0 /home/vagrant/project/src/controllers/AuthController.php(60): thewulf7\friendloc\components\AbstractService->__call('createMap', Array)
+#1 [internal function]: thewulf7\friendloc\controllers\AuthController->signupAction()
+#2 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#3 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#4 /home/vagrant/project/src/components/Application.php(126): DI\Container->call(Array, Array)
+#5 /home/vagrant/project/src/web/index.php(25): thewulf7\friendloc\components\Application->run()
+#6 {main}
+  thrown in /home/vagrant/project/src/components/ApplicationHelper.php on line 93" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /auth/signup/ HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/28 07:28:04 [error] 7103#0: *323 FastCGI sent in stderr: "PHP message: PHP Catchable fatal error:  Object of class Ivory\GoogleMap\Map could not be converted to string in /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code on line 96
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->signupAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\components\Controller->render() /home/vagrant/project/src/controllers/AuthController.php:66
+PHP message: PHP   8. Twig_Environment->display() /home/vagrant/project/src/components/Controller.php:53
+PHP message: PHP   9. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php:362
+PHP message: PHP  10. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  11. __TwigTemplate_95f05042c1add0b99184afc89dddd0a7af69a710aecbe6ce93cc3ddaea63b7e5->doDisplay() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:381
+PHP message: PHP  12. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code:25
+PHP message: PHP  13. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  14. __TwigTemplate_d63fc3ca8d45d814bb6698e42f821a9583dd5bf54b706e992d2b9ab062
+2015/12/28 07:59:49 [error] 7102#0: *364 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to Ivory\GoogleMap\Helper\Places\AutocompleteHelper::renderJavascripts() must be an instance of Ivory\GoogleMap\Places\Autocomplete, none given, called in /home/vagrant/project/src/services/MapService.php on line 108 and defined in /home/vagrant/project/vendor/egeloen/google-map/src/Helper/Places/AutocompleteHelper.php:163
+Stack trace:
+#0 /home/vagrant/project/src/services/MapService.php(108): Ivory\GoogleMap\Helper\Places\AutocompleteHelper->renderJavascripts()
+#1 /home/vagrant/project/src/controllers/AuthController.php(58): thewulf7\friendloc\services\MapService->getAutocomplete()
+#2 [internal function]: thewulf7\friendloc\controllers\AuthController->signupAction()
+#3 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#4 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#5 /home/vagrant/project/src/components/Application.php(126): D" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /auth/signup/ HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/28 08:17:55 [error] 7103#0: *419 FastCGI sent in stderr: "PHP message: PHP Notice:  Array to string conversion in /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code on line 97
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->signupAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\components\Controller->render() /home/vagrant/project/src/controllers/AuthController.php:66
+PHP message: PHP   8. Twig_Environment->display() /home/vagrant/project/src/components/Controller.php:53
+PHP message: PHP   9. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php:362
+PHP message: PHP  10. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  11. __TwigTemplate_95f05042c1add0b99184afc89dddd0a7af69a710aecbe6ce93cc3ddaea63b7e5->doDisplay() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:381
+PHP message: PHP  12. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code:25
+PHP message: PHP  13. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  14. __TwigTemplate_d63fc3ca8d45d814bb6698e42f821a9583dd5bf54b706e992d2b9ab0622d293f->doDisplay() /home/vagrant/project/vendor/twig/twi
+2015/12/28 08:18:25 [error] 7103#0: *419 FastCGI sent in stderr: "PHP message: PHP Notice:  Array to string conversion in /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code on line 97
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->signupAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\components\Controller->render() /home/vagrant/project/src/controllers/AuthController.php:66
+PHP message: PHP   8. Twig_Environment->display() /home/vagrant/project/src/components/Controller.php:53
+PHP message: PHP   9. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php:362
+PHP message: PHP  10. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  11. __TwigTemplate_95f05042c1add0b99184afc89dddd0a7af69a710aecbe6ce93cc3ddaea63b7e5->doDisplay() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:381
+PHP message: PHP  12. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code:25
+PHP message: PHP  13. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  14. __TwigTemplate_d63fc3ca8d45d814bb6698e42f821a9583dd5bf54b706e992d2b9ab0622d293f->doDisplay() /home/vagrant/project/vendor/twig/twi
+2015/12/28 08:19:11 [error] 7103#0: *419 FastCGI sent in stderr: "PHP message: PHP Notice:  Array to string conversion in /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code on line 97
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->signupAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\components\Controller->render() /home/vagrant/project/src/controllers/AuthController.php:66
+PHP message: PHP   8. Twig_Environment->display() /home/vagrant/project/src/components/Controller.php:53
+PHP message: PHP   9. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php:362
+PHP message: PHP  10. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  11. __TwigTemplate_95f05042c1add0b99184afc89dddd0a7af69a710aecbe6ce93cc3ddaea63b7e5->doDisplay() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:381
+PHP message: PHP  12. Twig_Template->display() /home/vagrant/project/vendor/twig/twig/lib/Twig/Environment.php(403) : eval()'d code:25
+PHP message: PHP  13. Twig_Template->displayWithErrorHandling() /home/vagrant/project/vendor/twig/twig/lib/Twig/Template.php:355
+PHP message: PHP  14. __TwigTemplate_d63fc3ca8d45d814bb6698e42f821a9583dd5bf54b706e992d2b9ab0622d293f->doDisplay() /home/vagrant/project/vendor/twig/twi
+2015/12/28 08:23:29 [error] 7104#0: *429 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to Ivory\GoogleMap\Helper\Places\AutocompleteHelper::renderJavascripts() must be an instance of Ivory\GoogleMap\Places\Autocomplete, none given, called in /home/vagrant/project/src/services/MapService.php on line 114 and defined in /home/vagrant/project/vendor/egeloen/google-map/src/Helper/Places/AutocompleteHelper.php:163
+Stack trace:
+#0 /home/vagrant/project/src/services/MapService.php(114): Ivory\GoogleMap\Helper\Places\AutocompleteHelper->renderJavascripts()
+#1 /home/vagrant/project/src/controllers/AuthController.php(58): thewulf7\friendloc\services\MapService->getAutocomplete()
+#2 [internal function]: thewulf7\friendloc\controllers\AuthController->signupAction()
+#3 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#4 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#5 /home/vagrant/project/src/components/Application.php(126): D" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /auth/signup/ HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/28 08:23:31 [error] 7104#0: *429 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to Ivory\GoogleMap\Helper\Places\AutocompleteHelper::renderJavascripts() must be an instance of Ivory\GoogleMap\Places\Autocomplete, none given, called in /home/vagrant/project/src/services/MapService.php on line 114 and defined in /home/vagrant/project/vendor/egeloen/google-map/src/Helper/Places/AutocompleteHelper.php:163
+Stack trace:
+#0 /home/vagrant/project/src/services/MapService.php(114): Ivory\GoogleMap\Helper\Places\AutocompleteHelper->renderJavascripts()
+#1 /home/vagrant/project/src/controllers/AuthController.php(58): thewulf7\friendloc\services\MapService->getAutocomplete()
+#2 [internal function]: thewulf7\friendloc\controllers\AuthController->signupAction()
+#3 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#4 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#5 /home/vagrant/project/src/components/Application.php(126): D" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /auth/signup/ HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/28 08:23:32 [error] 7104#0: *429 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to Ivory\GoogleMap\Helper\Places\AutocompleteHelper::renderJavascripts() must be an instance of Ivory\GoogleMap\Places\Autocomplete, none given, called in /home/vagrant/project/src/services/MapService.php on line 114 and defined in /home/vagrant/project/vendor/egeloen/google-map/src/Helper/Places/AutocompleteHelper.php:163
+Stack trace:
+#0 /home/vagrant/project/src/services/MapService.php(114): Ivory\GoogleMap\Helper\Places\AutocompleteHelper->renderJavascripts()
+#1 /home/vagrant/project/src/controllers/AuthController.php(58): thewulf7\friendloc\services\MapService->getAutocomplete()
+#2 [internal function]: thewulf7\friendloc\controllers\AuthController->signupAction()
+#3 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#4 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#5 /home/vagrant/project/src/components/Application.php(126): D" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /auth/signup/ HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/28 08:23:41 [error] 7104#0: *429 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined variable: map in /home/vagrant/project/src/services/MapService.php on line 114
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->signupAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\services\MapService->getAutocomplete() /home/vagrant/project/src/controllers/AuthController.php:58
+PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to Ivory\GoogleMap\Helper\Places\AutocompleteHelper::renderJavascripts() must be an instance of Ivory\GoogleMap\Places\Autocomplete, null given, called in /home/vagrant/project/src/services/MapService.php on line 114 and defined in /home/vagrant/project/vendor/egeloen/google-map/src/Helper/Places/AutocompleteHelper.php:163
+Stack trace:
+#0 /home/vagrant/project/src/services/MapService.php(114): Ivory\GoogleMap\Helper\Places\AutocompleteHelper->renderJavascripts(NULL)
+#1 /home/vagrant/project/src/controllers/AuthController.php(58): thewulf7\friendloc\services\MapService->getAutocomplete()
+#2 [internal function]: thewulf7\friendloc\controllers\AuthController->signupAction()
+#3 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#4 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#5 /home/vagra
+2015/12/28 09:30:32 [error] 7103#0: *566 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined index: newuser in /home/vagrant/project/src/controllers/AuthController.php on line 33
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\AuthController->loginAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /auth/login HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/auth/signup"
+2015/12/28 16:44:42 [error] 18257#0: *38 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to thewulf7\friendloc\services\MapService::renderMap() must be an instance of Ivory\GoogleMap\Map, array given, called in /home/vagrant/project/src/controllers/UserController.php on line 40 and defined in /home/vagrant/project/src/services/MapService.php:54
+Stack trace:
+#0 /home/vagrant/project/src/controllers/UserController.php(40): thewulf7\friendloc\services\MapService->renderMap(Array)
+#1 [internal function]: thewulf7\friendloc\controllers\UserController->viewAction(56)
+#2 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#3 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#4 /home/vagrant/project/src/components/Application.php(126): DI\Container->call(Array, Array)
+#5 /home/vagrant/project/src/web/index.php(25): thewulf7\friendloc\components\Application->run()
+#6 {main}
+  thrown in /home/vagrant/project/src/services/MapService" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/56 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 16:44:44 [error] 18257#0: *38 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to thewulf7\friendloc\services\MapService::renderMap() must be an instance of Ivory\GoogleMap\Map, array given, called in /home/vagrant/project/src/controllers/UserController.php on line 40 and defined in /home/vagrant/project/src/services/MapService.php:54
+Stack trace:
+#0 /home/vagrant/project/src/controllers/UserController.php(40): thewulf7\friendloc\services\MapService->renderMap(Array)
+#1 [internal function]: thewulf7\friendloc\controllers\UserController->viewAction(43)
+#2 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#3 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#4 /home/vagrant/project/src/components/Application.php(126): DI\Container->call(Array, Array)
+#5 /home/vagrant/project/src/web/index.php(25): thewulf7\friendloc\components\Application->run()
+#6 {main}
+  thrown in /home/vagrant/project/src/services/MapService" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 16:45:10 [error] 18257#0: *38 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught TypeError: Argument 1 passed to thewulf7\friendloc\services\MapService::renderMap() must be an instance of Ivory\GoogleMap\Map, array given, called in /home/vagrant/project/src/controllers/UserController.php on line 40 and defined in /home/vagrant/project/src/services/MapService.php:54
+Stack trace:
+#0 /home/vagrant/project/src/controllers/UserController.php(40): thewulf7\friendloc\services\MapService->renderMap(Array)
+#1 [internal function]: thewulf7\friendloc\controllers\UserController->viewAction(43)
+#2 /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php(82): call_user_func_array(Array, Array)
+#3 /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php(238): Invoker\Invoker->call(Array, Array)
+#4 /home/vagrant/project/src/components/Application.php(126): DI\Container->call(Array, Array)
+#5 /home/vagrant/project/src/web/index.php(25): thewulf7\friendloc\components\Application->run()
+#6 {main}
+  thrown in /home/vagrant/project/src/services/MapService" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "GET /v1/users/43 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev"
+2015/12/28 18:16:16 [error] 18633#0: *115 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Ivory\GoogleMap\Exception\BaseException: The latitude of a coordinate must be a numeric value. in /home/vagrant/project/vendor/egeloen/google-map/src/Exception/BaseException.php:60
+Stack trace:
+#0 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(70): Ivory\GoogleMap\Exception\BaseException::invalidCoordinateLatitude()
+#1 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(45): Ivory\GoogleMap\Base\Coordinate->setLatitude('Evgenii Utkin')
+#2 /home/vagrant/project/src/models/User.php(396): Ivory\GoogleMap\Base\Coordinate->__construct('Evgenii Utkin', 'thewulf7@gmail....')
+#3 /home/vagrant/project/src/services/UserService.php(157): thewulf7\friendloc\models\User->setLatlng(Array)
+#4 /home/vagrant/project/src/controllers/UserController.php(84): thewulf7\friendloc\services\UserService->update(42, 'Evgenii Utkin', 'thewulf7@gmail....', '', 'Long Beach, CA,...', Array)
+#5 [internal function]: thewulf7\friendloc\controllers\UserCon" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:16:26 [error] 18633#0: *115 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Ivory\GoogleMap\Exception\BaseException: The latitude of a coordinate must be a numeric value. in /home/vagrant/project/vendor/egeloen/google-map/src/Exception/BaseException.php:60
+Stack trace:
+#0 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(70): Ivory\GoogleMap\Exception\BaseException::invalidCoordinateLatitude()
+#1 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(45): Ivory\GoogleMap\Base\Coordinate->setLatitude('Evgenii Utkin')
+#2 /home/vagrant/project/src/models/User.php(396): Ivory\GoogleMap\Base\Coordinate->__construct('Evgenii Utkin', 'thewulf7@gmail....')
+#3 /home/vagrant/project/src/services/UserService.php(157): thewulf7\friendloc\models\User->setLatlng(Array)
+#4 /home/vagrant/project/src/controllers/UserController.php(84): thewulf7\friendloc\services\UserService->update(42, 'Evgenii Utkin', 'thewulf7@gmail....', '', 'Long Beach, CA,...', Array)
+#5 [internal function]: thewulf7\friendloc\controllers\UserCon" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:16:55 [error] 18633#0: *115 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Ivory\GoogleMap\Exception\BaseException: The latitude of a coordinate must be a numeric value. in /home/vagrant/project/vendor/egeloen/google-map/src/Exception/BaseException.php:60
+Stack trace:
+#0 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(70): Ivory\GoogleMap\Exception\BaseException::invalidCoordinateLatitude()
+#1 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(45): Ivory\GoogleMap\Base\Coordinate->setLatitude('Evgenii Utkin')
+#2 /home/vagrant/project/src/models/User.php(396): Ivory\GoogleMap\Base\Coordinate->__construct('Evgenii Utkin', 'thewulf7@gmail....')
+#3 /home/vagrant/project/src/services/UserService.php(157): thewulf7\friendloc\models\User->setLatlng(Array)
+#4 /home/vagrant/project/src/controllers/UserController.php(84): thewulf7\friendloc\services\UserService->update(42, 'Evgenii Utkin', 'thewulf7@gmail....', '$2a$10$W9SvrEO1...', 'Long Beach, CA,...', Array)
+#5 [internal function]: thewulf7\friendloc\c" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:17:54 [error] 18633#0: *122 FastCGI sent in stderr: "PHP message: PHP Fatal error:  Uncaught Ivory\GoogleMap\Exception\BaseException: The latitude of a coordinate must be a numeric value. in /home/vagrant/project/vendor/egeloen/google-map/src/Exception/BaseException.php:60
+Stack trace:
+#0 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(70): Ivory\GoogleMap\Exception\BaseException::invalidCoordinateLatitude()
+#1 /home/vagrant/project/vendor/egeloen/google-map/src/Base/Coordinate.php(45): Ivory\GoogleMap\Base\Coordinate->setLatitude('Evgenii Utkin')
+#2 /home/vagrant/project/src/models/User.php(396): Ivory\GoogleMap\Base\Coordinate->__construct('Evgenii Utkin', 'thewulf7@gmail....')
+#3 /home/vagrant/project/src/services/UserService.php(157): thewulf7\friendloc\models\User->setLatlng(Array)
+#4 /home/vagrant/project/src/controllers/UserController.php(84): thewulf7\friendloc\services\UserService->update(42, 'Evgenii Utkin', 'thewulf7@gmail....', '', 'Long Beach, CA,...', Array)
+#5 [internal function]: thewulf7\friendloc\controllers\UserCon" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:20:59 [error] 18633#0: *128 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined index: location in /home/vagrant/project/src/controllers/UserController.php on line 76
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->updateAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:21:30 [error] 18633#0: *128 FastCGI sent in stderr: "PHP message: PHP Notice:  Undefined index: location in /home/vagrant/project/src/controllers/UserController.php on line 76
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->updateAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"
+2015/12/28 18:24:25 [error] 18633#0: *136 FastCGI sent in stderr: "PHP message: PHP Warning:  http_response_code() expects parameter 1 to be integer, string given in /home/vagrant/project/src/components/Controller.php on line 155
+PHP message: PHP Stack trace:
+PHP message: PHP   1. {main}() /home/vagrant/project/src/web/index.php:0
+PHP message: PHP   2. thewulf7\friendloc\components\Application->run() /home/vagrant/project/src/web/index.php:25
+PHP message: PHP   3. DI\Container->call() /home/vagrant/project/src/components/Application.php:126
+PHP message: PHP   4. Invoker\Invoker->call() /home/vagrant/project/vendor/php-di/php-di/src/DI/Container.php:238
+PHP message: PHP   5. call_user_func_array:{/home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82}() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   6. thewulf7\friendloc\controllers\UserController->updateAction() /home/vagrant/project/vendor/php-di/invoker/src/Invoker.php:82
+PHP message: PHP   7. thewulf7\friendloc\components\Controller->sendResponse() /home/vagrant/project/src/controllers/UserController.php:92
+PHP message: PHP   8. http_response_code() /home/vagrant/project/src/components/Controller.php:155" while reading response header from upstream, client: 192.168.31.1, server: friendloc.dev, request: "PUT /v1/users/42 HTTP/1.1", upstream: "fastcgi://unix:/run/php/php7.0-fpm.sock:", host: "friendloc.dev", referrer: "http://friendloc.dev/"

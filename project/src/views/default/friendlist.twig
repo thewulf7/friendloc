@@ -1,0 +1,31 @@
+<div class="col-sm-4 blog-sidebar">
+    <form method="post" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control"
+                   placeholder="Find your friends: by name or location"/>
+        </div>
+    </form>
+    <div class="list-group friend">
+        <div class="panel panel-default list-header">
+            <div class="panel-heading">My friends</div>
+        </div>
+
+        {% if friends is empty %}
+            You have 0 friends. To add them use the search bar.
+        {% endif %}
+
+        {% for friend in friends %}
+            <a href="{{ friend.link }}" class="list-group-item">
+                <div class="row">
+                    <div class="col-md-3 col-xs-12">
+                        <div class="userpicsmallpic alert-info">{{ friend.sign }}</div>
+                    </div>
+                    <div class="col-md-9 col-xs-12">
+                        <h4 class="list-group-item-heading">{{ friend.name }}</h4>
+                        <p class="list-group-item-text">{{ friend.locationName }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
