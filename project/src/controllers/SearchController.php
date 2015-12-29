@@ -28,6 +28,18 @@ class SearchController extends Controller
             'index' => 'users',
             'type'  => array_unique($types),
             'body'  => [
+                'sort'  => [
+                    [
+                        '_geo_distance' => [
+                            'latlng' => [
+                                'lat' => (double)$cUser->getLatlng()->getLatitude(),
+                                'lon' => (double)$cUser->getLatlng()->getLongitude()
+                            ],
+                            'order'  => 'asc',
+                            'unit'   => 'miles',
+                        ],
+                    ],
+                ],
                 'query' => [
                     'filtered' => [
                         'query'  => [
