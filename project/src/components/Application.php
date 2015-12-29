@@ -121,11 +121,12 @@ class Application
             {
                 $this->addToContainer('currentUser', $user);
             }
+
             try
             {
                 return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
             }catch(\ReflectionException $e){
-                echo '404';
+                echo json_encode(['errors' => $e->getMessage()]);
             }
         } else
         {
