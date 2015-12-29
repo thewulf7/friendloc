@@ -68,7 +68,7 @@ class User implements \JsonSerializable
     private $createdAt;
 
     /**
-     * @ElasticSearch\ElasticField(type="array", includeInAll=true)
+     * @ElasticSearch\ElasticField(type="integer", includeInAll=true)
      * @var array
      */
     private $friendList = [];
@@ -80,7 +80,7 @@ class User implements \JsonSerializable
     private $locationName;
 
     /**
-     * @ElasticSearch\ElasticField(type="geo_point", includeInAll=true)
+     * @ElasticSearch\ElasticField(type="geo_point")
      * @var Coordinate
      */
     private $latlng;
@@ -323,7 +323,7 @@ class User implements \JsonSerializable
      */
     public function setFriendList(array $friendList): User
     {
-        $this->friendList = $friendList;
+        $this->friendList = array_map('intval',$friendList);
 
         return $this;
     }
@@ -339,7 +339,7 @@ class User implements \JsonSerializable
     {
         if (!in_array($friendId, $this->friendList, true))
         {
-            $this->friendList[] = $friendId;
+            $this->friendList[] = (int)$friendId;
         }
 
         return $this;
