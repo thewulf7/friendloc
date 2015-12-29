@@ -59,6 +59,7 @@ return [
             'class'     => \thewulf7\friendloc\controllers\SearchController::class,
             'special'   => [
                 'GET ' . RestUrlRule::API_VERSION . 'search' => 'search',
+                'GET ' . RestUrlRule::API_VERSION . 'nearest' => 'nearest',
             ],
         ],
         [

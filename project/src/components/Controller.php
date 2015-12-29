@@ -4,7 +4,7 @@ namespace thewulf7\friendloc\components;
 
 use thewulf7\friendloc\services\
 {
-    AuthService, UserService, LocationService, MapService, EmailService
+    AuthService, UserService, LocationService, MapService, EmailService, SearchService
 };
 use thewulf7\friendloc\components\router\Response;
 use thewulf7\friendloc\models\User;
@@ -17,6 +17,7 @@ use thewulf7\friendloc\models\User;
  * @method \thewulf7\friendloc\services\EmailService getEmailService()
  * @method \thewulf7\friendloc\services\LocationService getLocationService()
  * @method \thewulf7\friendloc\services\MapService getMapService()
+ * @method \thewulf7\friendloc\services\SearchService getSearchService()
  * @method \thewulf7\friendloc\services\UserService getUserService()
  * @method \thewulf7\friendloc\models\User getCurrentUser()
  * @method mixed getTemplater()
@@ -33,7 +34,7 @@ abstract class Controller
     /**
      * @param string $path
      */
-    public function redirect($path = '')
+    public function redirect(string$path = '')
     {
         header('Location: ' . $path);
     }
@@ -44,7 +45,7 @@ abstract class Controller
      * @param string $view
      * @param array  $variables
      */
-    public function render($view, $variables = [])
+    public function render(string $view, array $variables = [])
     {
         $layout         = 'layout/' . $this->layout;
         $layoutTemplate = $this->getTemplater()->loadTemplate($layout . '.twig');
@@ -62,7 +63,7 @@ abstract class Controller
      * @param array  $variables
      * @param bool   $output
      */
-    public function renderPHP($view, $variables = [], $output = true)
+    public function renderPHP(string $view, array $variables = [], bool $output = true)
     {
         $layout = 'layout/' . $this->layout;
 
@@ -83,7 +84,7 @@ abstract class Controller
      * @return bool|string
      * @throws \Exception
      */
-    public function renderPartial($view, $variables = [], $output = true)
+    public function renderPartial(string $view, array $variables = [], bool $output = true)
     {
         $file = __DIR__ . '/../views/' . $view . '.php';
 
@@ -98,7 +99,7 @@ abstract class Controller
      * @return bool|string
      * @throws \Exception
      */
-    private function _renderPartial($fullpath, $variables = [], $output = true)
+    private function _renderPartial(string $fullpath, array $variables = [], bool $output = true)
     {
         extract($variables);
 
@@ -150,14 +151,14 @@ abstract class Controller
      *
      * @return bool
      */
-    public function sendResponse($data = [], $code = 200)
+    public function sendResponse($data = [], int $code = 200): bool
     {
         http_response_code($code);
         echo json_encode(new Response($data));
         return true;
     }
 
-    public function sendErrorResponse($data = [], $code = 400)
+    public function sendErrorResponse($data = [], int $code = 400): bool
     {
         http_response_code($code);
         echo json_encode(new Response(['errors' => $data, 'status' => $code]));
