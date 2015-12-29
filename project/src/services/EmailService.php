@@ -17,7 +17,7 @@ class EmailService extends AbstractService
                 'name'   => $user->getName(),
                 'email'  => $user->getEmail(),
                 'passwd' => $passwd,
-                'link'   => 'http://friendloc.dev/auth/approve/?hash=' . $user->getUserhash(),
+                'link'   => 'http://45.55.197.167/auth/approve/?hash=' . $user->getUserhash(),
             ]
         );
 
@@ -28,6 +28,12 @@ class EmailService extends AbstractService
             ->setFrom($this->getContainer()->get('thewulf7\friendloc\components\config\iConfig')->get('emailFrom'))
             ->setTo([$user->getEmail() => $user->getName()])
             ->setBody($body);
+
+        $headers =& $message->getHeaders();
+        $headers->addIdHeader('Message-ID', md5(time()) . "@friendloc.dev");
+        $headers->addTextHeader('MIME-Version', '1.0');
+        $headers->addTextHeader('X-Mailer', 'PHP v' . phpversion());
+        $headers->addParameterizedHeader('Content-type', 'text/html', ['charset' => 'utf-8']);
 
         if (!$mailer->send($message, $failures))
         {
@@ -55,6 +61,12 @@ class EmailService extends AbstractService
             ->setFrom($this->getContainer()->get('thewulf7\friendloc\components\config\iConfig')->get('emailFrom'))
             ->setTo([$user->getEmail() => $user->getName()])
             ->setBody($body);
+
+        $headers =& $message->getHeaders();
+        $headers->addIdHeader('Message-ID', md5(time()) . "@friendloc.dev");
+        $headers->addTextHeader('MIME-Version', '1.0');
+        $headers->addTextHeader('X-Mailer', 'PHP v' . phpversion());
+        $headers->addParameterizedHeader('Content-type', 'text/html', ['charset' => 'utf-8']);
 
         if (!$mailer->send($message, $failures))
         {
