@@ -111,11 +111,11 @@ class UserController extends Controller
             return $this->sendErrorResponse([$e->getMessage()]);
         }
 
-        $map = $this->getMapService()->renderMapWithMarker($model->getLatlng(), $model->getLocationName());
+        $map = $this->getMapService()->renderMapWithMarker($friend->getLatlng(), $friend->getLocationName());
 
         $this->sendResponse(
             [
-                'id'         => $model->getId(),
+                'id'         => $friend->getId(),
                 'type'       => User::class,
                 'properties' => [
                     'user'     => $friend,
@@ -148,11 +148,11 @@ class UserController extends Controller
             return $this->sendErrorResponse([$e->getMessage()]);
         }
 
-        $map = $this->getMapService()->renderMapWithMarker($model->getLatlng(), $model->getLocationName());
+        $map = $this->getMapService()->renderMapWithMarker($friend->getLatlng(), $friend->getLocationName());
 
         $this->sendResponse(
             [
-                'id'         => $model->getId(),
+                'id'         => $friend->getId(),
                 'type'       => User::class,
                 'properties' => [
                     'user'     => $friend,
