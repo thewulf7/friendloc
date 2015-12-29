@@ -171,8 +171,6 @@
 .list-group.friend
 {
     margin-bottom: 0;
-    height: 610px;
-    overflow-y: scroll;
 }
 .list-group.friend .list-group-item
 {
@@ -210,8 +208,6 @@
 }
 
 .blog-main .info {
-    height: 680px;
-    overflow-y: scroll;
     padding-top: 10px;
 }
 
@@ -242,4 +238,21 @@
 }
 #updatePersonal .form-control {
     margin: 5px 0;
+}
+
+@media (min-width: 768px) {
+    body {
+        overflow: hidden;
+    }
+
+    .list-group.friend {
+        height: 610px;
+        overflow-y: scroll;
+    }
+
+    .blog-main .info {
+        height: 680px;
+        overflow-y: scroll;
+        padding-top: 10px;
+    }
 }

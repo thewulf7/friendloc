@@ -26,8 +26,6 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
 
             container.html(renderer.renderUserView(user)).find('.map').append(text).append(js);
 
-            load_ivory_google_map_api();
-
             $('#addToFriends').on('click', function () {
                 var friendId = $(this).data('id');
 
@@ -40,13 +38,18 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
             });
 
             $('#removeFromFriends').on('click', function () {
+
                 var friendId = $(this).data('id');
 
                 apiObject.removeFromFriends(friendId).done(function (response) {
                     loadUser(response.properties);
                     defaultC.friends();
-                })
+                }).fail(function(e){
+                     console.info(e)
+                });
             });
+
+            load_ivory_google_map_api();
         }
 
         apiObject.getUser(id).done(function (response) {
