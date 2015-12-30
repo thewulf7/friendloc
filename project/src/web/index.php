@@ -5,7 +5,7 @@ use thewulf7\friendloc\components\config\{iConfig, Config};
 use function DI\object;
 use function DI\get;
 
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 
 require('../../vendor/autoload.php');
 
