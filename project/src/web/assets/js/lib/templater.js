@@ -7,7 +7,7 @@ define(function (require) {
     templater.prototype = {
         renderUserView: function (user) {
 
-            var template = require('twigjs!templates/friend');
+            var template = require('twigjs!templates/userProfile');
 
             return template(user);
         },

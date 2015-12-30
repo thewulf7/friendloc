@@ -194,4 +194,39 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * Get directions info
+     *
+     * @param int $id
+     *
+     * @return bool|\thewulf7\friendloc\components\bool
+     */
+    public function getDirectionsAction(int $id)
+    {
+        $model = $this->getCurrentUser();
+        try
+        {
+            $friend = $this->getUserService()->get($id);
+        } catch (\Exception $e)
+        {
+            return $this->sendErrorResponse([$e->getMessage()]);
+        }
+
+        return $this->sendResponse(
+            [
+                'id'         => $id,
+                'type'       => User::class,
+                'properties' => [
+                    'user'   => [
+                        'lat' => $model->getLatlng()->getLatitude(),
+                        'lng' => $model->getLatlng()->getLongitude(),
+                    ],
+                    'friend' => [
+                        'lat' => $friend->getLatlng()->getLatitude(),
+                        'lng' => $friend->getLatlng()->getLongitude(),
+                    ],
+                ],
+            ]
+        );
+    }
 }

@@ -14,6 +14,8 @@ use thewulf7\friendloc\models\User;
 class AuthService extends AbstractService
 {
     /**
+     * Auth user by email & passwd
+     *
      * @param string $email
      * @param string $password
      *
@@ -50,6 +52,8 @@ class AuthService extends AbstractService
     }
 
     /**
+     * Get user by hash
+     *
      * @param string $hash
      *
      * @return bool|User
@@ -67,6 +71,8 @@ class AuthService extends AbstractService
     }
 
     /**
+     * Logout user
+     *
      * @param $hash
      */
     public function logout($hash)

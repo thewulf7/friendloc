@@ -9,20 +9,35 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use thewulf7\friendloc\components\Auth;
 use thewulf7\friendloc\components\ElasticSearch;
-use thewulf7\friendloc\models\Location;
 use thewulf7\friendloc\models\User;
 
+/**
+ * Class CreateUserCommand
+ *
+ * @package thewulf7\friendloc\command
+ */
 class CreateUserCommand extends Command
 {
 
+    /**
+     * @var ElasticSearch
+     */
     private $elastic;
 
+    /**
+     * CreateUserCommand constructor.
+     *
+     * @param ElasticSearch $e
+     */
     public function __construct(ElasticSearch $e)
     {
         $this->elastic = $e;
         parent::__construct();
     }
 
+    /**
+     *
+     */
     protected function configure()
     {
         $this
@@ -42,6 +57,10 @@ class CreateUserCommand extends Command
         parent::configure();
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
     public function execute(InputInterface $input, OutputInterface $output)
     {
 

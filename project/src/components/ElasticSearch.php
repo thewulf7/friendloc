@@ -172,6 +172,11 @@ class ElasticSearch
         return $this->_classes;
     }
 
+    /**
+     * @param array $entity
+     *
+     * @return bool
+     */
     public function createIndex(array $entity)
     {
         try
@@ -187,6 +192,11 @@ class ElasticSearch
         return true;
     }
 
+    /**
+     * @param $entity
+     *
+     * @return bool
+     */
     public function deleteIndex($entity)
     {
         try
@@ -200,6 +210,11 @@ class ElasticSearch
         return true;
     }
 
+    /**
+     * Save entity
+     *
+     * @param \JsonSerializable $entity
+     */
     public function persist(\JsonSerializable $entity)
     {
         $class = new \ReflectionClass($entity);
@@ -227,6 +242,11 @@ class ElasticSearch
         }
     }
 
+    /**
+     * @param \JsonSerializable $entity
+     *
+     * @return bool
+     */
     public function remove(\JsonSerializable $entity)
     {
         $class = new \ReflectionClass($entity);
@@ -247,6 +267,14 @@ class ElasticSearch
         $this->getClient()->delete($params);
     }
 
+    /**
+     * Find entity by id
+     *
+     * @param string $entityName
+     * @param        $id
+     *
+     * @return bool
+     */
     public function find(string $entityName, $id)
     {
         $entityModel = $this->getEntities()[$entityName];
@@ -279,6 +307,14 @@ class ElasticSearch
         return $model;
     }
 
+    /**
+     * Find entity by params
+     *
+     * @param string $entityName
+     * @param array  $params
+     *
+     * @return array
+     */
     public function findBy(string $entityName, array $params = [])
     {
         $arResult = [];

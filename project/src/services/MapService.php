@@ -2,7 +2,6 @@
 namespace thewulf7\friendloc\services;
 
 
-use Geocoder\Model\Coordinates;
 use Ivory\GoogleMap\Base\Coordinate;
 use Ivory\GoogleMap\Helper\MapHelper;
 use Ivory\GoogleMap\Helper\Places\AutocompleteHelper;
@@ -12,13 +11,13 @@ use Ivory\GoogleMap\Overlays\Animation;
 use Ivory\GoogleMap\Overlays\InfoWindow;
 use Ivory\GoogleMap\Overlays\Marker;
 use Ivory\GoogleMap\Places\Autocomplete;
-use Ivory\GoogleMap\Places\AutocompleteComponentRestriction;
 use Ivory\GoogleMap\Places\AutocompleteType;
+use Ivory\GoogleMap\Services\Directions\Directions;
+use Ivory\GoogleMap\Services\Directions\DirectionsRequest;
 use Ivory\GoogleMap\Services\Geocoding\Geocoder;
 use Ivory\GoogleMap\Services\Geocoding\GeocoderProvider;
 use thewulf7\friendloc\components\AbstractService;
 use Widop\HttpAdapter\CurlHttpAdapter;
-use Widop\HttpAdapter\GuzzleHttpAdapter;
 
 /**
  * Class MapService
@@ -27,6 +26,16 @@ use Widop\HttpAdapter\GuzzleHttpAdapter;
  */
 class MapService extends AbstractService
 {
+    /**
+     * Create empty map
+     *
+     * @param Coordinate $center
+     * @param bool       $async
+     *
+     * @return Map
+     * @throws \Ivory\GoogleMap\Exception\AssetException
+     * @throws \Ivory\GoogleMap\Exception\MapException
+     */
     public function createEmptyMap(Coordinate $center, bool $async = true): Map
     {
         $map = new Map();
@@ -51,6 +60,13 @@ class MapService extends AbstractService
         return $map;
     }
 
+    /**
+     * Render map
+     *
+     * @param Map $map
+     *
+     * @return mixed
+     */
     public function renderMap(Map $map): array
     {
         $mapHelper = new MapHelper();
@@ -65,6 +81,18 @@ class MapService extends AbstractService
         ];
     }
 
+    /**
+     * Render map with marker
+     *
+     * @param Coordinate $point
+     * @param string     $info
+     * @param bool       $async
+     *
+     * @return mixed
+     * @throws \Ivory\GoogleMap\Exception\AssetException
+     * @throws \Ivory\GoogleMap\Exception\MapException
+     * @throws \Ivory\GoogleMap\Exception\OverlayException
+     */
     public function renderMapWithMarker(Coordinate $point, string $info = '', bool $async = true): array
     {
         $marker     = new Marker();
@@ -94,7 +122,17 @@ class MapService extends AbstractService
         return $this->renderMap($map);
     }
 
-    public function getAutocomplete($value=null)
+    /**
+     * Get autocomplete form
+     *
+     * @param null $value
+     *
+     * @return mixed
+     * @throws \Ivory\GoogleMap\Exception\AssetException
+     * @throws \Ivory\GoogleMap\Exception\PlaceException
+     * @throws \Ivory\GoogleMap\Exception\TemplatingException
+     */
+    public function getAutocomplete($value=null): array
     {
         $autocomplete       = new Autocomplete();
         $autocompleteHelper = new AutocompleteHelper();
@@ -121,18 +159,32 @@ class MapService extends AbstractService
         ];
     }
 
-    private function removeJsCaller(string $js)
+    /**
+     * Remove special info
+     *
+     * @param string $js
+     *
+     * @return string
+     */
+    private function removeJsCaller(string $js): string
     {
         return preg_replace('/(\<script\stype=\"text\/javascript\"\ssrc=\"[\S\s]+\".*\<\/script>)/', '', $js);
     }
 
+    /**
+     * Geocode info
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
     public function geoCode(string $name): array
     {
         $arResult = [];
         $geocoder = new Geocoder();
         $geocoder->registerProviders(
             [
-                new GeocoderProvider(new GuzzleHttpAdapter()),
+                new GeocoderProvider(new CurlHttpAdapter()),
             ]
         );
 
@@ -144,5 +196,28 @@ class MapService extends AbstractService
         }
 
         return $arResult;
+    }
+
+    /**
+     * Get directions info
+     *
+     * @param Coordinate $from
+     * @param Coordinate $to
+     *
+     * @return mixed
+     * @throws \Ivory\GoogleMap\Exception\DirectionsException
+     */
+    public function getDirections(Coordinate $from, Coordinate $to): array
+    {
+        $directions = new Directions(new CurlHttpAdapter());
+
+        $directionsRequest = new DirectionsRequest();
+
+        $directionsRequest->setOrigin($from);
+        $directionsRequest->setDestination($to);
+
+        $response = $directions->route($directionsRequest);
+
+        return $response->getRoutes();
     }
 }

@@ -68,7 +68,7 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user'], function (Ba
 
     Base.prototype.update = function () {
         console.info('default/update');
-        init();
+        Base.prototype.init();
 
         var userId = $('#main-block').data('id');
 

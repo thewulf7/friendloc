@@ -4,8 +4,23 @@ namespace thewulf7\friendloc\services;
 
 use thewulf7\friendloc\components\AbstractService;
 
+/**
+ * Class SearchService
+ *
+ * @package thewulf7\friendloc\services
+ */
 class SearchService extends AbstractService
 {
+    /**
+     * Search by query
+     *
+     * @param string $index
+     * @param string $type
+     * @param array  $query
+     * @param array  $sort
+     *
+     * @return mixed
+     */
     public function search(string $index, string $type, array $query, array $sort = []): array
     {
         $params = [

@@ -88,7 +88,7 @@ class Router
      *
      * @return Router
      */
-    public function setController($controller): Router
+    public function setController(string $controller): Router
     {
         $this->_controller = $controller;
 
@@ -122,7 +122,7 @@ class Router
      *
      * @return Router
      */
-    public function setAction($action): router
+    public function setAction(string $action): router
     {
         $this->_action = $action . 'Action';
 
