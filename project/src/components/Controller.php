@@ -4,10 +4,9 @@ namespace thewulf7\friendloc\components;
 
 use thewulf7\friendloc\services\
 {
-    AuthService, UserService, LocationService, MapService, EmailService, SearchService
+    AuthService, UserService, MapService, EmailService, SearchService
 };
 use thewulf7\friendloc\components\router\Response;
-use thewulf7\friendloc\models\User;
 
 /**
  * Class Controller
@@ -15,7 +14,6 @@ use thewulf7\friendloc\models\User;
  * @package thewulf7\friendloc\components
  * @method \thewulf7\friendloc\services\AuthService getAuthService()
  * @method \thewulf7\friendloc\services\EmailService getEmailService()
- * @method \thewulf7\friendloc\services\LocationService getLocationService()
  * @method \thewulf7\friendloc\services\MapService getMapService()
  * @method \thewulf7\friendloc\services\SearchService getSearchService()
  * @method \thewulf7\friendloc\services\UserService getUserService()
@@ -34,7 +32,7 @@ abstract class Controller
     /**
      * @param string $path
      */
-    public function redirect(string$path = '')
+    public function redirect(string $path = '')
     {
         header('Location: ' . $path);
     }
@@ -158,6 +156,12 @@ abstract class Controller
         return true;
     }
 
+    /**
+     * @param array $data
+     * @param int   $code
+     *
+     * @return bool
+     */
     public function sendErrorResponse($data = [], int $code = 400): bool
     {
         http_response_code($code);

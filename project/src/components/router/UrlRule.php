@@ -6,13 +6,23 @@ use thewulf7\friendloc\components\router\urlrules\iUrlRule;
 use thewulf7\friendloc\components\router\urlrules\RestUrlRule;
 use thewulf7\friendloc\components\router\urlrules\SimpleUrlRule;
 
+/**
+ * Class UrlRule
+ *
+ * @package thewulf7\friendloc\components\router
+ */
 class UrlRule
 {
     const SIMPLE_RULE = 'simpleRule';
 
     const REST_RULE = 'restRule';
 
-    protected function createRule($arRule): iUrlRule
+    /**
+     * @param array $arRule
+     *
+     * @return iUrlRule
+     */
+    protected function createRule(array $arRule): iUrlRule
     {
         $rule = $arRule['rule'] ?? self::SIMPLE_RULE;
         switch($rule)
@@ -31,7 +41,12 @@ class UrlRule
         return $routeRule;
     }
 
-    public function create($arRule): iUrlRule
+    /**
+     * @param array $arRule
+     *
+     * @return iUrlRule
+     */
+    public function create(array $arRule): iUrlRule
     {
         return $this->createRule($arRule);
     }

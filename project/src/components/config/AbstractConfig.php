@@ -5,7 +5,7 @@ namespace thewulf7\friendloc\components\config;
 /**
  * Class AbstractConfig
  *
- * @package hellofresh\config
+ * @package thewulf7\friendloc\components\config
  */
 abstract class AbstractConfig
 {

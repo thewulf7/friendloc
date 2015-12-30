@@ -6,11 +6,24 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class ElasticCommand
+ *
+ * @package thewulf7\friendloc\command
+ */
 class ElasticCommand extends Command
 {
 
+    /**
+     * @var \thewulf7\friendloc\components\ElasticSearch
+     */
     private $_elastic;
 
+    /**
+     * ElasticCommand constructor.
+     *
+     * @param \thewulf7\friendloc\components\ElasticSearch $elastic
+     */
     public function __construct(\thewulf7\friendloc\components\ElasticSearch $elastic)
     {
         $this->_elastic = $elastic;
@@ -18,6 +31,10 @@ class ElasticCommand extends Command
         parent::__construct();
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     */
     public function execute(InputInterface $input, OutputInterface $output)
     {
 
@@ -78,6 +95,9 @@ class ElasticCommand extends Command
         return $this->_elastic;
     }
 
+    /**
+     *
+     */
     protected function configure()
     {
         $this

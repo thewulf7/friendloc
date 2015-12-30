@@ -5,8 +5,18 @@ namespace thewulf7\friendloc\controllers;
 use thewulf7\friendloc\components\Controller;
 use thewulf7\friendloc\models\User;
 
+/**
+ * Class SearchController
+ *
+ * @package thewulf7\friendloc\controllers
+ */
 class SearchController extends Controller
 {
+    /**
+     * @param $q
+     *
+     * @return bool|\thewulf7\friendloc\components\bool
+     */
     public function searchAction($q)
     {
         $cUser = $this->getCurrentUser();
@@ -78,6 +88,11 @@ class SearchController extends Controller
         );
     }
 
+    /**
+     * @param int $distance
+     *
+     * @return bool|\thewulf7\friendloc\components\bool
+     */
     public function nearestAction(int $distance = 100)
     {
         $cUser = $this->getCurrentUser();

@@ -26,6 +26,16 @@ use Widop\HttpAdapter\CurlHttpAdapter;
  */
 class MapService extends AbstractService
 {
+    /**
+     * Create empty map
+     *
+     * @param Coordinate $center
+     * @param bool       $async
+     *
+     * @return Map
+     * @throws \Ivory\GoogleMap\Exception\AssetException
+     * @throws \Ivory\GoogleMap\Exception\MapException
+     */
     public function createEmptyMap(Coordinate $center, bool $async = true): Map
     {
         $map = new Map();
@@ -50,6 +60,13 @@ class MapService extends AbstractService
         return $map;
     }
 
+    /**
+     * Render map
+     *
+     * @param Map $map
+     *
+     * @return mixed
+     */
     public function renderMap(Map $map): array
     {
         $mapHelper = new MapHelper();
@@ -64,6 +81,18 @@ class MapService extends AbstractService
         ];
     }
 
+    /**
+     * Render map with marker
+     *
+     * @param Coordinate $point
+     * @param string     $info
+     * @param bool       $async
+     *
+     * @return mixed
+     * @throws \Ivory\GoogleMap\Exception\AssetException
+     * @throws \Ivory\GoogleMap\Exception\MapException
+     * @throws \Ivory\GoogleMap\Exception\OverlayException
+     */
     public function renderMapWithMarker(Coordinate $point, string $info = '', bool $async = true): array
     {
         $marker     = new Marker();
@@ -93,6 +122,16 @@ class MapService extends AbstractService
         return $this->renderMap($map);
     }
 
+    /**
+     * Get autocomplete form
+     *
+     * @param null $value
+     *
+     * @return mixed
+     * @throws \Ivory\GoogleMap\Exception\AssetException
+     * @throws \Ivory\GoogleMap\Exception\PlaceException
+     * @throws \Ivory\GoogleMap\Exception\TemplatingException
+     */
     public function getAutocomplete($value=null): array
     {
         $autocomplete       = new Autocomplete();
@@ -120,11 +159,25 @@ class MapService extends AbstractService
         ];
     }
 
+    /**
+     * Remove special info
+     *
+     * @param string $js
+     *
+     * @return string
+     */
     private function removeJsCaller(string $js): string
     {
         return preg_replace('/(\<script\stype=\"text\/javascript\"\ssrc=\"[\S\s]+\".*\<\/script>)/', '', $js);
     }
 
+    /**
+     * Geocode info
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
     public function geoCode(string $name): array
     {
         $arResult = [];
@@ -145,6 +198,15 @@ class MapService extends AbstractService
         return $arResult;
     }
 
+    /**
+     * Get directions info
+     *
+     * @param Coordinate $from
+     * @param Coordinate $to
+     *
+     * @return mixed
+     * @throws \Ivory\GoogleMap\Exception\DirectionsException
+     */
     public function getDirections(Coordinate $from, Coordinate $to): array
     {
         $directions = new Directions(new CurlHttpAdapter());

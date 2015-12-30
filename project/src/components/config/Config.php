@@ -5,7 +5,7 @@ namespace thewulf7\friendloc\components\config;
 /**
  * Class Config
  *
- * @package hellofresh\config
+ * @package thewulf7\friendloc\components\config
  */
 class Config extends AbstractConfig implements iConfig
 {

@@ -194,6 +194,13 @@ class UserController extends Controller
         );
     }
 
+    /**
+     * Get directions info
+     *
+     * @param int $id
+     *
+     * @return bool|\thewulf7\friendloc\components\bool
+     */
     public function getDirectionsAction(int $id)
     {
         $model = $this->getCurrentUser();
