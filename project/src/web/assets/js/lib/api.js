@@ -48,7 +48,7 @@ define(['jquery'], function ($) {
         },
 
         nearest: function () {
-            return this.sendRequest('GET', '/v1/nearest/', {q: string})
+            return this.sendRequest('GET', '/v1/nearest/', {})
         }
     };
 
