@@ -30,7 +30,7 @@ class AuthController extends Controller
     {
         $parent = parent::beforeAction($method);
 
-        if($parent)
+        if($parent instanceof User)
         {
             $this->redirect('/');
         }

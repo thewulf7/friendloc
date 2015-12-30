@@ -2,7 +2,6 @@
 namespace thewulf7\friendloc\services;
 
 
-use Geocoder\Model\Coordinates;
 use Ivory\GoogleMap\Base\Coordinate;
 use Ivory\GoogleMap\Helper\MapHelper;
 use Ivory\GoogleMap\Helper\Places\AutocompleteHelper;
@@ -12,13 +11,13 @@ use Ivory\GoogleMap\Overlays\Animation;
 use Ivory\GoogleMap\Overlays\InfoWindow;
 use Ivory\GoogleMap\Overlays\Marker;
 use Ivory\GoogleMap\Places\Autocomplete;
-use Ivory\GoogleMap\Places\AutocompleteComponentRestriction;
 use Ivory\GoogleMap\Places\AutocompleteType;
+use Ivory\GoogleMap\Services\Directions\Directions;
+use Ivory\GoogleMap\Services\Directions\DirectionsRequest;
 use Ivory\GoogleMap\Services\Geocoding\Geocoder;
 use Ivory\GoogleMap\Services\Geocoding\GeocoderProvider;
 use thewulf7\friendloc\components\AbstractService;
 use Widop\HttpAdapter\CurlHttpAdapter;
-use Widop\HttpAdapter\GuzzleHttpAdapter;
 
 /**
  * Class MapService
@@ -94,7 +93,7 @@ class MapService extends AbstractService
         return $this->renderMap($map);
     }
 
-    public function getAutocomplete($value=null)
+    public function getAutocomplete($value=null): array
     {
         $autocomplete       = new Autocomplete();
         $autocompleteHelper = new AutocompleteHelper();
@@ -121,7 +120,7 @@ class MapService extends AbstractService
         ];
     }
 
-    private function removeJsCaller(string $js)
+    private function removeJsCaller(string $js): string
     {
         return preg_replace('/(\<script\stype=\"text\/javascript\"\ssrc=\"[\S\s]+\".*\<\/script>)/', '', $js);
     }
@@ -132,7 +131,7 @@ class MapService extends AbstractService
         $geocoder = new Geocoder();
         $geocoder->registerProviders(
             [
-                new GeocoderProvider(new GuzzleHttpAdapter()),
+                new GeocoderProvider(new CurlHttpAdapter()),
             ]
         );
 
@@ -144,5 +143,19 @@ class MapService extends AbstractService
         }
 
         return $arResult;
+    }
+
+    public function getDirections(Coordinate $from, Coordinate $to): array
+    {
+        $directions = new Directions(new CurlHttpAdapter());
+
+        $directionsRequest = new DirectionsRequest();
+
+        $directionsRequest->setOrigin($from);
+        $directionsRequest->setDestination($to);
+
+        $response = $directions->route($directionsRequest);
+
+        return $response->getRoutes();
     }
 }

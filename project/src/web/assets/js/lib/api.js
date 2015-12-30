@@ -36,11 +36,11 @@ define(['jquery'], function ($) {
         },
 
         addToFriends: function (friendId) {
-            return this.sendRequest('PUT', '/v1/users/addToFriends', { id: friendId })
+            return this.sendRequest('PUT', '/v1/users/addToFriends', {id: friendId})
         },
 
         removeFromFriends: function (friendId) {
-            return this.sendRequest('DELETE', '/v1/users/removeFromFriends', { id: friendId})
+            return this.sendRequest('DELETE', '/v1/users/removeFromFriends', {id: friendId})
         },
 
         search: function (string) {
@@ -49,6 +49,10 @@ define(['jquery'], function ($) {
 
         nearest: function () {
             return this.sendRequest('GET', '/v1/nearest/', {})
+        },
+
+        getDirections: function (id) {
+            return this.sendRequest('GET', '/v1/users/' + id + '/getDirections', {});
         }
     };
 
