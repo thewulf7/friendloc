@@ -26,6 +26,18 @@ class AuthController extends Controller
         ]);
     }
 
+    public function beforeAction(string $method)
+    {
+        $parent = parent::beforeAction($method);
+
+        if($parent)
+        {
+            $this->redirect('/');
+        }
+
+        return $parent;
+    }
+
     /**
      * Login page & action
      */

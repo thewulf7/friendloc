@@ -35,14 +35,12 @@ define(function (require) {
             var template = require('twigjs!templates/updateme');
             return template(user);
         },
-        renderSearchView: function (result) {
-            var template = require('twigjs!templates/friend_line');
+        renderNearest: function (result) {
+            var template = require('twigjs!templates/friend_line_small');
             var output = '';
 
             for (var i in result) {
-                output += template({
-                    friend: friends[i]
-                });
+                output += template(result[i]);
             }
 
             return output;

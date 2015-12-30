@@ -7,7 +7,7 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
 
     Base.prototype.view = function (id) {
         console.info('users/view');
-        defaultC.index();
+        defaultC.init();
 
         function loadUser(props) {
 

@@ -58,6 +58,7 @@ class ElasticCommand extends Command
             }
 
             unset($entity['body']['settings']['autocomplete']);
+
             if ($this->getElastic()->createIndex($entity))
             {
                 $i++;

@@ -121,11 +121,12 @@ class Application
             {
                 $this->addToContainer('currentUser', $user);
             }
+
             try
             {
                 return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
-            }catch(\ReflectionException $e){
-                echo '404';
+            }catch(\Exception $e){
+                echo json_encode(['errors' => [$e->getMessage()]]);
             }
         } else
         {
@@ -150,7 +151,7 @@ class Application
      *
      * @return Application
      */
-    public function setDevMode($devMode): Application
+    public function setDevMode(bool $devMode): Application
     {
         $this->_devMode = $devMode;
 
