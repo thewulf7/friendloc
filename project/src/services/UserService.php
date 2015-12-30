@@ -78,9 +78,9 @@ class UserService extends AbstractService
             throw new NotFoundException('User with id `' . $id . '` not found');
         }
 
-        if(!$elModel)
+        if (!$elModel)
         {
-            $eModel->setLatlng([0,0]);
+            $eModel->setLatlng([0, 0]);
             $eModel->setLocationName('');
             $this->getElastic()->persist($eModel);
             $elModel = $eModel;
@@ -89,8 +89,8 @@ class UserService extends AbstractService
         $latlng = $elModel->getLatlng() ?
             [
                 $elModel->getLatlng()->getLatitude(),
-                $elModel->getLatlng()->getLongitude()
-            ] : [0,0];
+                $elModel->getLatlng()->getLongitude(),
+            ] : [0, 0];
         $eModel->setLocationName($elModel->getLocationName());
         $eModel->setLatlng($latlng);
         $eModel->setFriendList($elModel->getFriendList());
@@ -132,12 +132,14 @@ class UserService extends AbstractService
      *
      * @param int    $id
      * @param string $name
+     * @param string $email
      * @param string $password
      *
+     * @param string $locationName
+     * @param array  $location
+     *
      * @return User
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
+     * @throws NotFoundException
      */
     public function update(int $id, string $name = '', string $email, string $password = '', string $locationName = '', array $location = []): User
     {
