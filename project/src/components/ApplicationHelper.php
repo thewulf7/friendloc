@@ -56,7 +56,7 @@ trait ApplicationHelper
      *
      * @return Container
      */
-    public function getContainer()
+    public function getContainer(): Container
     {
         return $this->_container;
     }

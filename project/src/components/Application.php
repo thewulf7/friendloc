@@ -30,6 +30,9 @@ class Application
      */
     private $_devMode = false;
 
+    /**
+     *  Initialize app
+     */
     public function init()
     {
         $this
@@ -39,7 +42,7 @@ class Application
                 $reader = new AnnotationReader();
 
                 $driver = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($reader, $config->get('modelsFolder'));
-                $setup = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
+                $setup  = Setup::createAnnotationMetadataConfiguration($config->get('modelsFolder'), $this->isDevMode());
                 $setup->setMetadataCacheImpl($cache);
                 $setup->setQueryCacheImpl($cache);
                 $setup->setMetadataDriverImpl($driver);
@@ -54,13 +57,16 @@ class Application
 
                 $bodyParams = $_POST;
 
-                if($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'DELETE') {
-                    $putdata = file_get_contents('php://input');
+                if ($_SERVER['REQUEST_METHOD'] === 'PUT' || $_SERVER['REQUEST_METHOD'] === 'DELETE')
+                {
+                    $putdata  = file_get_contents('php://input');
                     $exploded = explode('&', $putdata);
 
-                    foreach($exploded as $pair) {
+                    foreach ($exploded as $pair)
+                    {
                         $item = explode('=', $pair);
-                        if(count($item) == 2) {
+                        if (count($item) == 2)
+                        {
                             $bodyParams[urldecode($item[0])] = urldecode($item[1]);
                         }
                     }
@@ -121,11 +127,13 @@ class Application
             {
                 $this->addToContainer('currentUser', $user);
             }
+
             try
             {
                 return $this->getContainer()->call([$router->getController(), $router->getAction()], $router->getParams());
-            }catch(\ReflectionException $e){
-                echo '404';
+            } catch (\Exception $e)
+            {
+                echo json_encode(['errors' => [$e->getMessage()]]);
             }
         } else
         {
@@ -150,7 +158,7 @@ class Application
      *
      * @return Application
      */
-    public function setDevMode($devMode): Application
+    public function setDevMode(bool $devMode): Application
     {
         $this->_devMode = $devMode;
 

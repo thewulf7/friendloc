@@ -74,27 +74,36 @@ class ElasticSearch
                     $properties = [];
 
                     $props = $class->getProperties();
+
                     foreach ($props as $prop)
                     {
-                        try
-                        {
-                            $reader->getPropertyAnnotation($prop, 'thewulf7\friendloc\components\elasticsearch\annotations\Id');
-                        } catch (\Doctrine\Common\Annotations\AnnotationException $e)
-                        {
-                            $annotation = $reader->getPropertyAnnotation($prop, 'thewulf7\friendloc\components\elasticsearch\ElasticField');
+                        $idprop = $reader->getPropertyAnnotation($prop, 'Doctrine\ORM\Mapping\Id');
 
-                            $properties[] = [
-                                $prop->getName() => [
+                        if ($idprop === null)
+                        {
+
+                            $annotation = $reader->getPropertyAnnotation($prop, 'thewulf7\friendloc\components\elasticsearch\annotations\ElasticField');
+
+                            if ($annotation)
+                            {
+                                $proper = [
                                     'type'           => $annotation->type,
                                     'include_in_all' => $annotation->includeInAll,
-                                ],
-                            ];
+                                ];
+
+                                if ($annotation->type === 'geo_point')
+                                {
+                                    $proper['lat_lon'] = true;
+                                }
+
+                                $properties[$prop->getName()] = $proper;
+                            }
                         }
                     }
 
                     $mappings[$entity->index]['mappings'][$entity->type] = [
                         '_all'       => [
-                            'index_analyzer'  => 'autocomplete',
+                            'index_analyzer' => 'autocomplete',
 //                            'search_analyzer' => 'autocomplete',
                         ],
                         'properties' => $properties,
@@ -163,6 +172,11 @@ class ElasticSearch
         return $this->_classes;
     }
 
+    /**
+     * @param array $entity
+     *
+     * @return bool
+     */
     public function createIndex(array $entity)
     {
         try
@@ -170,7 +184,7 @@ class ElasticSearch
             $this->getClient()->indices()->create($entity);
         } catch (\Elasticsearch\Common\Exceptions\BadRequest400Exception $e)
         {
-            echo $e->getMessage()."\n";
+            echo $e->getMessage() . "\n";
 
             return false;
         }
@@ -178,6 +192,11 @@ class ElasticSearch
         return true;
     }
 
+    /**
+     * @param $entity
+     *
+     * @return bool
+     */
     public function deleteIndex($entity)
     {
         try
@@ -191,6 +210,11 @@ class ElasticSearch
         return true;
     }
 
+    /**
+     * Save entity
+     *
+     * @param \JsonSerializable $entity
+     */
     public function persist(\JsonSerializable $entity)
     {
         $class = new \ReflectionClass($entity);
@@ -218,6 +242,11 @@ class ElasticSearch
         }
     }
 
+    /**
+     * @param \JsonSerializable $entity
+     *
+     * @return bool
+     */
     public function remove(\JsonSerializable $entity)
     {
         $class = new \ReflectionClass($entity);
@@ -238,6 +267,14 @@ class ElasticSearch
         $this->getClient()->delete($params);
     }
 
+    /**
+     * Find entity by id
+     *
+     * @param string $entityName
+     * @param        $id
+     *
+     * @return bool
+     */
     public function find(string $entityName, $id)
     {
         $entityModel = $this->getEntities()[$entityName];
@@ -261,7 +298,7 @@ class ElasticSearch
         foreach ($item['_source'] as $paramName => $paramValue)
         {
             $method = 'set' . ucfirst($paramName);
-            if(method_exists($model, $method))
+            if (method_exists($model, $method))
             {
                 $model->$method($paramValue);
             }
@@ -270,6 +307,14 @@ class ElasticSearch
         return $model;
     }
 
+    /**
+     * Find entity by params
+     *
+     * @param string $entityName
+     * @param array  $params
+     *
+     * @return array
+     */
     public function findBy(string $entityName, array $params = [])
     {
         $arResult = [];

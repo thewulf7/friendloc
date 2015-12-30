@@ -3,7 +3,7 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user'], function (Ba
     var renderer  = new templater();
     var apiObject = new Api($.cookie('AUTH_KEY'));
 
-    function init()
+    Base.prototype.init = function()
     {
         var friendList = $('.list-group.friend');
         $('form[role=search] input').typeWatch({
@@ -48,16 +48,27 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user'], function (Ba
                 }
             },
         });
-    }
+    };
 
     Base.prototype.index = function () {
         console.info('default/index');
-        init();
+        Base.prototype.init();
+
+        var container = $('.blog-main');
+
+        apiObject.nearest().done(function(response){
+            container.html('<h2 style="text-align: center">People near you (100 miles)</h2>');
+            if(response.properties.result.length > 0 ) {
+                container.append(renderer.renderNearest(response.properties.result));
+            } else {
+                container.append('<p>Not found</p>')
+            }
+        });
     };
 
     Base.prototype.update = function () {
         console.info('default/update');
-        init();
+        Base.prototype.init();
 
         var userId = $('#main-block').data('id');
 

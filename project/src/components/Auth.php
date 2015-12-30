@@ -49,15 +49,17 @@ class Auth
      *
      * @return mixed
      */
-    public static function createPassword($password, $salt): string
+    public static function createPassword(string $password, string $salt): string
     {
         return crypt($password, $salt);
     }
 
     /**
+     * Set auth
+     *
      * @param $hash
      */
-    public static function setAuth($hash)
+    public static function setAuth(string $hash)
     {
         $time = new \DateTime('+1 month');
 
@@ -65,7 +67,7 @@ class Auth
     }
 
     /**
-     *
+     *  Logout user
      */
     public static function logout()
     {

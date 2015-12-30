@@ -15,6 +15,9 @@ use thewulf7\friendloc\services\AuthService;
  */
 class AuthController extends Controller
 {
+    /**
+     * @return mixed
+     */
     public function guestAllowedMethods(): array
     {
         $methods = parent::guestAllowedMethods();
@@ -24,6 +27,23 @@ class AuthController extends Controller
             'signupAction',
             'approveAction',
         ]);
+    }
+
+    /**
+     * @param string $method
+     *
+     * @return mixed
+     */
+    public function beforeAction(string $method)
+    {
+        $parent = parent::beforeAction($method);
+
+        if($parent instanceof User)
+        {
+            $this->redirect('/');
+        }
+
+        return $parent;
     }
 
     /**
@@ -142,7 +162,7 @@ class AuthController extends Controller
      *
      * @param $hash
      */
-    public function approveAction($hash)
+    public function approveAction(string $hash)
     {
         try
         {

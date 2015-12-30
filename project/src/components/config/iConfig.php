@@ -5,7 +5,7 @@ namespace thewulf7\friendloc\components\config;
 /**
  * Interface iConfig
  *
- * @package hellofresh\config
+ * @package thewulf7\friendloc\components\config
  */
 interface iConfig
 {

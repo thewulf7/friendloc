@@ -5,40 +5,115 @@ namespace thewulf7\friendloc\controllers;
 use thewulf7\friendloc\components\Controller;
 use thewulf7\friendloc\models\User;
 
+/**
+ * Class SearchController
+ *
+ * @package thewulf7\friendloc\controllers
+ */
 class SearchController extends Controller
 {
+    /**
+     * @param $q
+     *
+     * @return bool|\thewulf7\friendloc\components\bool
+     */
     public function searchAction($q)
     {
-        $cUser       = $this->getCurrentUser();
-        $userService = $this->getUserService();
-        $service     = $this->getElastic();
-        $types       = [];
+        $cUser = $this->getCurrentUser();
 
-        $cFriends = array_map(function ($userId) use ($userService)
-        {
-            return $userService->get($userId)->getId();
-        }, $cUser->getFriendList());
+        $cFriends = $cUser->getFriendList();
 
-        foreach ($service->getEntities() as $entity)
+        $query = [
+            'filtered' => [
+                'query'  => [
+                    'match' => [
+                        '_all' => [
+                            'query'     => $q,
+                            'fuzziness' => 'AUTO',
+                        ],
+                    ],
+                ],
+                'filter' => [
+                    'bool' => [
+                        'must_not' => [
+                            'ids' => [
+                                'values' => [$cUser->getId()],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $sort = [
+            [
+                '_geo_distance' => [
+                    'latlng' => [
+                        'lat' => (double)$cUser->getLatlng()->getLatitude(),
+                        'lon' => (double)$cUser->getLatlng()->getLongitude(),
+                    ],
+                    'order'  => 'asc',
+                    'unit'   => 'miles',
+                ],
+            ],
+        ];
+
+        $result  = $this->getSearchService()->search('users', 'user', $query, $sort);
+        $records = [
+            'my'    => [],
+            'other' => [],
+        ];
+
+        foreach ($result as $user)
         {
-            $types[] = $entity->type;
+            $id = $user->getId();
+
+            if (!array_key_exists($id, $records['my']) && in_array($id, $cFriends, false))
+            {
+                $records['my'][$id] = $user;
+
+            } elseif (!array_key_exists($id, $records['other']))
+            {
+                $records['other'][$id] = $user;
+            }
         }
 
-        $params = [
-            'index' => 'users',
-            'type'  => array_unique($types),
-            'body'  => [
-                'query' => [
-                    'filtered' => [
-                        'query'  => [
-                            'match' => [
-                                '_all' => [
-                                    'query'     => $q,
-                                    'fuzziness' => 'AUTO',
+        return $this->sendResponse(
+            [
+                'properties' => ['result' => array_map(function ($group)
+                {
+                    return array_values($group);
+                }, $records)],
+            ]
+        );
+    }
+
+    /**
+     * @param int $distance
+     *
+     * @return bool|\thewulf7\friendloc\components\bool
+     */
+    public function nearestAction(int $distance = 100)
+    {
+        $cUser = $this->getCurrentUser();
+
+        $query = [
+            'filtered' => [
+                'query'  => [
+                    'match_all' => [],
+                ],
+                'filter' => [
+                    'and' => [
+                        [
+                            'geo_distance' => [
+                                'distance' => $distance . 'miles',
+                                'latlng'   => [
+                                    'lat' => (double)$cUser->getLatlng()->getLatitude(),
+                                    'lon' => (double)$cUser->getLatlng()->getLongitude(),
                                 ],
                             ],
                         ],
-                        'filter' => [
+                        [
                             'bool' => [
                                 'must_not' => [
                                     'ids' => [
@@ -52,32 +127,24 @@ class SearchController extends Controller
             ],
         ];
 
-        $result  = $service->getClient()->search($params);
-        $records = [
-            'my'    => [],
-            'other' => [],
+        $sort = [
+            [
+                '_geo_distance' => [
+                    'latlng' => [
+                        'lat' => (double)$cUser->getLatlng()->getLatitude(),
+                        'lon' => (double)$cUser->getLatlng()->getLongitude(),
+                    ],
+                    'order'  => 'asc',
+                    'unit'   => 'miles',
+                ],
+            ],
         ];
 
-        foreach ($result['hits']['hits'] as $record)
-        {
-            if (!array_key_exists($record['_id'], $records['my']) && in_array($record['_id'], $cFriends, false))
-            {
-                $records['my'][$record['_id']] = $this->getUserService()->get($record['_id']);
-
-            } elseif (!array_key_exists($record['_id'], $records['other']))
-            {
-                $records['other'][$record['_id']] = $this->getUserService()->get($record['_id']);
-            }
-        }
-
-
-        sort($records['my']);
-        sort($records['other']);
-
+        $result = $this->getSearchService()->search('users', 'user', $query, $sort);
 
         return $this->sendResponse(
             [
-                'properties' => ['result' => $records],
+                'properties' => ['result' => $result],
             ]
         );
     }

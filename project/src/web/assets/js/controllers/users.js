@@ -7,7 +7,7 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
 
     Base.prototype.view = function (id) {
         console.info('users/view');
-        defaultC.index();
+        defaultC.init();
 
         function loadUser(props) {
 
@@ -44,9 +44,48 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
                 apiObject.removeFromFriends(friendId).done(function (response) {
                     loadUser(response.properties);
                     defaultC.friends();
-                }).fail(function(e){
-                     console.info(e)
+                }).fail(function (e) {
+                    console.info(e)
                 });
+            });
+
+            $('#getDirections').on('click', function () {
+                var friendId = $(this).data('id');
+                var self = this;
+
+                apiObject.getDirections(friendId).done(function (response) {
+                    if(!window.directionsService) {
+                        window.directionsService = new google.maps.DirectionsService;
+                    }
+                    if(!window.directionsDisplay) {
+                        window.directionsDisplay = new google.maps.DirectionsRenderer;
+                    }
+
+                    var origin = new google.maps.LatLng(response.properties.user.lat, response.properties.user.lng);
+                    var destination = new google.maps.LatLng(response.properties.friend.lat, response.properties.friend.lng);
+
+                    if ($(self).hasClass('btn-info')) {
+                        window.directionsDisplay.set('directions', null);
+                        location_map.setCenter(destination);
+                        location_map.setZoom(13);
+                        $(self).text('Get directions').removeClass('btn-info');
+                    } else {
+                        window.directionsDisplay.setMap(location_map);
+                        window.directionsService.route({
+                            origin: origin,
+                            destination: destination,
+                            travelMode: google.maps.TravelMode.DRIVING
+                        }, function (response, status) {
+                            if (status === google.maps.DirectionsStatus.OK) {
+                                directionsDisplay.setDirections(response);
+                            } else {
+                                window.alert('Directions request failed due to ' + status);
+                            }
+                        });
+                        $(self).text('Remove directions').addClass('btn-info');
+                    }
+                });
+
             });
 
             load_ivory_google_map_api();
@@ -55,8 +94,6 @@ define(['js/lib/controller', 'jquery', 'templater', 'api', 'user', './default', 
         apiObject.getUser(id).done(function (response) {
             loadUser(response.properties);
         });
-
-
     };
 
     return new Base('users');

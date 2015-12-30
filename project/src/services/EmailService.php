@@ -5,8 +5,23 @@ namespace thewulf7\friendloc\services;
 use thewulf7\friendloc\components\AbstractService;
 use thewulf7\friendloc\models\User;
 
+/**
+ * Class EmailService
+ *
+ * @package thewulf7\friendloc\services
+ */
 class EmailService extends AbstractService
 {
+    /**
+     * Send confirmation email
+     *
+     * @param User   $user
+     * @param string $passwd
+     *
+     * @return bool
+     * @throws \DI\NotFoundException
+     * @throws \Exception
+     */
     public function sendConfirmationEmail(User $user, $passwd = '')
     {
         $subject = 'Confirmation email from ' . $this->getContainer()->get('thewulf7\friendloc\components\config\iConfig')->get('appName');
@@ -43,6 +58,15 @@ class EmailService extends AbstractService
         return true;
     }
 
+    /**
+     * Send email after approved
+     *
+     * @param User $user
+     *
+     * @return bool
+     * @throws \DI\NotFoundException
+     * @throws \Exception
+     */
     public function sendSuccessEmail(User $user)
     {
         $subject = 'Greetings on ' . $this->getContainer()->get('thewulf7\friendloc\components\config\iConfig')->get('appName');
